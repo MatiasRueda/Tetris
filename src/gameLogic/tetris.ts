@@ -35,7 +35,8 @@ export default class Tetris {
   private removeCurrentTetromino() {
     let rowIndex = this.currentRow;
     let colIndex = this.currentColumn;
-    for (let row = 0; row < this.currentTetromino.rows; row++) {
+    const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
+    for (let row = 0; row <= rowLastIndex; row++) {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
         this.board[rowIndex][colIndex] = 0;
         colIndex += 1;
@@ -47,21 +48,16 @@ export default class Tetris {
 
   private canMoveDown(): boolean {
     const lastIndex = this.currentTetromino.typeRotation.rowLastIndex;
-    let rowIndex = this.currentRow + lastIndex + 1;
+    const rowIndex = this.currentRow + lastIndex + 1;
+    if (rowIndex >= Tetris.HEIGHT) return false;
     let colIndex = this.currentColumn;
-    for (let row = 0; row < this.currentTetromino.rows; row++) {
-      if (rowIndex >= Tetris.HEIGHT || this.board[rowIndex][colIndex] == 1) {
+    for (let col = 0; col < this.currentTetromino.columns; col++) {
+      if (colIndex >= Tetris.WIDTH || this.board[rowIndex][colIndex] == 1) {
         return false;
       }
-      for (let col = 0; col < this.currentTetromino.columns; col++) {
-        if (colIndex >= Tetris.WIDTH || this.board[rowIndex][colIndex] == 1) {
-          return false;
-        }
-        colIndex += 1;
-      }
-      rowIndex += 1;
-      colIndex = 0;
+      colIndex += 1;
     }
+
     return true;
   }
 
