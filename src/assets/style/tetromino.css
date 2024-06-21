@@ -1,0 +1,5 @@
+.tetromino-component {
+  height: 1rem;
+  width: 1rem;
+  border: 0.3rem solid black;
+}

@@ -11,6 +11,7 @@ export default class Tetris {
 
   constructor() {
     this.board = new Array(Tetris.HEIGHT).fill(new Array(Tetris.WIDTH).fill(0));
+    this.nextTetromino();
   }
 
   private randomColor() {}
@@ -78,10 +79,16 @@ export default class Tetris {
     let colIndex = this.currentColumn;
     for (let row = 0; row < this.currentTetromino.rows; row++) {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
+        console.log(this.currentTetromino.typeRotation.shape[row]);
+        console.log(this.currentTetromino.typeRotation.shape[row][col]);
+        if (this.currentTetromino.typeRotation.shape[row][col] !== 0) {
+          console.log("Esto es verdad");
+        }
         if (
           this.currentTetromino.typeRotation.shape[row][col] !== 0 &&
           this.board[rowIndex][colIndex] == 0
         ) {
+          console.log("Estoy cambiando a cero");
           this.board[row][col] = 1;
           colIndex += 1;
           continue;
@@ -99,5 +106,10 @@ export default class Tetris {
     this.currentColumn = 0;
     this.currentTetromino = this.randomTetromino();
     this.addTetromino();
+    console.log("se aniadio");
+  }
+
+  get getBoard() {
+    return this.board;
   }
 }
