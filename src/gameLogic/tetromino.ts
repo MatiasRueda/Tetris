@@ -359,9 +359,53 @@ function nextIndex(currentIndex: number, maxIndex: number): number {
   return currentIndex + 1 >= maxIndex ? 0 : currentIndex + 1;
 }
 
-function rotate(this: Tetromino) {
-  this.rotateIndex = nextIndex(this.rotateIndex, 4);
-  this.typeRotation = TetrominoesRotation[this.type][this.rotateIndex];
+function collision(
+  board: number[][],
+  newTetromino: TetrominoRotateInfo
+): boolean {
+  for (let row = 0; row < newTetromino.rowLastIndex; row++) {
+    for (let col = 0; col < newTetromino.columnLastIndex; col++) {
+      if (board[row][col] == 1) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function rotate(
+  this: Tetromino,
+  maxRow: number,
+  currentRow: number,
+  maxCol: number,
+  currentCol: number,
+  board: number[][],
+  oldTetra: Tetromino
+) {
+  const newRotateIndex = nextIndex(this.rotateIndex, 4);
+  const newTetromino = TetrominoesRotation[this.type][newRotateIndex];
+  if (collision(board, newTetromino)) {
+    return false;
+  } else if (
+    oldTetra.columns + currentCol > maxCol &&
+    oldTetra.typeRotation.columnLastIndex < newTetromino.columnLastIndex
+  ) {
+    return false;
+  } else if (
+    currentCol < 0 &&
+    currentCol + oldTetra.columns >= 0 &&
+    oldTetra.typeRotation.columnFirstIndex > newTetromino.columnFirstIndex
+  ) {
+    return false;
+  } else if (
+    oldTetra.rows + currentRow > maxRow &&
+    oldTetra.typeRotation.rowLastIndex < newTetromino.rowLastIndex
+  ) {
+    return false;
+  }
+  this.rotateIndex = newRotateIndex;
+  this.typeRotation = newTetromino;
+  return true;
 }
 
 export const Tetrominos: Record<string, Tetromino> = {

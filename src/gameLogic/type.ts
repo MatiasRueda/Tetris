@@ -4,7 +4,14 @@ export type Tetromino = {
   columns: number;
   type: string;
   rotateIndex: number;
-  rotate: () => void;
+  rotate: (
+    maxRow: number,
+    row: number,
+    maxCol: number,
+    col: number,
+    board: number[][],
+    old: Tetromino
+  ) => void;
 };
 
 export type TetrominoRotateInfo = {

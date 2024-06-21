@@ -69,7 +69,14 @@ export default class Tetris {
 
   public rotate() {
     this.removeCurrentTetromino();
-    this.currentTetromino.rotate();
+    this.currentTetromino.rotate(
+      Tetris.HEIGHT,
+      this.currentRow,
+      Tetris.WIDTH,
+      this.currentColumn,
+      this.board,
+      this.currentTetromino
+    );
     this.addTetromino();
   }
 
