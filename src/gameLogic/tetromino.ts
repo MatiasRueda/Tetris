@@ -266,7 +266,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 3,
     type: "J",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.J[0],
     rotate: rotateTetromino,
   },
   L: {
@@ -274,7 +274,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 3,
     type: "L",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.L[0],
     rotate: rotateTetromino,
   },
 
@@ -283,7 +283,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 2,
     type: "O",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.O[0],
     rotate: rotateTetromino,
   },
   S: {
@@ -291,7 +291,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 3,
     type: "S",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.S[0],
     rotate: rotateTetromino,
   },
 
@@ -300,7 +300,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 3,
     type: "T",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.T[0],
     rotate: rotateTetromino,
   },
   Z: {
@@ -308,7 +308,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     columns: 3,
     type: "Z",
     rotateIndex: 0,
-    typeRotation: TetrominoesRotation.I[0],
+    typeRotation: TetrominoesRotation.Z[0],
     rotate: rotateTetromino,
   },
 };

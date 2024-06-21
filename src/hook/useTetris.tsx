@@ -6,8 +6,9 @@ export function useTetris() {
   const [board, setBoard] = useState(tetris.getBoard);
 
   const detectKeyDown = (e: KeyboardEvent) => {
-    if (e.key == "s") {
+    if (e.key === "s") {
       tetris.moveTetrominoDown();
+      setBoard(tetris.getBoard);
     }
   };
 

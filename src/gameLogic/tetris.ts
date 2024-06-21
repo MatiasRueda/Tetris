@@ -46,14 +46,15 @@ export default class Tetris {
   }
 
   private canMoveDown(): boolean {
-    let rowIndex = this.currentRow + 1;
+    const lastIndex = this.currentTetromino.typeRotation.rowLastIndex;
+    let rowIndex = this.currentRow + lastIndex + 1;
     let colIndex = this.currentColumn;
     for (let row = 0; row < this.currentTetromino.rows; row++) {
-      if (rowIndex <= Tetris.HEIGHT || this.board[rowIndex][colIndex] == 1) {
+      if (rowIndex >= Tetris.HEIGHT || this.board[rowIndex][colIndex] == 1) {
         return false;
       }
       for (let col = 0; col < this.currentTetromino.columns; col++) {
-        if (colIndex <= Tetris.WIDTH || this.board[rowIndex][colIndex] == 1) {
+        if (colIndex >= Tetris.WIDTH || this.board[rowIndex][colIndex] == 1) {
           return false;
         }
         colIndex += 1;
@@ -69,7 +70,6 @@ export default class Tetris {
     this.removeCurrentTetromino();
     this.currentRow += 1;
     this.addTetromino();
-    console.log(this.board);
     return true;
   }
 
