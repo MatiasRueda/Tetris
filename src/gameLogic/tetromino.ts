@@ -247,7 +247,7 @@ function nextIndex(currentIndex: number, maxIndex: number): number {
   return currentIndex + 1 >= maxIndex ? 0 : currentIndex + 1;
 }
 
-function rotateTetromino(this: Tetromino) {
+function rotate(this: Tetromino) {
   this.rotateIndex = nextIndex(this.rotateIndex, 4);
   this.typeRotation = TetrominoesRotation[this.type][this.rotateIndex];
 }
@@ -259,7 +259,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "I",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.I[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
   J: {
     rows: 3,
@@ -267,7 +267,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "J",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.J[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
   L: {
     rows: 3,
@@ -275,7 +275,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "L",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.L[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
 
   O: {
@@ -284,7 +284,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "O",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.O[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
   S: {
     rows: 3,
@@ -292,7 +292,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "S",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.S[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
 
   T: {
@@ -301,7 +301,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "T",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.T[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
   Z: {
     rows: 3,
@@ -309,6 +309,6 @@ export const Tetrominos: Record<string, Tetromino> = {
     type: "Z",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.Z[0],
-    rotate: rotateTetromino,
+    rotate: rotate,
   },
 };

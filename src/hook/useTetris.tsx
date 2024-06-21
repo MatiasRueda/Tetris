@@ -8,7 +8,11 @@ export function useTetris() {
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.key === "s") {
       tetris.moveTetrominoDown();
-      setBoard(tetris.getBoard);
+      setBoard([...tetris.getBoard]);
+    }
+    if (e.key === "w") {
+      tetris.rotate();
+      setBoard([...tetris.getBoard]);
     }
   };
 

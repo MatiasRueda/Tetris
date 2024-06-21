@@ -65,6 +65,22 @@ export default class Tetris {
     return true;
   }
 
+  public rotate() {
+    this.removeCurrentTetromino();
+    console.log(this.currentTetromino.typeRotation.shape);
+    console.log(this.currentRow);
+    console.log(this.currentColumn);
+    this.currentTetromino.rotate();
+    console.log(this.currentTetromino.typeRotation.shape);
+    console.log(this.currentRow);
+    console.log(this.currentColumn);
+    this.addTetromino();
+    console.log(this.currentTetromino.typeRotation.shape);
+    console.log(this.currentRow);
+    console.log(this.currentColumn);
+    console.log(this.board);
+  }
+
   public moveTetrominoDown(): boolean {
     if (!this.canMoveDown()) return false;
     this.removeCurrentTetromino();
@@ -85,8 +101,8 @@ export default class Tetris {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
         if (shape[row][col] !== 0 && this.board[rowIndex][colIndex] === 0) {
           this.board[rowIndex][colIndex] = 1;
-          colIndex += 1;
         }
+        colIndex += 1;
       }
       rowIndex += 1;
       colIndex = 0;

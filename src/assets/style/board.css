@@ -2,4 +2,8 @@
   height: 50rem;
   width: 25rem;
   background-color: rgb(207, 178, 139);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }

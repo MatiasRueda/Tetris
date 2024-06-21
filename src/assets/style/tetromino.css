@@ -1,6 +1,17 @@
 .tetromino-component {
-  height: 1rem;
-  width: 1rem;
-  border: 0.3rem solid black;
+  height: 2.5rem;
+  width: 2.5rem;
   background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.null-component {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: yellow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
