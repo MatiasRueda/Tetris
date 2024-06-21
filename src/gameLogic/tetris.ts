@@ -10,7 +10,10 @@ export default class Tetris {
   private currentColumn = 0;
 
   constructor() {
-    this.board = new Array(Tetris.HEIGHT).fill(new Array(Tetris.WIDTH).fill(0));
+    this.board = new Array(Tetris.HEIGHT);
+    for (let i = 0; i < Tetris.HEIGHT; i++) {
+      this.board[i] = new Array(Tetris.WIDTH).fill(0);
+    }
     this.nextTetromino();
   }
 
@@ -74,31 +77,20 @@ export default class Tetris {
 
   public moveTetrominoRight() {}
 
-  private addTetromino(): boolean {
+  private addTetromino() {
     let rowIndex = this.currentRow;
     let colIndex = this.currentColumn;
+    const shape = this.currentTetromino.typeRotation.shape;
     for (let row = 0; row < this.currentTetromino.rows; row++) {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
-        console.log(this.currentTetromino.typeRotation.shape[row]);
-        console.log(this.currentTetromino.typeRotation.shape[row][col]);
-        if (this.currentTetromino.typeRotation.shape[row][col] !== 0) {
-          console.log("Esto es verdad");
-        }
-        if (
-          this.currentTetromino.typeRotation.shape[row][col] !== 0 &&
-          this.board[rowIndex][colIndex] == 0
-        ) {
-          console.log("Estoy cambiando a cero");
-          this.board[row][col] = 1;
+        if (shape[row][col] !== 0 && this.board[rowIndex][colIndex] === 0) {
+          this.board[rowIndex][colIndex] = 1;
           colIndex += 1;
-          continue;
         }
-        return false;
       }
       rowIndex += 1;
       colIndex = 0;
     }
-    return true;
   }
 
   public nextTetromino() {
@@ -106,7 +98,6 @@ export default class Tetris {
     this.currentColumn = 0;
     this.currentTetromino = this.randomTetromino();
     this.addTetromino();
-    console.log("se aniadio");
   }
 
   get getBoard() {
