@@ -36,8 +36,9 @@ export default class Tetris {
     let rowIndex = this.currentRow;
     let colIndex = this.currentColumn;
     const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
+    const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
     for (let row = 0; row <= rowLastIndex; row++) {
-      for (let col = 0; col < this.currentTetromino.columns; col++) {
+      for (let col = 0; col <= colLastIndex; col++) {
         this.board[rowIndex][colIndex] = 0;
         colIndex += 1;
       }
@@ -47,17 +48,20 @@ export default class Tetris {
   }
 
   private canMoveDown(): boolean {
-    const lastIndex = this.currentTetromino.typeRotation.rowLastIndex;
-    const lastRow = this.currentRow + lastIndex + 1;
+    const rowFirstIndex = this.currentTetromino.typeRotation.rowFirstIndex;
+    const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
+    const colFirstIndex = this.currentTetromino.typeRotation.columnFirstIndex;
+    const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
+    const lastRow = this.currentRow + rowLastIndex + 1;
     if (lastRow >= Tetris.HEIGHT) return false;
-    let colIndex = this.currentColumn;
-    for (let row = 0; row <= lastIndex; row++) {
+    for (let row = rowFirstIndex + 1; row <= rowLastIndex; row++) {
       const currentRow = this.currentRow + row;
-      for (let col = 0; col < this.currentTetromino.columns; col++) {
+      if (currentRow >= Tetris.HEIGHT) return false;
+      for (let col = colFirstIndex + 1; col <= colLastIndex; col++) {
+        const colIndex = this.currentColumn + colLastIndex + col;
         if (colIndex >= Tetris.WIDTH || this.board[currentRow][colIndex] == 1) {
           return false;
         }
-        colIndex += 1;
       }
     }
     return true;
@@ -78,7 +82,8 @@ export default class Tetris {
   }
 
   public moveTetrominoLeft(): boolean {
-    if (this.currentColumn - 1 < 0) return false;
+    const fistColumnIndex = this.currentTetromino.typeRotation.columnFirstIndex;
+    if (this.currentColumn - 1 + fistColumnIndex < 0) return false;
     this.removeCurrentTetromino();
     this.currentColumn -= 1;
     this.addTetromino();
@@ -86,8 +91,8 @@ export default class Tetris {
   }
 
   public moveTetrominoRight() {
-    const width = this.currentTetromino.typeRotation.width;
-    if (this.currentColumn + width >= Tetris.WIDTH) return false;
+    const width = this.currentTetromino.typeRotation.columnLastIndex;
+    if (this.currentColumn + width >= Tetris.WIDTH - 1) return false;
     this.removeCurrentTetromino();
     this.currentColumn += 1;
     this.addTetromino();
