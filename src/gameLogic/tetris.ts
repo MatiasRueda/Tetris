@@ -67,18 +67,8 @@ export default class Tetris {
 
   public rotate() {
     this.removeCurrentTetromino();
-    console.log(this.currentTetromino.typeRotation.shape);
-    console.log(this.currentRow);
-    console.log(this.currentColumn);
     this.currentTetromino.rotate();
-    console.log(this.currentTetromino.typeRotation.shape);
-    console.log(this.currentRow);
-    console.log(this.currentColumn);
     this.addTetromino();
-    console.log(this.currentTetromino.typeRotation.shape);
-    console.log(this.currentRow);
-    console.log(this.currentColumn);
-    console.log(this.board);
   }
 
   public moveTetrominoDown(): boolean {
@@ -89,9 +79,19 @@ export default class Tetris {
     return true;
   }
 
-  public moveTetrominoLeft() {}
+  public moveTetrominoLeft() {
+    this.removeCurrentTetromino();
+    this.currentColumn -= 1;
+    this.addTetromino();
+    return true;
+  }
 
-  public moveTetrominoRight() {}
+  public moveTetrominoRight() {
+    this.removeCurrentTetromino();
+    this.currentColumn += 1;
+    this.addTetromino();
+    return true;
+  }
 
   private addTetromino() {
     let rowIndex = this.currentRow;
@@ -105,7 +105,7 @@ export default class Tetris {
         colIndex += 1;
       }
       rowIndex += 1;
-      colIndex = 0;
+      colIndex = this.currentColumn;
     }
   }
 
