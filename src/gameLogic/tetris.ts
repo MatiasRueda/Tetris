@@ -35,11 +35,14 @@ export default class Tetris {
   private removeCurrentTetromino() {
     let rowIndex = this.currentRow;
     let colIndex = this.currentColumn;
+    const shape = this.currentTetromino.typeRotation.shape;
     const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
     const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
     for (let row = 0; row <= rowLastIndex; row++) {
       for (let col = 0; col <= colLastIndex; col++) {
-        this.board[rowIndex][colIndex] = 0;
+        if (this.board[rowIndex][colIndex] === 1 && shape[row][col] === 1) {
+          this.board[rowIndex][colIndex] = 0;
+        }
         colIndex += 1;
       }
       rowIndex += 1;
@@ -98,8 +101,8 @@ export default class Tetris {
   }
 
   public moveTetrominoRight() {
-    const width = this.currentTetromino.typeRotation.columnLastIndex;
-    if (this.currentColumn + width >= Tetris.WIDTH - 1) return false;
+    const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
+    if (this.currentColumn + colLastIndex >= Tetris.WIDTH - 1) return false;
     this.removeCurrentTetromino();
     this.currentColumn += 1;
     this.addTetromino();
