@@ -41,7 +41,7 @@ export default class Tetris {
         colIndex += 1;
       }
       rowIndex += 1;
-      colIndex = 0;
+      colIndex = this.currentColumn;
     }
   }
 

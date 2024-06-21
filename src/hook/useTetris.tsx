@@ -18,7 +18,6 @@ export function useTetris() {
       setBoard([...tetris.getBoard]);
     } else if (e.key === "d") {
       tetris.moveTetrominoRight();
-      console.log("Lo movi a la derecha");
       setBoard([...tetris.getBoard]);
     }
   };

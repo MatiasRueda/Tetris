@@ -6,9 +6,9 @@ export default function Board() {
   const tetris = useTetris();
   return (
     <div className="board-component">
-      {tetris.board.map((r) =>
-        r.map((c, i) =>
-          c === 1 ? (
+      {tetris.board.map((row) =>
+        row.map((column, i) =>
+          column === 1 ? (
             <div key={i} className="tetromino-component">
               {i}
             </div>
