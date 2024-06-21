@@ -9,5 +9,6 @@ export type Tetromino = {
 
 export type TetrominoRotateInfo = {
   shape: number[][];
+  width: number;
   rowLastIndex: number;
 };

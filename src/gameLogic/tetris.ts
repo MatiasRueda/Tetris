@@ -48,16 +48,18 @@ export default class Tetris {
 
   private canMoveDown(): boolean {
     const lastIndex = this.currentTetromino.typeRotation.rowLastIndex;
-    const rowIndex = this.currentRow + lastIndex + 1;
-    if (rowIndex >= Tetris.HEIGHT) return false;
+    const lastRow = this.currentRow + lastIndex + 1;
+    if (lastRow >= Tetris.HEIGHT) return false;
     let colIndex = this.currentColumn;
-    for (let col = 0; col < this.currentTetromino.columns; col++) {
-      if (colIndex >= Tetris.WIDTH || this.board[rowIndex][colIndex] == 1) {
-        return false;
+    for (let row = 0; row <= lastIndex; row++) {
+      const currentRow = this.currentRow + row;
+      for (let col = 0; col < this.currentTetromino.columns; col++) {
+        if (colIndex >= Tetris.WIDTH || this.board[currentRow][colIndex] == 1) {
+          return false;
+        }
+        colIndex += 1;
       }
-      colIndex += 1;
     }
-
     return true;
   }
 
@@ -75,7 +77,8 @@ export default class Tetris {
     return true;
   }
 
-  public moveTetrominoLeft() {
+  public moveTetrominoLeft(): boolean {
+    if (this.currentColumn - 1 < 0) return false;
     this.removeCurrentTetromino();
     this.currentColumn -= 1;
     this.addTetromino();
@@ -83,6 +86,8 @@ export default class Tetris {
   }
 
   public moveTetrominoRight() {
+    const width = this.currentTetromino.typeRotation.width;
+    if (this.currentColumn + width >= Tetris.WIDTH) return false;
     this.removeCurrentTetromino();
     this.currentColumn += 1;
     this.addTetromino();

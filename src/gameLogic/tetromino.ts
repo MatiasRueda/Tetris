@@ -9,6 +9,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 0, 0, 0],
         [0, 0, 0, 0],
       ],
+      width: 4,
       rowLastIndex: 1,
     },
     {
@@ -18,6 +19,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 0, 1, 0],
         [0, 0, 1, 0],
       ],
+      width: 1,
       rowLastIndex: 3,
     },
     {
@@ -27,6 +29,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1, 1],
         [0, 0, 0, 0],
       ],
+      width: 4,
       rowLastIndex: 2,
     },
     {
@@ -36,6 +39,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 0, 0],
         [0, 1, 0, 0],
       ],
+      width: 1,
       rowLastIndex: 3,
     },
   ],
@@ -47,6 +51,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [0, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 1,
     },
     {
@@ -55,6 +60,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 0],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
     {
@@ -63,6 +69,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [0, 0, 1],
       ],
+      width: 3,
       rowLastIndex: 2,
     },
     {
@@ -71,6 +78,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 0],
         [1, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
   ],
@@ -82,6 +90,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [0, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 1,
     },
     {
@@ -90,6 +99,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 0],
         [0, 1, 1],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
     {
@@ -98,6 +108,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [1, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 2,
     },
     {
@@ -106,6 +117,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 0],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
   ],
@@ -115,6 +127,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1],
         [1, 1],
       ],
+      width: 2,
       rowLastIndex: 1,
     },
     {
@@ -122,6 +135,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1],
         [1, 1],
       ],
+      width: 2,
       rowLastIndex: 1,
     },
     {
@@ -129,6 +143,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1],
         [1, 1],
       ],
+      width: 2,
       rowLastIndex: 1,
     },
     {
@@ -136,6 +151,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1],
         [1, 1],
       ],
+      width: 2,
       rowLastIndex: 1,
     },
   ],
@@ -146,6 +162,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 0],
         [0, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 1,
     },
     {
@@ -154,6 +171,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 1],
         [0, 0, 1],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
     {
@@ -162,6 +180,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 1],
         [1, 1, 0],
       ],
+      width: 3,
       rowLastIndex: 2,
     },
     {
@@ -170,6 +189,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 0],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
   ],
@@ -180,6 +200,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [0, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 1,
     },
     {
@@ -188,6 +209,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 1],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
     {
@@ -196,6 +218,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 1],
         [0, 1, 0],
       ],
+      width: 3,
       rowLastIndex: 2,
     },
     {
@@ -204,6 +227,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 0],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
   ],
@@ -214,6 +238,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 1],
         [0, 0, 0],
       ],
+      width: 3,
       rowLastIndex: 1,
     },
     {
@@ -222,6 +247,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [0, 1, 1],
         [0, 1, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
     {
@@ -230,6 +256,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 0],
         [0, 1, 1],
       ],
+      width: 3,
       rowLastIndex: 2,
     },
     {
@@ -238,6 +265,7 @@ const TetrominoesRotation: Record<string, TetrominoRotateInfo[]> = {
         [1, 1, 0],
         [1, 0, 0],
       ],
+      width: 2,
       rowLastIndex: 2,
     },
   ],
