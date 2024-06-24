@@ -50,24 +50,41 @@ export default class Tetris {
     }
   }
 
-  private canMoveDown(): boolean {
-    const rowFirstIndex = this.currentTetromino.typeRotation.rowFirstIndex;
+  private canMoveDown() {
+    // const rowFirstIndex = this.currentTetromino.typeRotation.rowFirstIndex;
     const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
     const colFirstIndex = this.currentTetromino.typeRotation.columnFirstIndex;
     const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
     const lastRow = this.currentRow + rowLastIndex + 1;
-    if (lastRow >= Tetris.HEIGHT) return false;
-    for (let row = rowFirstIndex + 1; row <= rowLastIndex; row++) {
-      const currentRow = this.currentRow + row;
-      if (currentRow >= Tetris.HEIGHT) return false;
-      for (let col = colFirstIndex + 1; col <= colLastIndex; col++) {
-        const colIndex = this.currentColumn + colLastIndex + col;
-        if (colIndex >= Tetris.WIDTH || this.board[currentRow][colIndex] == 1) {
-          return false;
-        }
+    const firstCol = this.currentColumn + colFirstIndex;
+    const lastCol = this.currentColumn + colLastIndex;
+    // console.log("El row first index es: ", rowFirstIndex);
+    // console.log("El row last index es: ", rowLastIndex);
+    // console.log("El col first index es: ", colFirstIndex);
+    // console.log("El col last index es: ", colLastIndex);
+    // console.log("El last row es: ", lastRow);
+    // console.log("La first col es: ", firstCol);
+    // console.log("El current col es: ", this.currentColumn);
+    if (lastRow >= Tetris.HEIGHT || this.board[lastRow][firstCol] == 1) {
+      //console.log("Aca");
+      return 1;
+    }
+    for (let col = firstCol; col <= lastCol; col++) {
+      // const colIndex = this.currentColumn + col;
+      // console.log("Me estoy fijando en la columna: ", col);
+      if (col >= Tetris.WIDTH) {
+        // console.log("El current col es: ", this.currentColumn);
+        // console.log("El col es: ", col);
+        // console.log("El col index es: ", colIndex);
+        // console.log("El indice es mayor o igual al largo");
+        return 0;
+      }
+      if (this.board[lastRow][col] == 1) {
+        // console.log("El hay colision");
+        return 1;
       }
     }
-    return true;
+    return 0;
   }
 
   public rotate() {
@@ -84,7 +101,10 @@ export default class Tetris {
   }
 
   public moveTetrominoDown(): boolean {
-    if (!this.canMoveDown()) return false;
+    if (this.canMoveDown() === 1) {
+      this.nextTetromino();
+      return false;
+    }
     this.removeCurrentTetromino();
     this.currentRow += 1;
     this.addTetromino();
@@ -100,9 +120,32 @@ export default class Tetris {
     return true;
   }
 
-  public moveTetrominoRight() {
+  private canMoveRight() {
+    const rowFirstIndex = this.currentTetromino.typeRotation.rowFirstIndex;
+    const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
     const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
-    if (this.currentColumn + colLastIndex >= Tetris.WIDTH - 1) return false;
+    const firstRow = this.currentRow + rowFirstIndex;
+    const lastRow = this.currentRow + rowLastIndex;
+    const nextIndex = this.currentColumn + colLastIndex + 1;
+    if (nextIndex >= Tetris.WIDTH) return false;
+    for (let row = firstRow; row <= lastRow; row++) {
+      if (row >= Tetris.HEIGHT) {
+        return 0;
+      }
+      if (
+        this.board[row][this.currentColumn + colLastIndex] === 1 &&
+        this.board[row][nextIndex] === 1
+      ) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  public moveTetrominoRight() {
+    if (this.canMoveRight() === 1) {
+      return false;
+    }
     this.removeCurrentTetromino();
     this.currentColumn += 1;
     this.addTetromino();
