@@ -4,7 +4,7 @@ import { Tetromino } from "./type";
 export default class Tetris {
   private static readonly HEIGHT = 20;
   private static readonly WIDTH = 10;
-  private board: number[][];
+  private board: (Tetromino | number)[][];
   private currentTetromino = this.randomTetromino();
   private currentRow = 0;
   private currentColumn = 0;
@@ -17,10 +17,9 @@ export default class Tetris {
     this.nextTetromino();
   }
 
-  private randomColor() {}
-
   private randomTetromino(): Tetromino {
-    return Tetrominos.I;
+    const tetrominos = [Tetrominos.I, Tetrominos.O, Tetrominos.Z];
+    return tetrominos[Math.floor(Math.random() * tetrominos.length)];
   }
 
   private isRowFull(): boolean {
@@ -40,7 +39,7 @@ export default class Tetris {
     const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
     for (let row = 0; row <= rowLastIndex; row++) {
       for (let col = 0; col <= colLastIndex; col++) {
-        if (this.board[rowIndex][colIndex] === 1 && shape[row][col] === 1) {
+        if (this.board[rowIndex][colIndex] !== 0 && shape[row][col] !== 0) {
           this.board[rowIndex][colIndex] = 0;
         }
         colIndex += 1;
@@ -65,7 +64,7 @@ export default class Tetris {
     // console.log("El last row es: ", lastRow);
     // console.log("La first col es: ", firstCol);
     // console.log("El current col es: ", this.currentColumn);
-    if (lastRow >= Tetris.HEIGHT || this.board[lastRow][firstCol] == 1) {
+    if (lastRow >= Tetris.HEIGHT || this.board[lastRow][firstCol] !== 0) {
       //console.log("Aca");
       return 1;
     }
@@ -79,7 +78,7 @@ export default class Tetris {
         // console.log("El indice es mayor o igual al largo");
         return 0;
       }
-      if (this.board[lastRow][col] == 1) {
+      if (this.board[lastRow][col] !== 0) {
         // console.log("El hay colision");
         return 1;
       }
@@ -124,8 +123,8 @@ export default class Tetris {
         return 0;
       }
       if (
-        this.board[row][this.currentColumn + colFirstIndex] === 1 &&
-        this.board[row][prevIndex] === 1
+        this.board[row][this.currentColumn + colFirstIndex] !== 0 &&
+        this.board[row][prevIndex] !== 0
       ) {
         return 1;
       }
@@ -150,15 +149,14 @@ export default class Tetris {
     const firstRow = this.currentRow + rowFirstIndex;
     const lastRow = this.currentRow + rowLastIndex;
     const nextIndex = this.currentColumn + colLastIndex + 1;
-    console.log(nextIndex);
     if (nextIndex >= Tetris.WIDTH) return 1;
     for (let row = firstRow; row <= lastRow; row++) {
       if (row >= Tetris.HEIGHT) {
         return 0;
       }
       if (
-        this.board[row][this.currentColumn + colLastIndex] === 1 &&
-        this.board[row][nextIndex] === 1
+        this.board[row][this.currentColumn + colLastIndex] !== 0 &&
+        this.board[row][nextIndex] !== 0
       ) {
         return 1;
       }
@@ -181,7 +179,7 @@ export default class Tetris {
     for (let row = 0; row < this.currentTetromino.rows; row++) {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
         if (shape[row][col] !== 0 && this.board[rowIndex][colIndex] === 0) {
-          this.board[rowIndex][colIndex] = 1;
+          this.board[rowIndex][colIndex] = this.currentTetromino;
         }
         colIndex += 1;
       }

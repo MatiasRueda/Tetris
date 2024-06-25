@@ -360,7 +360,7 @@ function nextIndex(currentIndex: number, maxIndex: number): number {
 }
 
 function collision(
-  board: number[][],
+  board: (Tetromino | number)[][],
   newTetromino: TetrominoRotateInfo
 ): boolean {
   for (let row = 0; row < newTetromino.rowLastIndex; row++) {
@@ -379,7 +379,7 @@ function rotate(
   currentRow: number,
   maxCol: number,
   currentCol: number,
-  board: number[][],
+  board: (Tetromino | number)[][],
   oldTetra: Tetromino
 ) {
   const newRotateIndex = nextIndex(this.rotateIndex, 4);
@@ -413,6 +413,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 4,
     columns: 4,
     type: "I",
+    color: "#ff0000",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.I[0],
     rotate: rotate,
@@ -421,6 +422,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 3,
     columns: 3,
     type: "J",
+    color: "#0000ff",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.J[0],
     rotate: rotate,
@@ -429,6 +431,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 3,
     columns: 3,
     type: "L",
+    color: "#ffa500",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.L[0],
     rotate: rotate,
@@ -438,6 +441,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 2,
     columns: 2,
     type: "O",
+    color: "#008000",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.O[0],
     rotate: rotate,
@@ -446,6 +450,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 3,
     columns: 3,
     type: "S",
+    color: "#87ceeb",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.S[0],
     rotate: rotate,
@@ -455,6 +460,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 3,
     columns: 3,
     type: "T",
+    color: "#ffc0cb",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.T[0],
     rotate: rotate,
@@ -463,6 +469,7 @@ export const Tetrominos: Record<string, Tetromino> = {
     rows: 3,
     columns: 3,
     type: "Z",
+    color: "#800080",
     rotateIndex: 0,
     typeRotation: TetrominoesRotation.Z[0],
     rotate: rotate,

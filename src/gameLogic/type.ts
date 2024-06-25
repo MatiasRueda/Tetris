@@ -1,6 +1,7 @@
 export type Tetromino = {
   typeRotation: TetrominoRotateInfo;
   rows: number;
+  color: string;
   columns: number;
   type: string;
   rotateIndex: number;
@@ -9,7 +10,7 @@ export type Tetromino = {
     row: number,
     maxCol: number,
     col: number,
-    board: number[][],
+    board: (Tetromino | number)[][],
     old: Tetromino
   ) => void;
 };
