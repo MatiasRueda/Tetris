@@ -1,5 +1,5 @@
 export type Tetromino = {
-  typeRotation: TetrominoRotateInfo;
+  typeRotation: Shape;
   rows: number;
   color: string;
   columns: number;
@@ -15,7 +15,7 @@ export type Tetromino = {
   ) => void;
 };
 
-export type TetrominoRotateInfo = {
+export type Shape = {
   shape: number[][];
   width: number;
   rowFirstIndex: number;
