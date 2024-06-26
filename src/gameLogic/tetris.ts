@@ -6,6 +6,7 @@ export default class Tetris {
   private static readonly WIDTH = 10;
   private board: (Tetromino | number)[][];
   private currentTetromino = this.randomTetromino();
+  private positionTetromino: number[][] = [];
   private currentRow = 0;
   private currentColumn = 0;
 
@@ -18,8 +19,7 @@ export default class Tetris {
   }
 
   private randomTetromino(): Tetromino {
-    const tetrominos = [Tetrominos.I, Tetrominos.O, Tetrominos.Z];
-    return tetrominos[Math.floor(Math.random() * tetrominos.length)];
+    return Tetrominos.Z;
   }
 
   private isRowFull(): boolean {
@@ -32,58 +32,28 @@ export default class Tetris {
   }
 
   private removeCurrentTetromino() {
-    let rowIndex = this.currentRow;
-    let colIndex = this.currentColumn;
-    const shape = this.currentTetromino.typeRotation.shape;
-    const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
-    const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
-    for (let row = 0; row <= rowLastIndex; row++) {
-      for (let col = 0; col <= colLastIndex; col++) {
-        if (this.board[rowIndex][colIndex] !== 0 && shape[row][col] !== 0) {
-          this.board[rowIndex][colIndex] = 0;
-        }
-        colIndex += 1;
-      }
-      rowIndex += 1;
-      colIndex = this.currentColumn;
-    }
+    this.positionTetromino.forEach(([row, column]) => {
+      this.board[row][column] = 0;
+    });
   }
 
   private canMoveDown() {
-    // const rowFirstIndex = this.currentTetromino.typeRotation.rowFirstIndex;
     const rowLastIndex = this.currentTetromino.typeRotation.rowLastIndex;
-    const colFirstIndex = this.currentTetromino.typeRotation.columnFirstIndex;
-    const colLastIndex = this.currentTetromino.typeRotation.columnLastIndex;
     const lastRow = this.currentRow + rowLastIndex + 1;
-    const firstCol = this.currentColumn + colFirstIndex;
-    const lastCol = this.currentColumn + colLastIndex;
-    // console.log("El row first index es: ", rowFirstIndex);
-    // console.log("El row last index es: ", rowLastIndex);
-    // console.log("El col first index es: ", colFirstIndex);
-    // console.log("El col last index es: ", colLastIndex);
-    // console.log("El last row es: ", lastRow);
-    // console.log("La first col es: ", firstCol);
-    // console.log("El current col es: ", this.currentColumn);
-    if (lastRow >= Tetris.HEIGHT || this.board[lastRow][firstCol] !== 0) {
-      //console.log("Aca");
-      return 1;
-    }
-    for (let col = firstCol; col <= lastCol; col++) {
-      // const colIndex = this.currentColumn + col;
-      // console.log("Me estoy fijando en la columna: ", col);
-      if (col >= Tetris.WIDTH) {
-        // console.log("El current col es: ", this.currentColumn);
-        // console.log("El col es: ", col);
-        // console.log("El col index es: ", colIndex);
-        // console.log("El indice es mayor o igual al largo");
-        return 0;
-      }
-      if (this.board[lastRow][col] !== 0) {
-        // console.log("El hay colision");
-        return 1;
-      }
-    }
-    return 0;
+    if (lastRow >= Tetris.HEIGHT) return 1;
+    let pieceTetromino = 0;
+    let pieceNotCollision = 0;
+    this.currentTetromino.typeRotation.shape.forEach((row, rowIndex) => {
+      const lastRow = this.currentRow + rowIndex + 1;
+      row.forEach((col, colIndex) => {
+        if (!col) return;
+        pieceTetromino += 1;
+        const currentCol = this.currentColumn + colIndex;
+        if (this.board[lastRow][currentCol]) return;
+        pieceNotCollision += 1;
+      });
+    });
+    return pieceTetromino !== pieceNotCollision ? 1 : 0;
   }
 
   public rotate() {
@@ -100,11 +70,12 @@ export default class Tetris {
   }
 
   public moveTetrominoDown(): boolean {
+    this.removeCurrentTetromino();
     if (this.canMoveDown() === 1) {
+      this.addTetromino();
       this.nextTetromino();
       return false;
     }
-    this.removeCurrentTetromino();
     this.currentRow += 1;
     this.addTetromino();
     return true;
@@ -176,10 +147,12 @@ export default class Tetris {
     let rowIndex = this.currentRow;
     let colIndex = this.currentColumn;
     const shape = this.currentTetromino.typeRotation.shape;
+    this.positionTetromino = [];
     for (let row = 0; row < this.currentTetromino.rows; row++) {
       for (let col = 0; col < this.currentTetromino.columns; col++) {
         if (shape[row][col] !== 0 && this.board[rowIndex][colIndex] === 0) {
           this.board[rowIndex][colIndex] = this.currentTetromino;
+          this.positionTetromino.push([rowIndex, colIndex]);
         }
         colIndex += 1;
       }
