@@ -1,6 +1,6 @@
-import { PieceInfo } from "../type";
+import { Shape } from "../type";
 
-export const S: PieceInfo[] = [
+export const S: Shape[] = [
   {
     shape: [
       [0, 1, 1],

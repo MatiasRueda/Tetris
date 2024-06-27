@@ -16,7 +16,7 @@ export default class Tetris {
   }
 
   private randomTetromino(): Piece {
-    return new I(0, 0);
+    return new I();
   }
 
   private isRowFull(): boolean {

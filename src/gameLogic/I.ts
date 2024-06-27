@@ -12,8 +12,8 @@ import { I as shapes } from "./utils/I";
 export default class I extends Piece {
   private shape: Shape;
 
-  constructor(row: number, column: number) {
-    super(row, column, 4, 4);
+  constructor() {
+    super(4, 4, "#ff0000");
     this.shape = shapes[0];
     this.shapes = shapes;
   }

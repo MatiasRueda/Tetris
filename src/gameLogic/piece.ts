@@ -5,15 +5,15 @@ export default abstract class Piece {
   private readonly COLUMNS: number;
   private rotateIndex: number = 0;
   private positionCells: number[][] = [];
+  private color: string;
   protected shapes: Shape[] = [];
-  protected currentRow: number;
-  protected currentColumn: number;
+  protected currentRow: number = 0;
+  protected currentColumn: number = 0;
 
-  constructor(row: number, rows: number, columns: number, column: number) {
-    this.currentRow = row;
-    this.currentColumn = column;
+  constructor(rows: number, columns: number, color: string) {
     this.ROWS = rows;
     this.COLUMNS = columns;
+    this.color = color;
   }
 
   abstract spin(board: (Piece | number)[][]): boolean;
@@ -22,6 +22,10 @@ export default abstract class Piece {
 
   private nextIndex(currentIndex: number, maxIndex: number): number {
     return currentIndex + 1 >= maxIndex ? 0 : currentIndex + 1;
+  }
+
+  get getColor() {
+    return this.color;
   }
 
   private collision(
