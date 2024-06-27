@@ -1,11 +1,12 @@
-import I from "./I";
 import Piece from "./piece";
+import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
   private static readonly HEIGHT = 20;
   private static readonly WIDTH = 10;
   private board: (Piece | number)[][];
-  private currentPiece = this.randomTetromino();
+  private factory = new PieceFactory();
+  private currentPiece = this.factory.getRandomPiece();
 
   constructor() {
     this.board = new Array(Tetris.HEIGHT);
@@ -13,10 +14,6 @@ export default class Tetris {
       this.board[i] = new Array(Tetris.WIDTH).fill(0);
     }
     this.nextTetromino();
-  }
-
-  private randomTetromino(): Piece {
-    return new I();
   }
 
   private isRowFull(): boolean {
@@ -141,7 +138,7 @@ export default class Tetris {
   }
 
   public nextTetromino() {
-    this.currentPiece = this.randomTetromino();
+    this.currentPiece = this.factory.getRandomPiece();
     this.addTetromino();
   }
 

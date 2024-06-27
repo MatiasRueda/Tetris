@@ -1,24 +1,22 @@
 import { Shape } from "./type";
 
-export default abstract class Piece {
+export default class Piece {
   private readonly ROWS: number;
   private readonly COLUMNS: number;
   private rotateIndex: number = 0;
   private positionCells: number[][] = [];
   private color: string;
+  protected shape: Shape;
   protected shapes: Shape[] = [];
   protected currentRow: number = 0;
   protected currentColumn: number = 0;
 
-  constructor(rows: number, columns: number, color: string) {
-    this.ROWS = rows;
-    this.COLUMNS = columns;
+  constructor(shape: Shape, color: string) {
+    this.shape = shape;
+    this.ROWS = shape.width;
+    this.COLUMNS = shape.width;
     this.color = color;
   }
-
-  abstract spin(board: (Piece | number)[][]): boolean;
-
-  abstract get getShape(): Shape;
 
   private nextIndex(currentIndex: number, maxIndex: number): number {
     return currentIndex + 1 >= maxIndex ? 0 : currentIndex + 1;
@@ -80,6 +78,17 @@ export default abstract class Piece {
 
   public removeCells() {
     this.positionCells = [];
+  }
+
+  public spin(board: (Piece | number)[][]): boolean {
+    const result = this.rotate(board);
+    if (!result) return false;
+    this.shape = result;
+    return true;
+  }
+
+  get getShape(): Shape {
+    return this.shape;
   }
 
   set setCurrentRow(n: 1 | -1) {

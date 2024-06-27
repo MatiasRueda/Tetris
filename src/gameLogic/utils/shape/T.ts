@@ -1,9 +1,9 @@
-import { Shape } from "../type";
+import { Shape } from "../../type";
 
-export const J: Shape[] = [
+export const T: Shape[] = [
   {
     shape: [
-      [1, 0, 0],
+      [0, 1, 0],
       [1, 1, 1],
       [0, 0, 0],
     ],
@@ -15,8 +15,8 @@ export const J: Shape[] = [
   },
   {
     shape: [
-      [0, 1, 1],
       [0, 1, 0],
+      [0, 1, 1],
       [0, 1, 0],
     ],
     width: 2,
@@ -29,7 +29,7 @@ export const J: Shape[] = [
     shape: [
       [0, 0, 0],
       [1, 1, 1],
-      [0, 0, 1],
+      [0, 1, 0],
     ],
     width: 3,
     rowFirstIndex: 1,
@@ -40,8 +40,8 @@ export const J: Shape[] = [
   {
     shape: [
       [0, 1, 0],
-      [0, 1, 0],
       [1, 1, 0],
+      [0, 1, 0],
     ],
     width: 2,
     rowFirstIndex: 0,

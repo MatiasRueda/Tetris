@@ -1,4 +1,4 @@
-import { Shape } from "../type";
+import { Shape } from "../../type";
 
 export const Z: Shape[] = [
   {

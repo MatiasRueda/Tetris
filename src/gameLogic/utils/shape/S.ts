@@ -1,10 +1,10 @@
-import { Shape } from "../type";
+import { Shape } from "../../type";
 
-export const T: Shape[] = [
+export const S: Shape[] = [
   {
     shape: [
-      [0, 1, 0],
-      [1, 1, 1],
+      [0, 1, 1],
+      [1, 1, 0],
       [0, 0, 0],
     ],
     width: 3,
@@ -17,7 +17,7 @@ export const T: Shape[] = [
     shape: [
       [0, 1, 0],
       [0, 1, 1],
-      [0, 1, 0],
+      [0, 0, 1],
     ],
     width: 2,
     rowFirstIndex: 0,
@@ -28,8 +28,8 @@ export const T: Shape[] = [
   {
     shape: [
       [0, 0, 0],
-      [1, 1, 1],
-      [0, 1, 0],
+      [0, 1, 1],
+      [1, 1, 0],
     ],
     width: 3,
     rowFirstIndex: 1,
@@ -39,7 +39,7 @@ export const T: Shape[] = [
   },
   {
     shape: [
-      [0, 1, 0],
+      [1, 0, 0],
       [1, 1, 0],
       [0, 1, 0],
     ],
