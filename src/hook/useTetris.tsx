@@ -9,17 +9,14 @@ export function useTetris() {
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.key === "s") {
       tetris.moveTetrominoDown();
-      setBoard([...tetris.getBoard]);
     } else if (e.key === "w") {
       tetris.rotate();
-      setBoard([...tetris.getBoard]);
     } else if (e.key === "a") {
       tetris.moveTetrominoLeft();
-      setBoard([...tetris.getBoard]);
     } else if (e.key === "d") {
       tetris.moveTetrominoRight();
-      setBoard([...tetris.getBoard]);
     }
+    setBoard([...tetris.getBoard]);
   };
 
   useEffect(() => {

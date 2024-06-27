@@ -7,23 +7,21 @@ export default function Board() {
   const tetris = useTetris();
   return (
     <div className="board-component">
-      {tetris.board.map((row) =>
-        row.map((column, i) =>
+      {tetris.board.map((row, rowIndex) => {
+        if (!rowIndex || rowIndex === 1)
+          return <div style={{ backgroundColor: "rgb(105, 105, 214)s" }}></div>;
+        return row.map((column, columnIndex) =>
           column === 0 ? (
-            <div key={i} className="null-component">
-              {i}
-            </div>
+            <div key={columnIndex} className="null-component"></div>
           ) : (
             <div
-              key={i}
+              key={columnIndex}
               style={{ backgroundColor: (column as Piece).getColor }}
               className="tetromino-component"
-            >
-              {i}
-            </div>
+            ></div>
           )
-        )
-      )}
+        );
+      })}
     </div>
   );
 }

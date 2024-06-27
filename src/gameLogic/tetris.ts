@@ -2,18 +2,23 @@ import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
-  private static readonly HEIGHT = 20;
+  private static readonly HEIGHT = 22;
   private static readonly WIDTH = 10;
   private board: (Piece | number)[][];
   private factory = new PieceFactory();
   private currentPiece = this.factory.getRandomPiece();
 
   constructor() {
-    this.board = new Array(Tetris.HEIGHT);
+    this.board = this.createBoard();
+    this.spawnTetromino();
+  }
+
+  private createBoard(): (Piece | number)[][] {
+    const board = new Array(Tetris.HEIGHT);
     for (let i = 0; i < Tetris.HEIGHT; i++) {
-      this.board[i] = new Array(Tetris.WIDTH).fill(0);
+      board[i] = new Array(Tetris.WIDTH).fill(0);
     }
-    this.nextTetromino();
+    return board;
   }
 
   private isRowFull(): boolean {
@@ -60,7 +65,7 @@ export default class Tetris {
     this.removeCurrentPiece();
     if (this.canMoveDown() === 1) {
       this.addTetromino();
-      this.nextTetromino();
+      this.spawnTetromino();
       return false;
     }
     this.currentPiece.setCurrentRow = 1;
@@ -137,7 +142,7 @@ export default class Tetris {
     }
   }
 
-  public nextTetromino() {
+  private spawnTetromino() {
     this.currentPiece = this.factory.getRandomPiece();
     this.addTetromino();
   }

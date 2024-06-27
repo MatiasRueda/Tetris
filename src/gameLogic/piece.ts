@@ -9,7 +9,7 @@ export default class Piece {
   protected shape: Shape;
   protected shapes: Shape[] = [];
   protected currentRow: number = 0;
-  protected currentColumn: number = 0;
+  protected currentColumn: number = 3;
 
   constructor(shape: Shape, color: string) {
     this.shape = shape;

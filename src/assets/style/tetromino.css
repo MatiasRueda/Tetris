@@ -4,13 +4,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid black;
+  box-sizing: border-box;
 }
 
 .null-component {
   height: 2.5rem;
   width: 2.5rem;
-  background-color: yellow;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid grey;
+  box-sizing: border-box;
 }
