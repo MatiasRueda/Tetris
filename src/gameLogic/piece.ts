@@ -13,8 +13,8 @@ export default class Piece {
 
   constructor(shape: Shape, color: string) {
     this.shape = shape;
-    this.ROWS = shape.width;
-    this.COLUMNS = shape.width;
+    this.ROWS = shape.shape.length;
+    this.COLUMNS = shape.shape[0].length;
     this.color = color;
   }
 
@@ -26,19 +26,20 @@ export default class Piece {
     return this.color;
   }
 
-  private collision(
-    board: (Piece | number)[][],
-    rows: number,
-    cols: number
-  ): boolean {
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        if (board[row][col] == 1) {
-          return true;
-        }
-      }
-    }
-    return false;
+  private collision(board: (Piece | number)[][], shape: Shape) {
+    let pieceTetromino = 0;
+    let pieceNotCollision = 0;
+    shape.shape.forEach((row, rowIndex) => {
+      const lastRow = this.currentRow + rowIndex;
+      row.forEach((col, colIndex) => {
+        if (!col) return;
+        pieceTetromino += 1;
+        const currentCol = this.currentColumn + colIndex;
+        if (board[lastRow][currentCol]) return;
+        pieceNotCollision += 1;
+      });
+    });
+    return pieceTetromino !== pieceNotCollision;
   }
 
   protected rotate(board: (Piece | number)[][]): Shape | undefined {
@@ -47,9 +48,7 @@ export default class Piece {
     const currentShape = this.shapes[this.rotateIndex];
     const newRotateIndex = this.nextIndex(this.rotateIndex, 4);
     const newShape = this.shapes[newRotateIndex];
-    if (
-      this.collision(board, newShape.rowLastIndex, newShape.columnLastIndex)
-    ) {
+    if (this.collision(board, newShape)) {
       return undefined;
     } else if (
       this.COLUMNS + this.currentColumn > maxCol &&
