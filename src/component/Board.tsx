@@ -8,8 +8,7 @@ export default function Board() {
   return (
     <div className="board-component">
       {tetris.board.map((row, rowIndex) => {
-        if (!rowIndex || rowIndex === 1)
-          return <div style={{ backgroundColor: "rgb(105, 105, 214)s" }}></div>;
+        if (!rowIndex || rowIndex === 1) return;
         return row.map((column, columnIndex) =>
           column === 0 ? (
             <div key={columnIndex} className="null-component"></div>

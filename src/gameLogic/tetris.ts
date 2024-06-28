@@ -21,10 +21,6 @@ export default class Tetris {
     return board;
   }
 
-  private isRowFull(): boolean {
-    return true;
-  }
-
   private clearRow(row: number) {
     this.board.splice(row, 1);
     this.board.unshift(new Array(this.board[0].length).fill(0));
@@ -61,10 +57,24 @@ export default class Tetris {
     this.addTetromino();
   }
 
+  private checksRows() {
+    this.currentPiece.getShape.shape.forEach((row, rowIndex) => {
+      const currentRow = this.currentPiece.getCurrentRow + rowIndex;
+      for (const col of row) {
+        if (!col) continue;
+        const rowComplete = this.board[currentRow].every((e) => e);
+        if (!rowComplete) break;
+        this.clearRow(currentRow);
+        break;
+      }
+    });
+  }
+
   public moveTetrominoDown(): boolean {
     this.removeCurrentPiece();
     if (this.canMoveDown() === 1) {
       this.addTetromino();
+      this.checksRows();
       this.spawnTetromino();
       return false;
     }
