@@ -7,6 +7,7 @@ export default class Tetris {
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
   private currentPiece = this.factory.getRandomPiece();
+  private nextPiece = this.factory.getRandomPiece();
   private start = false;
   private lose = false;
 
@@ -98,14 +99,14 @@ export default class Tetris {
     if (this.canMoveDown() === 1) {
       this.addTetromino();
       this.checksRows();
-      const piece = this.factory.getRandomPiece();
+      const piece = this.nextPiece;
       if (!this.canAddPiece(piece)) {
         this.lose = true;
         this.start = false;
-        console.log("Se acabo");
         return false;
       }
       this.currentPiece = piece;
+      this.nextPiece = this.factory.getRandomPiece();
       this.addTetromino();
       return false;
     }
@@ -192,6 +193,10 @@ export default class Tetris {
 
   get getBoard() {
     return this.board;
+  }
+
+  get getNextPiece() {
+    return this.nextPiece;
   }
 
   public isOver() {

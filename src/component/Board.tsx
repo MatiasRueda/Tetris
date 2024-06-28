@@ -1,25 +1,23 @@
-import { useTetris } from "../hook/useTetris";
 import "../assets/style/board.css";
 import "../assets/style/tetromino.css";
 
-export default function Board() {
-  const tetris = useTetris();
+export default function Board(props: { board: (string | undefined)[][] }) {
   return (
-    <div className="board-component">
-      {tetris.board.map((row, rowIndex) => {
+    <section className="board">
+      {props.board.map((row, rowIndex) => {
         if (!rowIndex || rowIndex === 1) return;
         return row.map((column, columnIndex) =>
           !column ? (
-            <div key={columnIndex} className="null-component"></div>
+            <div key={columnIndex} className="cont-null"></div>
           ) : (
             <div
               key={columnIndex}
               style={{ backgroundColor: column }}
-              className="tetromino-component"
+              className="cont-tetromino"
             ></div>
           )
         );
       })}
-    </div>
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-.tetromino-component {
+.cont-tetromino {
   height: 2.5rem;
   width: 2.5rem;
   display: flex;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.null-component {
+.cont-null {
   height: 2.5rem;
   width: 2.5rem;
   background-color: black;
@@ -17,4 +17,10 @@
   justify-content: center;
   border: 1px solid grey;
   box-sizing: border-box;
+}
+
+.cont-empty {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: black;
 }

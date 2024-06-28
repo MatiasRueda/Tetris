@@ -5,9 +5,13 @@ const tetris = new Tetris();
 
 export function useTetris() {
   const [board, setBoard] = useState(tetris.getBoard);
+  const [nextPiece, setNextPiece] = useState(tetris.getNextPiece);
+  const keys = ["s", "w", "a", "d"];
 
   const detectKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "s") {
+    if (!keys.some((k) => k === e.key)) {
+      return;
+    } else if (e.key === "s") {
       tetris.moveDown();
     } else if (e.key === "w") {
       tetris.rotate();
@@ -17,6 +21,7 @@ export function useTetris() {
       tetris.moveRight();
     }
     setBoard([...tetris.getBoard]);
+    setNextPiece(tetris.getNextPiece);
   };
 
   useEffect(() => {
@@ -24,5 +29,5 @@ export function useTetris() {
     document.addEventListener("keydown", detectKeyDown, true);
   }, []);
 
-  return { board };
+  return { board, nextPiece };
 }
