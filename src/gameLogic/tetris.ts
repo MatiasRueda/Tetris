@@ -7,8 +7,9 @@ export default class Tetris {
   private static readonly SCORE_INCREMENT = 100;
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
-  private currentPiece = this.factory.getRandomPiece();
-  private nextPiece = this.factory.getRandomPiece();
+  private currentPiece = this.factory.randomPiece();
+  private nextPiece = this.factory.randomPiece();
+  private nextPieces: Piece[] = [];
   private level = 1;
   private lines = 0;
   private score = 0;
@@ -17,6 +18,9 @@ export default class Tetris {
 
   constructor() {
     this.board = this.createBoard();
+    this.nextPieces.push(this.factory.randomPiece());
+    this.nextPieces.push(this.factory.randomPiece());
+    this.nextPieces.push(this.factory.randomPiece());
   }
 
   public startGame() {
@@ -115,7 +119,8 @@ export default class Tetris {
       return;
     }
     this.currentPiece = piece;
-    this.nextPiece = this.factory.getRandomPiece();
+    this.nextPiece = this.nextPieces.shift()!;
+    this.nextPieces.push(this.factory.randomPiece());
     this.addTetromino();
     return;
   }
@@ -207,7 +212,7 @@ export default class Tetris {
     return this.lose;
   }
   private spawnTetromino() {
-    this.currentPiece = this.factory.getRandomPiece();
+    this.currentPiece = this.factory.randomPiece();
     this.addTetromino();
   }
 
@@ -229,5 +234,9 @@ export default class Tetris {
 
   get getScore() {
     return this.score;
+  }
+
+  get getNextPieces() {
+    return this.nextPieces;
   }
 }

@@ -8,8 +8,8 @@
 }
 
 .cont-score {
-  height: 8rem;
-  width: 10rem;
+  height: 11rem;
+  width: 15rem;
   background-color: rgb(31, 31, 171);
   display: flex;
   align-items: center;
@@ -18,8 +18,8 @@
 }
 
 .cont-level {
-  height: 8rem;
-  width: 10rem;
+  height: 11rem;
+  width: 15rem;
   background-color: rgb(31, 31, 171);
   display: flex;
   align-items: center;
@@ -29,8 +29,9 @@
 
 .cont-line {
   height: 15rem;
-  width: 10rem;
+  width: 15rem;
   background-color: rgb(31, 31, 171);
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;

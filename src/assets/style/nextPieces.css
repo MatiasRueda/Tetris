@@ -1,0 +1,14 @@
+.next-pieces {
+  height: 50rem;
+  width: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.cont-info-next-piece h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #ffff;
+}

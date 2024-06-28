@@ -22,7 +22,7 @@ export default class PieceFactory {
     return pieces[tetromino]();
   }
 
-  public getRandomPiece(): Piece {
+  public randomPiece(): Piece {
     const enumValues = Object.values(Tetromino).filter(
       (value) => typeof value === "number"
     ) as Tetromino[];
