@@ -1,22 +1,28 @@
-import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
   private static readonly HEIGHT = 22; // 7
   private static readonly WIDTH = 10;
-  private board: (Piece | number)[][];
+  private board: (string | undefined)[][];
   private factory = new PieceFactory();
   private currentPiece = this.factory.getRandomPiece();
+  private start = false;
+  private lose = false;
 
   constructor() {
     this.board = this.createBoard();
-    this.spawnTetromino();
   }
 
-  private createBoard(): (Piece | number)[][] {
+  public startGame() {
+    this.spawnTetromino();
+    this.start = true;
+    this.lose = false;
+  }
+
+  private createBoard(): (string | undefined)[][] {
     const board = new Array(Tetris.HEIGHT);
     for (let i = 0; i < Tetris.HEIGHT; i++) {
-      board[i] = new Array(Tetris.WIDTH).fill(0);
+      board[i] = new Array(Tetris.WIDTH).fill(undefined);
     }
     return board;
   }
@@ -28,7 +34,7 @@ export default class Tetris {
 
   private removeCurrentPiece() {
     this.currentPiece.getPosition.forEach(([row, column]) => {
-      this.board[row][column] = 0;
+      this.board[row][column] = undefined;
     });
   }
 
@@ -69,7 +75,8 @@ export default class Tetris {
     });
   }
 
-  public moveTetrominoDown(): boolean {
+  public moveDown(): boolean {
+    if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
     if (this.canMoveDown() === 1) {
       this.addTetromino();
@@ -98,7 +105,8 @@ export default class Tetris {
     return 0;
   }
 
-  public moveTetrominoLeft(): boolean {
+  public moveLeft(): boolean {
+    if (!this.start || this.lose) return false;
     if (this.canMoveLeft() === 1) return false;
     const fistColumnIndex = this.currentPiece.getShape.columnFirstIndex;
     if (this.currentPiece.getCurrentColumn - 1 + fistColumnIndex < 0)
@@ -125,7 +133,8 @@ export default class Tetris {
     return 0;
   }
 
-  public moveTetrominoRight() {
+  public moveRight() {
+    if (!this.start || this.lose) return false;
     if (this.canMoveRight() === 1) return false;
     this.removeCurrentPiece();
     this.currentPiece.setCurrentColumn = 1;
@@ -141,7 +150,7 @@ export default class Tetris {
     this.currentPiece.getShape.shape.forEach((row, ri) => {
       row.forEach((_col, ci) => {
         if (shape.shape[ri][ci] && !this.board[rowIndex][colIndex]) {
-          this.board[rowIndex][colIndex] = this.currentPiece;
+          this.board[rowIndex][colIndex] = this.currentPiece.getColor;
           this.currentPiece.addCell(rowIndex, colIndex);
         }
         colIndex += 1;
@@ -158,5 +167,9 @@ export default class Tetris {
 
   get getBoard() {
     return this.board;
+  }
+
+  get getLose() {
+    return this.lose;
   }
 }

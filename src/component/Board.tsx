@@ -1,7 +1,6 @@
 import { useTetris } from "../hook/useTetris";
 import "../assets/style/board.css";
 import "../assets/style/tetromino.css";
-import Piece from "../gameLogic/piece";
 
 export default function Board() {
   const tetris = useTetris();
@@ -10,12 +9,12 @@ export default function Board() {
       {tetris.board.map((row, rowIndex) => {
         if (!rowIndex || rowIndex === 1) return;
         return row.map((column, columnIndex) =>
-          column === 0 ? (
+          !column ? (
             <div key={columnIndex} className="null-component"></div>
           ) : (
             <div
               key={columnIndex}
-              style={{ backgroundColor: (column as Piece).getColor }}
+              style={{ backgroundColor: column }}
               className="tetromino-component"
             ></div>
           )

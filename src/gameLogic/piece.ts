@@ -26,7 +26,7 @@ export default class Piece {
     return this.color;
   }
 
-  private collision(board: (Piece | number)[][], shape: Shape) {
+  private collision(board: (string | undefined)[][], shape: Shape) {
     let pieceTetromino = 0;
     let pieceNotCollision = 0;
     shape.shape.forEach((row, rowIndex) => {
@@ -42,7 +42,7 @@ export default class Piece {
     return pieceTetromino !== pieceNotCollision;
   }
 
-  protected rotate(board: (Piece | number)[][]): Shape | undefined {
+  protected rotate(board: (string | undefined)[][]): Shape | undefined {
     const maxRow = board.length;
     const maxCol = board[0].length;
     const currentShape = this.shapes[this.rotateIndex];
@@ -79,7 +79,7 @@ export default class Piece {
     this.positionCells = [];
   }
 
-  public spin(board: (Piece | number)[][]): boolean {
+  public spin(board: (string | undefined)[][]): boolean {
     const result = this.rotate(board);
     if (!result) return false;
     this.shape = result;
