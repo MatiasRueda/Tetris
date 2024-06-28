@@ -2,7 +2,7 @@ import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
-  private static readonly HEIGHT = 22;
+  private static readonly HEIGHT = 22; // 7
   private static readonly WIDTH = 10;
   private board: (Piece | number)[][];
   private factory = new PieceFactory();
@@ -63,8 +63,7 @@ export default class Tetris {
       for (const col of row) {
         if (!col) continue;
         const rowComplete = this.board[currentRow].every((e) => e);
-        if (!rowComplete) break;
-        this.clearRow(currentRow);
+        if (rowComplete) this.clearRow(currentRow);
         break;
       }
     });
@@ -139,17 +138,17 @@ export default class Tetris {
     let colIndex = this.currentPiece.getCurrentColumn;
     const shape = this.currentPiece.getShape;
     this.currentPiece.removeCells();
-    for (let row = 0; row < this.currentPiece.getRows; row++) {
-      for (let col = 0; col < this.currentPiece.getColumns; col++) {
-        if (shape.shape[row][col] && !this.board[rowIndex][colIndex]) {
+    this.currentPiece.getShape.shape.forEach((row, ri) => {
+      row.forEach((_col, ci) => {
+        if (shape.shape[ri][ci] && !this.board[rowIndex][colIndex]) {
           this.board[rowIndex][colIndex] = this.currentPiece;
           this.currentPiece.addCell(rowIndex, colIndex);
         }
         colIndex += 1;
-      }
+      });
       rowIndex += 1;
       colIndex = this.currentPiece.getCurrentColumn;
-    }
+    });
   }
 
   private spawnTetromino() {
