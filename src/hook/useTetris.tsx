@@ -6,6 +6,9 @@ const tetris = new Tetris();
 export function useTetris() {
   const [board, setBoard] = useState(tetris.getBoard);
   const [nextPiece, setNextPiece] = useState(tetris.getNextPiece);
+  const [level, setLevel] = useState(tetris.getLevel);
+  const [lines, setLines] = useState(tetris.getLines);
+  const [score, setScore] = useState(tetris.getScore);
   const keys = ["s", "w", "a", "d"];
 
   const detectKeyDown = (e: KeyboardEvent) => {
@@ -22,6 +25,9 @@ export function useTetris() {
     }
     setBoard([...tetris.getBoard]);
     setNextPiece(tetris.getNextPiece);
+    setLevel(tetris.getLevel);
+    setScore(tetris.getScore);
+    setLines(tetris.getLines);
   };
 
   useEffect(() => {
@@ -29,5 +35,5 @@ export function useTetris() {
     document.addEventListener("keydown", detectKeyDown, true);
   }, []);
 
-  return { board, nextPiece };
+  return { board, nextPiece, level, score, lines };
 }

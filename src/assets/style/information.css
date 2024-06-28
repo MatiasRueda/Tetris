@@ -1,0 +1,42 @@
+.information {
+  height: 50rem;
+  width: 15rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  color: #ffff;
+}
+
+.cont-score {
+  height: 8rem;
+  width: 10rem;
+  background-color: rgb(31, 31, 171);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cont-level {
+  height: 8rem;
+  width: 10rem;
+  background-color: rgb(31, 31, 171);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cont-line {
+  height: 15rem;
+  width: 10rem;
+  background-color: rgb(31, 31, 171);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.title-stadistic {
+  margin-bottom: 1rem;
+}

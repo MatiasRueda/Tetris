@@ -4,10 +4,14 @@ import PieceFactory from "./pieceFactory";
 export default class Tetris {
   private static readonly HEIGHT = 22; // 7
   private static readonly WIDTH = 10;
+  private static readonly SCORE_INCREMENT = 100;
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
   private currentPiece = this.factory.getRandomPiece();
   private nextPiece = this.factory.getRandomPiece();
+  private level = 1;
+  private lines = 0;
+  private score = 0;
   private start = false;
   private lose = false;
 
@@ -27,6 +31,13 @@ export default class Tetris {
       board[i] = new Array(Tetris.WIDTH).fill(undefined);
     }
     return board;
+  }
+
+  private updateInformation() {
+    this.score += Tetris.SCORE_INCREMENT;
+    this.lines += 1;
+    const isLevelUp = !(this.lines % 10) ? 1 : 0;
+    this.level += isLevelUp;
   }
 
   private clearRow(row: number) {
@@ -76,8 +87,9 @@ export default class Tetris {
       for (const col of row) {
         if (!col) continue;
         const rowComplete = this.board[currentRow].every((e) => e);
-        if (rowComplete) this.clearRow(currentRow);
-        break;
+        if (!rowComplete) break;
+        this.clearRow(currentRow);
+        this.updateInformation();
       }
     });
   }
@@ -93,21 +105,26 @@ export default class Tetris {
     return true;
   }
 
+  private haveCollision() {
+    this.addTetromino();
+    this.checksRows();
+    const piece = this.nextPiece;
+    if (!this.canAddPiece(piece)) {
+      this.lose = true;
+      this.start = false;
+      return;
+    }
+    this.currentPiece = piece;
+    this.nextPiece = this.factory.getRandomPiece();
+    this.addTetromino();
+    return;
+  }
+
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
     if (this.canMoveDown() === 1) {
-      this.addTetromino();
-      this.checksRows();
-      const piece = this.nextPiece;
-      if (!this.canAddPiece(piece)) {
-        this.lose = true;
-        this.start = false;
-        return false;
-      }
-      this.currentPiece = piece;
-      this.nextPiece = this.factory.getRandomPiece();
-      this.addTetromino();
+      this.haveCollision();
       return false;
     }
     this.currentPiece.setCurrentRow = 1;
@@ -186,6 +203,9 @@ export default class Tetris {
     });
   }
 
+  public isOver() {
+    return this.lose;
+  }
   private spawnTetromino() {
     this.currentPiece = this.factory.getRandomPiece();
     this.addTetromino();
@@ -199,7 +219,15 @@ export default class Tetris {
     return this.nextPiece;
   }
 
-  public isOver() {
-    return this.lose;
+  get getLevel() {
+    return this.level;
+  }
+
+  get getLines() {
+    return this.lines;
+  }
+
+  get getScore() {
+    return this.score;
   }
 }
