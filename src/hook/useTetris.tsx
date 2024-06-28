@@ -16,7 +16,7 @@ export function useTetris() {
     if (!keys.some((k) => k === e.key)) {
       return;
     } else if (e.key === "s") {
-      tetris.moveDown();
+      tetris.put();
     } else if (e.key === "w") {
       tetris.rotate();
     } else if (e.key === "a") {

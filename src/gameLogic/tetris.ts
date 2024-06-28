@@ -4,7 +4,7 @@ import PieceFactory from "./pieceFactory";
 export default class Tetris {
   private static readonly HEIGHT = 22; // 7
   private static readonly WIDTH = 10;
-  private static readonly SCORE_INCREMENT = 100;
+  private static readonly SCORE_INCREMENT = 10;
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
   private currentPiece = this.factory.randomPiece();
@@ -135,6 +135,10 @@ export default class Tetris {
     this.currentPiece.setCurrentRow = 1;
     this.addTetromino();
     return true;
+  }
+
+  public put() {
+    while (this.moveDown()) {}
   }
 
   private canMoveLeft() {
