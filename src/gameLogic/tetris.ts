@@ -1,3 +1,4 @@
+import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
@@ -63,6 +64,11 @@ export default class Tetris {
     this.addTetromino();
   }
 
+  public end() {
+    this.lose = true;
+    this.start = false;
+  }
+
   private checksRows() {
     this.currentPiece.getShape.shape.forEach((row, rowIndex) => {
       const currentRow = this.currentPiece.getCurrentRow + rowIndex;
@@ -75,13 +81,32 @@ export default class Tetris {
     });
   }
 
+  private canAddPiece(piece: Piece): boolean {
+    for (const [rowIndex, cols] of piece.getShape.shape.entries()) {
+      for (const [colIndex, col] of cols.entries()) {
+        if (!col) continue;
+        const currentCol = piece.getCurrentColumn + colIndex;
+        if (this.board[rowIndex + 2][currentCol]) return false;
+      }
+    }
+    return true;
+  }
+
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
     if (this.canMoveDown() === 1) {
       this.addTetromino();
       this.checksRows();
-      this.spawnTetromino();
+      const piece = this.factory.getRandomPiece();
+      if (!this.canAddPiece(piece)) {
+        this.lose = true;
+        this.start = false;
+        console.log("Se acabo");
+        return false;
+      }
+      this.currentPiece = piece;
+      this.addTetromino();
       return false;
     }
     this.currentPiece.setCurrentRow = 1;
@@ -169,7 +194,7 @@ export default class Tetris {
     return this.board;
   }
 
-  get getLose() {
+  public isOver() {
     return this.lose;
   }
 }

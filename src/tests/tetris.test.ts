@@ -9,9 +9,9 @@ describe("Tetris Class create correctly", () => {
     expect(result).toBeTruthy();
   });
 
-  test("Lose is false", () => {
+  test("Over is false", () => {
     const tetris = new Tetris();
-    expect(tetris.getLose).toBeFalsy();
+    expect(tetris.isOver()).toBeFalsy();
   });
 });
 
