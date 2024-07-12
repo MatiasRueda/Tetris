@@ -1,22 +1,22 @@
 import { motion } from "framer-motion";
 import "../assets/style/transition.css"; // Asegúrate de crear un archivo CSS para los estilos
 
-const squares = Array.from({ length: 20 }, (_, i) => i);
+const squares = Array.from({ length: 100 }, (_, i) => i);
 export default function TransitionWrapper(props: { show: boolean }) {
   const variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delay: 0.5,
-        staggerChildren: 0.05,
+        delay: 0.01,
+        staggerChildren: 0.01,
       },
     },
     exit: {
       opacity: 0,
       transition: {
-        delay: 0.5,
-        staggerChildren: 0.05,
+        delay: 0.01,
+        staggerChildren: 0.01,
       },
     },
   };

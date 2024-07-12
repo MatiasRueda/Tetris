@@ -23,20 +23,20 @@ export default function ScreenContext(props: { children: ReactNode }) {
   const [transition, setTransition] = useState(false);
   const [current, setCurrent] = useState(Screen.Home);
 
-  const changeToGame = async () => {
+  const waitTransition = async (screen: Screen) => {
     setTransition(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setCurrent(Screen.Game);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setCurrent(screen);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setTransition(false);
   };
 
+  const changeToGame = async () => {
+    waitTransition(Screen.Game);
+  };
+
   const changeToHome = async () => {
-    setTransition(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setCurrent(Screen.Home);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setTransition(false);
+    waitTransition(Screen.Home);
   };
   return (
     <screen.Provider
