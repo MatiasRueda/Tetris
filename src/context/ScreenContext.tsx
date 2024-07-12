@@ -6,9 +6,10 @@ enum Screen {
 }
 
 type ScreenCtrl = {
+  transition: boolean;
   current: Screen;
-  changeToGame: () => void;
-  changeToHome: () => void;
+  changeToGame: () => Promise<void>;
+  changeToHome: () => Promise<void>;
   screens: typeof Screen;
 };
 
@@ -19,17 +20,33 @@ export function useScreenContext() {
 }
 
 export default function ScreenContext(props: { children: ReactNode }) {
+  const [transition, setTransition] = useState(false);
   const [current, setCurrent] = useState(Screen.Home);
-  const changeToGame = () => {
+
+  const changeToGame = async () => {
+    setTransition(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     setCurrent(Screen.Game);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setTransition(false);
   };
 
-  const changeToHome = () => {
+  const changeToHome = async () => {
+    setTransition(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     setCurrent(Screen.Home);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setTransition(false);
   };
   return (
     <screen.Provider
-      value={{ current, changeToGame, changeToHome, screens: Screen }}
+      value={{
+        transition,
+        current,
+        changeToGame,
+        changeToHome,
+        screens: Screen,
+      }}
     >
       {props.children}
     </screen.Provider>

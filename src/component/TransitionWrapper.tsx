@@ -1,27 +1,43 @@
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import "../assets/style/transition.css"; // Asegúrate de crear un archivo CSS para los estilos
 
-export default function TransitionWrapper(props: { children: ReactNode }) {
-  const transitionVariants = {
-    initial: { opacity: 0, x: "-100vw" },
-    in: { opacity: 1, x: 0 },
-    out: { opacity: 0, x: "100vw" },
+const squares = Array.from({ length: 20 }, (_, i) => i);
+export default function TransitionWrapper(props: { show: boolean }) {
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        staggerChildren: 0.05,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        delay: 0.5,
+        staggerChildren: 0.05,
+      },
+    },
   };
 
-  const transitionSettings = {
-    type: "spring",
-    stiffness: 50,
+  const squareVariants = {
+    hidden: { scale: 0 },
+    visible: { scale: 1 },
+    exit: { scale: 0 },
   };
 
   return (
-    <motion.main
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={transitionVariants}
-      transition={transitionSettings}
+    <motion.div
+      className="transition-wrapper"
+      variants={variants}
+      initial="hidden"
+      style={{ zIndex: props.show ? 2 : 0 }}
+      animate={props.show ? "visible" : "exit"}
     >
-      {props.children}
-    </motion.main>
+      {squares.map((square) => (
+        <motion.div key={square} className="square" variants={squareVariants} />
+      ))}
+    </motion.div>
   );
 }

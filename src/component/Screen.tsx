@@ -8,11 +8,10 @@ export default function Screen() {
   const screen = useScreenContext();
 
   return (
-    <AnimatePresence mode="wait">
-      <TransitionWrapper key={screen.current}>
-        {screen.current === screen.screens.Home && <Home />}
-        {screen.current === screen.screens.Game && <Game />}
-      </TransitionWrapper>
+    <AnimatePresence>
+      {screen.current === screen.screens.Home && <Home key={screen.current} />}
+      {screen.current === screen.screens.Game && <Game key={screen.current} />}
+      <TransitionWrapper show={screen.transition} />
     </AnimatePresence>
   );
 }
