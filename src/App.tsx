@@ -1,5 +1,6 @@
 import Game from "./screens/Game";
+import Home from "./screens/Home";
 
 export default function App() {
-  return <Game />;
+  return <Home />;
 }

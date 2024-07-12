@@ -8,7 +8,7 @@ export default function Game() {
   const tetris = useTetris();
 
   return (
-    <main className="screen-game">
+    <main className="game">
       <Information {...tetris} />
       <Board board={tetris.board} />
       <NextPieces piece={tetris.nextPiece} pieces={tetris.nextPieces} />
