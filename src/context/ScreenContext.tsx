@@ -6,6 +6,7 @@ enum Screen {
 }
 
 type ScreenCtrl = {
+  show: boolean;
   transition: boolean;
   current: Screen;
   changeToGame: () => Promise<void>;
@@ -20,15 +21,18 @@ export function useScreenContext() {
 }
 
 export default function ScreenContext(props: { children: ReactNode }) {
+  const [show, setShow] = useState(false);
   const [transition, setTransition] = useState(false);
   const [current, setCurrent] = useState(Screen.Home);
 
   const waitTransition = async (screen: Screen) => {
+    setShow(true);
     setTransition(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setCurrent(screen);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     setTransition(false);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setShow(false);
   };
 
   const changeToGame = async () => {
@@ -41,6 +45,7 @@ export default function ScreenContext(props: { children: ReactNode }) {
   return (
     <screen.Provider
       value={{
+        show,
         transition,
         current,
         changeToGame,

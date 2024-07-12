@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import "../assets/style/transition.css"; // Asegúrate de crear un archivo CSS para los estilos
+import "../assets/style/transition.css";
 
 const squares = Array.from({ length: 100 }, (_, i) => i);
-export default function TransitionWrapper(props: { show: boolean }) {
+export default function Transition(props: { exit: boolean; show: boolean }) {
   const variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -15,8 +15,9 @@ export default function TransitionWrapper(props: { show: boolean }) {
     exit: {
       opacity: 0,
       transition: {
-        delay: 0.01,
+        duration: 3000,
         staggerChildren: 0.01,
+        staggerDirection: -1,
       },
     },
   };
@@ -24,7 +25,7 @@ export default function TransitionWrapper(props: { show: boolean }) {
   const squareVariants = {
     hidden: { scale: 0 },
     visible: { scale: 1 },
-    exit: { scale: 0 },
+    exit: { scale: 0, transition: { duration: 0.2 } },
   };
 
   return (
@@ -32,8 +33,8 @@ export default function TransitionWrapper(props: { show: boolean }) {
       className="transition-wrapper"
       variants={variants}
       initial="hidden"
+      animate={props.exit ? "visible" : "exit"}
       style={{ zIndex: props.show ? 2 : 0 }}
-      animate={props.show ? "visible" : "exit"}
     >
       {squares.map((square) => (
         <motion.div key={square} className="square" variants={squareVariants} />

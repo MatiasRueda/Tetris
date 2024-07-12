@@ -1,5 +1,5 @@
 .board {
-  height: 50rem; /* 17.5rem */
+  height: 50rem;
   width: 25rem;
   background-color: rgb(207, 178, 139);
   display: flex;
