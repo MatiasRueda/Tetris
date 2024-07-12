@@ -1,4 +1,4 @@
-import { Shape } from "./type";
+import { Shape } from "./utils/type/type";
 
 export default class Piece {
   private readonly ROWS: number;

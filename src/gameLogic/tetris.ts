@@ -2,7 +2,7 @@ import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
 export default class Tetris {
-  private static readonly HEIGHT = 22; // 7
+  private static readonly HEIGHT = 22;
   private static readonly WIDTH = 10;
   private static readonly SCORE_INCREMENT = 10;
   private board: (string | undefined)[][];
@@ -220,27 +220,14 @@ export default class Tetris {
     this.addTetromino();
   }
 
-  get getBoard() {
-    return this.board;
-  }
-
-  get getNextPiece() {
-    return this.nextPiece;
-  }
-
-  get getLevel() {
-    return this.level;
-  }
-
-  get getLines() {
-    return this.lines;
-  }
-
-  get getScore() {
-    return this.score;
-  }
-
-  get getNextPieces() {
-    return this.nextPieces;
+  get getInformation() {
+    return {
+      board: this.board,
+      nextPieces: this.nextPieces,
+      nextPiece: this.nextPiece,
+      level: this.level,
+      lines: this.lines,
+      score: this.score,
+    };
   }
 }

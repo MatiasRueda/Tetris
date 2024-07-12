@@ -9,9 +9,12 @@ export default function Game() {
 
   return (
     <section className="game">
-      <Information {...tetris} />
-      <Board board={tetris.board} />
-      <NextPieces piece={tetris.nextPiece} pieces={tetris.nextPieces} />
+      <Information {...tetris.info} />
+      <Board board={tetris.info.board} />
+      <NextPieces
+        piece={tetris.info.nextPiece}
+        pieces={tetris.info.nextPieces}
+      />
     </section>
   );
 }

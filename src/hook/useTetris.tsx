@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import Tetris from "../gameLogic/tetris";
+import { TetrisInfo } from "../gameLogic/utils/type/type";
 
 const tetris = new Tetris();
 
 export function useTetris() {
-  const [board, setBoard] = useState(tetris.getBoard);
-  const [nextPiece, setNextPiece] = useState(tetris.getNextPiece);
-  const [nextPieces, setNextPieces] = useState(tetris.getNextPieces);
-  const [level, setLevel] = useState(tetris.getLevel);
-  const [lines, setLines] = useState(tetris.getLines);
-  const [score, setScore] = useState(tetris.getScore);
+  const [info, setInfo] = useState<TetrisInfo>(tetris.getInformation);
   const keys = ["s", "w", "a", "d"];
 
   const detectKeyDown = (e: KeyboardEvent) => {
@@ -24,12 +20,7 @@ export function useTetris() {
     } else if (e.key === "d") {
       tetris.moveRight();
     }
-    setBoard([...tetris.getBoard]);
-    setNextPiece(tetris.getNextPiece);
-    setLevel(tetris.getLevel);
-    setScore(tetris.getScore);
-    setLines(tetris.getLines);
-    setNextPieces(tetris.getNextPieces);
+    setInfo(tetris.getInformation);
   };
 
   useEffect(() => {
@@ -40,14 +31,9 @@ export function useTetris() {
   useEffect(() => {
     setInterval(() => {
       tetris.moveDown();
-      setBoard([...tetris.getBoard]);
-      setNextPiece(tetris.getNextPiece);
-      setLevel(tetris.getLevel);
-      setScore(tetris.getScore);
-      setLines(tetris.getLines);
-      setNextPieces(tetris.getNextPieces);
+      setInfo(tetris.getInformation);
     }, 1000);
   }, []);
 
-  return { board, nextPiece, nextPieces, level, score, lines };
+  return { info };
 }
