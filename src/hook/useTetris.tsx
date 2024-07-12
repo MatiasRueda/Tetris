@@ -37,5 +37,17 @@ export function useTetris() {
     document.addEventListener("keydown", detectKeyDown, true);
   }, []);
 
+  useEffect(() => {
+    setInterval(() => {
+      tetris.moveDown();
+      setBoard([...tetris.getBoard]);
+      setNextPiece(tetris.getNextPiece);
+      setLevel(tetris.getLevel);
+      setScore(tetris.getScore);
+      setLines(tetris.getLines);
+      setNextPieces(tetris.getNextPieces);
+    }, 1000);
+  }, []);
+
   return { board, nextPiece, nextPieces, level, score, lines };
 }
