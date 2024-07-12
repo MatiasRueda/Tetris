@@ -1,6 +1,9 @@
-import Game from "./screens/Game";
-import Home from "./screens/Home";
-
+import Screen from "./component/Screen";
+import ScreenContext from "./context/ScreenContext";
 export default function App() {
-  return <Home />;
+  return (
+    <ScreenContext>
+      <Screen />
+    </ScreenContext>
+  );
 }

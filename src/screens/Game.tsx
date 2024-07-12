@@ -8,10 +8,10 @@ export default function Game() {
   const tetris = useTetris();
 
   return (
-    <main className="game">
+    <section className="game">
       <Information {...tetris} />
       <Board board={tetris.board} />
       <NextPieces piece={tetris.nextPiece} pieces={tetris.nextPieces} />
-    </main>
+    </section>
   );
 }

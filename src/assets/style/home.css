@@ -25,13 +25,4 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.start-btn:hover {
-  transform: scale(1.1);
-}
-
-.start-btn:active {
-  transform: scale(0.9);
 }
