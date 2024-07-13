@@ -31,3 +31,20 @@
   display: flex;
   justify-content: space-around;
 }
+
+.cont-lose-score {
+  height: 12rem;
+  width: 100%;
+  padding-left: 22rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cont-lose-score p {
+  width: 100%;
+}
+.cont-lose-total {
+  width: 100%;
+  display: flex;
+}

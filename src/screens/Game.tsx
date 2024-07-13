@@ -22,7 +22,9 @@ export default function Game() {
       {!tetris.info.start && !tetris.info.lose && (
         <Controllers startGame={tetris.startGame} />
       )}
-      {tetris.info.lose && <Lose />}
+      {tetris.info.lose && (
+        <Lose difficulty={config.difficulty} {...tetris.info} />
+      )}
     </section>
   );
 }
