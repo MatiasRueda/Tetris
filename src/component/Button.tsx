@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function HomeButton(props: {
+export default function Button(props: {
   click: () => void;
   class: string;
   value: string;

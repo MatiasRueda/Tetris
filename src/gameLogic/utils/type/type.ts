@@ -15,4 +15,6 @@ export type TetrisInfo = {
   level: number;
   lines: number;
   score: number;
+  start: boolean;
+  lose: boolean;
 };

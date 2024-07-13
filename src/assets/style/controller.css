@@ -1,0 +1,47 @@
+.controller {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-controller {
+  height: 40rem;
+  width: 60rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-texts {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.cont-text {
+  height: 15rem;
+  width: 40%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cont-text p {
+  margin-top: 2rem;
+}
+
+.start-btn {
+  height: 7rem;
+  width: 15rem;
+  cursor: pointer;
+  background-color: #ffcc00;
+  font-size: 1.5em;
+}

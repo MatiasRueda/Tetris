@@ -34,7 +34,7 @@ export default function Transition(props: { show: boolean; exit: boolean }) {
       variants={variants}
       initial="hidden"
       animate={props.exit ? "visible" : "exit"}
-      style={{ zIndex: props.show ? 2 : 0 }}
+      style={{ zIndex: props.show ? 5 : 0 }}
     >
       {squares.map((square) => (
         <motion.div key={square} className="square" variants={squareVariants} />

@@ -1,6 +1,6 @@
 import { useScreenContext } from "../context/ScreenContext";
 import "../assets/style/home.css";
-import HomeButton from "../component/HomeButton";
+import Button from "../component/Button";
 
 export default function Home() {
   const screen = useScreenContext();
@@ -9,17 +9,13 @@ export default function Home() {
     <section className="home">
       <h1>Tetris</h1>
       <section className="home-btns">
-        <HomeButton
+        <Button
           class="home-btn"
           value="Start game"
           click={screen.changeToGame}
         />
-        <HomeButton
-          class="home-btn"
-          value="Config"
-          click={screen.changeToConfig}
-        />
-        <HomeButton
+        <Button class="home-btn" value="Config" click={screen.changeToConfig} />
+        <Button
           class="home-btn"
           value="Credits"
           click={screen.changeToCredits}

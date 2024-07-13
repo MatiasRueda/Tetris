@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "../assets/style/config.css";
 import Dificults from "../component/Dificults";
-import HomeButton from "../component/HomeButton";
+import HomeButton from "../component/Button";
 import { Difficulty, useConfigContext } from "../context/ConfigContext";
 import { useScreenContext } from "../context/ScreenContext";
+import "../assets/style/config.css";
 
 export default function Config() {
   const screen = useScreenContext();

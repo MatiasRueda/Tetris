@@ -212,9 +212,6 @@ export default class Tetris {
     });
   }
 
-  public isOver() {
-    return this.lose;
-  }
   private spawnTetromino() {
     this.currentPiece = this.factory.randomPiece();
     this.addTetromino();
@@ -228,6 +225,8 @@ export default class Tetris {
       level: this.level,
       lines: this.lines,
       score: this.score,
+      start: this.start,
+      lose: this.lose,
     };
   }
 }
