@@ -5,9 +5,11 @@ import NextPieces from "../component/NextPieces";
 import Controllers from "../component/Controllers";
 import Lose from "../component/Lose";
 import "../assets/style/game.css";
+import { useConfigContext } from "../context/ConfigContext";
 
 export default function Game() {
-  const tetris = useTetris();
+  const config = useConfigContext();
+  const tetris = useTetris(config.difficulty);
 
   return (
     <section className="game">

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Tetris from "../gameLogic/tetris";
 import { TetrisInfo } from "../gameLogic/utils/type/type";
+import { Difficulty } from "../context/ConfigContext";
 
 const tetris = new Tetris();
 
-export function useTetris() {
+export function useTetris(difficulty: Difficulty) {
   const [info, setInfo] = useState<TetrisInfo>(tetris.getInformation);
   const keys = ["s", "w", "a", "d"];
 
@@ -38,7 +39,7 @@ export function useTetris() {
     setInterval(() => {
       tetris.moveDown();
       setInfo(tetris.getInformation);
-    }, 1000);
+    }, difficulty);
   }, [tetris.getInformation.start]);
 
   return { info, startGame };

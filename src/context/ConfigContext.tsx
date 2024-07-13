@@ -1,9 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 export enum Difficulty {
-  Easy,
-  Medium,
-  Hard,
+  Easy = 1000,
+  Medium = 600,
+  Hard = 100,
 }
 
 type Config = {

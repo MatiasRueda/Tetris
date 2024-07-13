@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Dificults from "../component/Dificults";
-import HomeButton from "../component/Button";
+import Button from "../component/Button";
 import { Difficulty, useConfigContext } from "../context/ConfigContext";
 import { useScreenContext } from "../context/ScreenContext";
 import "../assets/style/config.css";
@@ -35,9 +35,14 @@ export default function Config() {
           />
         </div>
         <div className="cont-config-btns">
-          <HomeButton class="config-btn" value="Accept" click={accept} />
-          <HomeButton
-            class="config-btn"
+          <Button
+            class="config-btn common-btn"
+            value="Accept"
+            click={accept}
+            disabled={config.difficulty === difficulty}
+          />
+          <Button
+            class="config-btn common-btn"
             value="Go home"
             click={screen.changeToHome}
           />
