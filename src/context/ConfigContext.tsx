@@ -1,15 +1,14 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-enum Dificult {
-  Easy = 1500,
-  Medium = 1000,
-  Hard = 500,
+export enum Difficulty {
+  Easy,
+  Medium,
+  Hard,
 }
 
 type Config = {
-  dificult: Dificult;
-  changeDificult: (dificult: Dificult) => void;
-  dificults: typeof Dificult;
+  difficulty: Difficulty;
+  changeDifficulty: (difficulty: Difficulty) => void;
 };
 
 const config = createContext<Config | undefined>(undefined);
@@ -19,14 +18,14 @@ export function useConfigContext() {
 }
 
 export default function ConfigContext(props: { children: ReactNode }) {
-  const [dificult, setDificult] = useState(Dificult.Medium);
+  const [difficulty, setDifficulty] = useState(Difficulty.Medium);
 
-  const changeDificult = (dificult: Dificult) => {
-    setDificult(dificult);
+  const changeDifficulty = (difficulty: Difficulty) => {
+    setDifficulty(difficulty);
   };
 
   return (
-    <config.Provider value={{ dificult, changeDificult, dificults: Dificult }}>
+    <config.Provider value={{ difficulty, changeDifficulty }}>
       {props.children}
     </config.Provider>
   );

@@ -10,3 +10,77 @@
   flex-direction: column;
   z-index: 1;
 }
+
+select {
+  background-color: #f2c14e;
+  color: #24292e;
+  padding: 1.2rem;
+  font-size: 0.8em;
+  border: 0.1rem solid #24292e;
+  border-radius: 0.1rem;
+  box-shadow: 0 0 0.9rem rgba(0, 0, 0, 0.2);
+  appearance: none;
+  cursor: pointer;
+}
+
+select:hover {
+  background-color: #f1c232;
+}
+
+option {
+  background-color: #fff3b0;
+  color: #24292e;
+  font-size: 1em;
+}
+
+.cont-config {
+  border: 0.2rem solid black;
+  height: 35rem;
+  width: 50rem;
+  background-color: rgb(226, 233, 161);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cont-config h2 {
+  height: 8rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-dificult {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-dificult p {
+  margin-right: 10rem;
+}
+
+.cont-config-btns {
+  height: 6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.config-btn {
+  height: 4rem;
+  width: 10rem;
+  font-size: 1em;
+  border: 0.2rem solid black;
+  cursor: pointer;
+  background-color: #ffcc00;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

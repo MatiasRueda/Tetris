@@ -35,7 +35,7 @@ export default function ScreenContext(props: { children: ReactNode }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setCurrent(screen);
     setTransition(false);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setShow(false);
   };
 
