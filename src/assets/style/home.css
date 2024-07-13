@@ -12,18 +12,32 @@
 }
 
 .home h1 {
+  height: 10rem;
+  display: flex;
+  align-items: center;
   font-size: 3em;
   margin-bottom: 20px;
   color: #fff;
   text-shadow: 2px 2px #ff0000;
 }
 
-.start-btn {
+.home-btns {
+  height: 25rem;
+  width: 20rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}
+
+.home-btn {
   background-color: #ffcc00;
   color: #000;
   font-size: 1.5em;
   padding: 15px 30px;
   border: none;
+  height: 6rem;
+  width: 20rem;
   border-radius: 5px;
   cursor: pointer;
 }

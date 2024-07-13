@@ -3,6 +3,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 enum Screen {
   Home,
   Game,
+  Config,
+  Credits,
 }
 
 type ScreenCtrl = {
@@ -11,6 +13,8 @@ type ScreenCtrl = {
   current: Screen;
   changeToGame: () => Promise<void>;
   changeToHome: () => Promise<void>;
+  changeToCredits: () => Promise<void>;
+  changeToConfig: () => Promise<void>;
   screens: typeof Screen;
 };
 
@@ -42,6 +46,13 @@ export default function ScreenContext(props: { children: ReactNode }) {
   const changeToHome = async () => {
     waitTransition(Screen.Home);
   };
+  const changeToCredits = async () => {
+    waitTransition(Screen.Credits);
+  };
+  const changeToConfig = async () => {
+    waitTransition(Screen.Config);
+  };
+
   return (
     <screen.Provider
       value={{
@@ -50,6 +61,8 @@ export default function ScreenContext(props: { children: ReactNode }) {
         current,
         changeToGame,
         changeToHome,
+        changeToConfig,
+        changeToCredits,
         screens: Screen,
       }}
     >

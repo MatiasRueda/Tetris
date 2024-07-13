@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import { useScreenContext } from "../context/ScreenContext";
 import "../assets/style/home.css";
+import HomeButton from "../component/HomeButton";
 
 export default function Home() {
   const screen = useScreenContext();
@@ -8,15 +8,23 @@ export default function Home() {
   return (
     <section className="home">
       <h1>Tetris</h1>
-      <motion.button
-        className="start-btn"
-        onClick={screen.changeToGame}
-        transition={{ duration: 0.2 }}
-        whileTap={{ scale: 0.9 }}
-        whileHover={{ scale: 1.1 }}
-      >
-        Start Game
-      </motion.button>
+      <section className="home-btns">
+        <HomeButton
+          class="home-btn"
+          value="Start game"
+          click={screen.changeToGame}
+        />
+        <HomeButton
+          class="home-btn"
+          value="Config"
+          click={screen.changeToConfig}
+        />
+        <HomeButton
+          class="home-btn"
+          value="Credits"
+          click={screen.changeToCredits}
+        />
+      </section>
     </section>
   );
 }

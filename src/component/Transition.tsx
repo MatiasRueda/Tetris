@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import "../assets/style/transition.css";
 
 const squares = Array.from({ length: 100 }, (_, i) => i);
-export default function Transition(props: { exit: boolean; show: boolean }) {
+export default function Transition(props: { show: boolean; exit: boolean }) {
   const variants = {
     hidden: { opacity: 0 },
     visible: {
