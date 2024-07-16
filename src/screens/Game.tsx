@@ -1,11 +1,12 @@
 import Board from "../component/Board";
-import { useTetris } from "../hook/useTetris";
+import useTetris from "../hook/useTetris";
 import Information from "../component/Information";
 import NextPieces from "../component/NextPieces";
 import Controllers from "../component/Controllers";
 import Lose from "../component/Lose";
-import "../assets/style/game.css";
 import { useConfigContext } from "../context/ConfigContext";
+import Pause from "../component/Pause";
+import "../assets/style/game.css";
 
 export default function Game() {
   const config = useConfigContext();
@@ -19,6 +20,10 @@ export default function Game() {
         piece={tetris.info.nextPiece}
         pieces={tetris.info.nextPieces}
       />
+
+      {tetris.pause && tetris.info.start && !tetris.info.lose && (
+        <Pause resume={tetris.resume} />
+      )}
       {!tetris.info.start && !tetris.info.lose && (
         <Controllers startGame={tetris.startGame} />
       )}

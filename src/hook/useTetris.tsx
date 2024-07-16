@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import Tetris from "../gameLogic/tetris";
 import { TetrisInfo } from "../gameLogic/utils/type/type";
 import { Difficulty } from "../context/ConfigContext";
+import usePause from "./usePause";
 
 const tetris = new Tetris();
 
-export function useTetris(difficulty: Difficulty) {
+function useTetris(difficulty: Difficulty) {
   const [info, setInfo] = useState<TetrisInfo>(tetris.getInformation);
+  const [_stop, setStop] = useState<NodeJS.Timeout>();
+  const pause = usePause();
   const keys = ["s", "w", "a", "d"];
 
   const startGame = () => {
@@ -30,17 +33,31 @@ export function useTetris(difficulty: Difficulty) {
   };
 
   useEffect(() => {
+    if (pause.value) {
+      document.removeEventListener("keydown", detectKeyDown);
+      return;
+    }
     if (!tetris.getInformation.start) return;
     document.addEventListener("keydown", detectKeyDown, true);
-  }, [tetris.getInformation.start]);
+  }, [tetris.getInformation.start, pause.value]);
 
   useEffect(() => {
+    if (pause.value) {
+      setStop((v) => {
+        if (!v) return undefined;
+        clearInterval(v);
+      });
+      return;
+    }
     if (!tetris.getInformation.start) return;
-    setInterval(() => {
+    const interval = setInterval(() => {
       tetris.moveDown();
       setInfo(tetris.getInformation);
     }, difficulty);
-  }, [tetris.getInformation.start]);
+    setStop(interval);
+  }, [tetris.getInformation.start, pause.value]);
 
-  return { info, startGame };
+  return { info, startGame, pause: pause.value, resume: pause.resume };
 }
+
+export default useTetris;

@@ -1,7 +1,7 @@
 import Button from "./Button";
-import "../assets/style/controller.css";
 import TextController from "./TextController";
 import TextRules from "./TextRules";
+import "../assets/style/controller.css";
 
 export default function Controllers(props: { startGame: () => void }) {
   return (
