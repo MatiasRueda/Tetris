@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Tetris from "../gameLogic/tetris";
 import { TetrisInfo } from "../gameLogic/utils/type/type";
 import { Difficulty } from "../context/ConfigContext";
