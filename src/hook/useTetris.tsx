@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Tetris from "../gameLogic/tetris";
 import { TetrisInfo } from "../gameLogic/utils/type/type";
 import { Difficulty } from "../context/ConfigContext";
@@ -8,7 +8,7 @@ const tetris = new Tetris();
 
 function useTetris(difficulty: Difficulty) {
   const [info, setInfo] = useState<TetrisInfo>(tetris.getInformation);
-  const [_stop, setStop] = useState<NodeJS.Timeout>();
+  const [stop, setStop] = useState<NodeJS.Timeout>();
   const pause = usePause(info.start);
   const keys = ["s", "w", "a", "d"];
 
@@ -32,29 +32,30 @@ function useTetris(difficulty: Difficulty) {
     setInfo(tetris.getInformation);
   };
 
-  useEffect(() => {
-    if (pause.value) {
-      document.removeEventListener("keydown", detectKeyDown);
-      return;
-    }
-    if (!tetris.getInformation.start) return;
-    document.addEventListener("keydown", detectKeyDown, true);
-  }, [tetris.getInformation.start, pause.value]);
-
-  useEffect(() => {
-    if (pause.value) {
-      setStop((v) => {
-        if (!v) return undefined;
-        clearInterval(v);
-      });
-      return;
-    }
-    if (!tetris.getInformation.start) return;
-    const interval = setInterval(() => {
+  const configInterval = () => {
+    return setInterval(() => {
       tetris.moveDown();
       setInfo(tetris.getInformation);
     }, difficulty);
-    setStop(interval);
+  };
+
+  useEffect(() => {
+    if (!tetris.getInformation.start || pause.value) return;
+    console.log("Holaa");
+    document.addEventListener("keydown", detectKeyDown, true);
+    return () => {
+      document.removeEventListener("keydown", detectKeyDown, true);
+      console.log("sali");
+    };
+  }, [tetris.getInformation.start, pause.value]);
+
+  useEffect(() => {
+    if (!tetris.getInformation.start) return;
+    if (pause.value && stop) {
+      clearInterval(stop);
+      return;
+    }
+    setStop(configInterval());
   }, [tetris.getInformation.start, pause.value]);
 
   return { info, startGame, pause: pause.value, resume: pause.resume };

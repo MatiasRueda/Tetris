@@ -13,9 +13,9 @@ export default function usePause(start: boolean) {
 
   useEffect(() => {
     if (!start) return;
-    document.addEventListener("visibilitychange", showPause);
+    document.addEventListener("visibilitychange", showPause, true);
     return () => {
-      document.removeEventListener("visibilitychange", showPause);
+      document.removeEventListener("visibilitychange", showPause, true);
     };
   }, [start]);
 

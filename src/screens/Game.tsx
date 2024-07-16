@@ -7,34 +7,33 @@ import Lose from "../component/Lose";
 import { useConfigContext } from "../context/ConfigContext";
 import Pause from "../component/Pause";
 import "../assets/style/game.css";
+import { AnimatePresence } from "framer-motion";
 
 export default function Game() {
   const config = useConfigContext();
   const tetris = useTetris(config.difficulty);
 
-  console.log("Start es: ", tetris.info.start);
-  console.log("Lose es: ", tetris.info.lose);
-  console.log("Pause es: ", tetris.pause);
-  console.log("\n");
-
   return (
     <section className="game">
-      <Information {...tetris.info} />
-      <Board board={tetris.info.board} />
-      <NextPieces
-        piece={tetris.info.nextPiece}
-        pieces={tetris.info.nextPieces}
-      />
+      <AnimatePresence>
+        <Information key={0} {...tetris.info} />
+        <Board key={1} board={tetris.info.board} />
+        <NextPieces
+          key={2}
+          piece={tetris.info.nextPiece}
+          pieces={tetris.info.nextPieces}
+        />
 
-      {!(!tetris.info.start && !tetris.info.lose) && tetris.pause && (
-        <Pause resume={tetris.resume} />
-      )}
-      {!tetris.info.start && !tetris.info.lose && (
-        <Controllers startGame={tetris.startGame} />
-      )}
-      {tetris.info.lose && (
-        <Lose difficulty={config.difficulty} {...tetris.info} />
-      )}
+        {!(!tetris.info.start && !tetris.info.lose) && tetris.pause && (
+          <Pause key={3} resume={tetris.resume} />
+        )}
+        {!tetris.info.start && !tetris.info.lose && (
+          <Controllers key={4} startGame={tetris.startGame} />
+        )}
+        {tetris.info.lose && (
+          <Lose key={5} difficulty={config.difficulty} {...tetris.info} />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
