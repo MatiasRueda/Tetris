@@ -9,7 +9,7 @@ const tetris = new Tetris();
 function useTetris(difficulty: Difficulty) {
   const [info, setInfo] = useState<TetrisInfo>(tetris.getInformation);
   const [_stop, setStop] = useState<NodeJS.Timeout>();
-  const pause = usePause();
+  const pause = usePause(info.start);
   const keys = ["s", "w", "a", "d"];
 
   const startGame = () => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function usePause() {
+export default function usePause(start: boolean) {
   const [value, setValue] = useState(document.hidden);
 
   const showPause = () => {
@@ -12,11 +12,12 @@ export default function usePause() {
   };
 
   useEffect(() => {
+    if (!start) return;
     document.addEventListener("visibilitychange", showPause);
     return () => {
       document.removeEventListener("visibilitychange", showPause);
     };
-  }, []);
+  }, [start]);
 
   return { value, resume };
 }

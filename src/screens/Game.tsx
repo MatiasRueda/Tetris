@@ -12,6 +12,11 @@ export default function Game() {
   const config = useConfigContext();
   const tetris = useTetris(config.difficulty);
 
+  console.log("Start es: ", tetris.info.start);
+  console.log("Lose es: ", tetris.info.lose);
+  console.log("Pause es: ", tetris.pause);
+  console.log("\n");
+
   return (
     <section className="game">
       <Information {...tetris.info} />
@@ -21,7 +26,7 @@ export default function Game() {
         pieces={tetris.info.nextPieces}
       />
 
-      {tetris.pause && tetris.info.start && !tetris.info.lose && (
+      {!(!tetris.info.start && !tetris.info.lose) && tetris.pause && (
         <Pause resume={tetris.resume} />
       )}
       {!tetris.info.start && !tetris.info.lose && (
