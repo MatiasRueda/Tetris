@@ -21,7 +21,7 @@ export default function NextPiece(props: { piece: Piece }) {
               ) : (
                 <div
                   key={index}
-                  className="cont-tetromino"
+                  className="cont-cell"
                   style={{ backgroundColor: props.piece.getColor }}
                 ></div>
               )

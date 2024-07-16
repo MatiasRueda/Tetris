@@ -1,7 +1,7 @@
 .board {
   height: 50rem;
   width: 25rem;
-  background-color: rgb(207, 178, 139);
+  background-color: rgb(42, 41, 41);
   display: flex;
   align-items: center;
   justify-content: center;
