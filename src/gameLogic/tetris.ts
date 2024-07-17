@@ -27,7 +27,6 @@ export default class Tetris {
   public startGame() {
     this.spawnTetromino();
     this.setNewPositionDown();
-    console.log(this.positionDown);
     this.start = true;
     this.lose = false;
   }
@@ -77,29 +76,11 @@ export default class Tetris {
     return pieceTetromino !== pieceNotCollision ? 1 : 0;
   }
 
-  private getBegin() {
-    return (
-      this.currentPiece.getCurrentColumn +
-      this.currentPiece.getShape.columnFirstIndex
-    );
-  }
-
-  private getEnd() {
-    const end =
-      this.currentPiece.getCurrentColumn +
-      this.currentPiece.getShape.columnLastIndex +
-      1;
-    const colLast = Tetris.WIDTH - 1;
-    return end >= colLast ? colLast : end;
-  }
-
   private setNewPositionDown() {
     const shape = this.currentPiece.getShape.shape;
     const rowLastIndex = this.currentPiece.getShape.rowLastIndex;
     let lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
     if (lastRow >= Tetris.HEIGHT) return;
-    const begin = this.getBegin();
-    const end = this.getEnd();
     for (const [rowIndex, rowBoard] of this.board.entries()) {
       if (lastRow >= rowIndex) continue;
       const positions: [number, number][] = [];
@@ -109,7 +90,7 @@ export default class Tetris {
         if (newRow >= Tetris.HEIGHT) return;
         for (const [colIndexShape, colShape] of rowShape.entries()) {
           if (!colShape) continue;
-          const newCol = colIndexShape + begin;
+          const newCol = colIndexShape + this.currentPiece.getCurrentColumn;
           if (this.board[newRow][newCol]) return;
           positions.push([newRow, newCol]);
         }
@@ -123,6 +104,7 @@ export default class Tetris {
     this.removeCurrentPiece();
     this.currentPiece.spin(this.board);
     this.addTetromino();
+    this.setNewPositionDown();
   }
 
   public end() {
@@ -211,6 +193,7 @@ export default class Tetris {
     this.removeCurrentPiece();
     this.currentPiece.setCurrentColumn = -1;
     this.addTetromino();
+    this.setNewPositionDown();
     return true;
   }
 
@@ -236,6 +219,7 @@ export default class Tetris {
     this.removeCurrentPiece();
     this.currentPiece.setCurrentColumn = 1;
     this.addTetromino();
+    this.setNewPositionDown();
     return true;
   }
 
