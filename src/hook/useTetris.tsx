@@ -41,11 +41,9 @@ function useTetris(difficulty: Difficulty) {
 
   useEffect(() => {
     if (!tetris.getInformation.start || pause.value) return;
-    console.log("Holaa");
     document.addEventListener("keydown", detectKeyDown, true);
     return () => {
       document.removeEventListener("keydown", detectKeyDown, true);
-      console.log("sali");
     };
   }, [tetris.getInformation.start, pause.value]);
 

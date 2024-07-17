@@ -17,7 +17,11 @@ export default function Game() {
     <section className="game">
       <AnimatePresence>
         <Information key={0} {...tetris.info} />
-        <Board key={1} board={tetris.info.board} />
+        <Board
+          key={1}
+          last={tetris.info.positionDown}
+          board={tetris.info.board}
+        />
         <NextPieces
           key={2}
           piece={tetris.info.nextPiece}

@@ -3,14 +3,23 @@ import Cell from "./Cell";
 import "../assets/style/tetromino.css";
 import "../assets/style/board.css";
 
-export default function Board(props: { board: (string | undefined)[][] }) {
+export default function Board(props: {
+  last: [number, number][];
+  board: (string | undefined)[][];
+}) {
   return (
     <section className="board">
       {props.board.map((row, rowIndex) => {
         if (!rowIndex || rowIndex === 1) return;
         return row.map((column, columnIndex) => (
           <AnimatePresence key={`${rowIndex}-${columnIndex}`}>
-            <Cell color={column} />
+            {props.last.some(
+              ([row, col]) => row === rowIndex && col === columnIndex
+            ) ? (
+              <div className="cont-cell" style={{ borderColor: "white" }} />
+            ) : (
+              <Cell color={column} />
+            )}
           </AnimatePresence>
         ));
       })}

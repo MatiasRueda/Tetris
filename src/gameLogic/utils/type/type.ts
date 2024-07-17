@@ -17,4 +17,5 @@ export type TetrisInfo = {
   score: number;
   start: boolean;
   lose: boolean;
+  positionDown: [number, number][];
 };
