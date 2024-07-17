@@ -149,6 +149,7 @@ export default class Tetris {
     this.nextPiece = this.nextPieces.shift()!;
     this.nextPieces.push(this.factory.randomPiece());
     this.addTetromino();
+    this.setNewPositionDown();
     return;
   }
 

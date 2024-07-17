@@ -16,7 +16,11 @@ export default function Board(props: {
             {props.last.some(
               ([row, col]) => row === rowIndex && col === columnIndex
             ) ? (
-              <div className="cont-cell" style={{ borderColor: "white" }} />
+              !column ? (
+                <div className="cont-cell" style={{ borderColor: "white" }} />
+              ) : (
+                <Cell color={column} />
+              )
             ) : (
               <Cell color={column} />
             )}
