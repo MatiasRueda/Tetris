@@ -28,7 +28,6 @@ export default class Tetris {
 
   public startGame() {
     this.spawnTetromino();
-    this.setNewPositionDown();
     this.start = true;
     this.lose = false;
   }
@@ -86,7 +85,7 @@ export default class Tetris {
   public rotate() {
     this.removeCurrentPiece();
     this.actPiece.spin(this.board);
-    this.addTetromino();
+    this.putPiece();
     this.setNewPositionDown();
   }
 
@@ -119,32 +118,31 @@ export default class Tetris {
     return true;
   }
 
-  private haveCollision() {
-    this.addTetromino();
+  private endGame() {
+    this.lose = true;
+    this.start = false;
+  }
+
+  private collisions() {
+    this.putPiece();
     this.checksRows();
     const piece = this.nextPiece;
     if (!this.canAddPiece(piece)) {
-      this.lose = true;
-      this.start = false;
+      this.endGame();
       return;
     }
-    this.actPiece = piece;
-    this.nextPiece = this.nextPieces.shift()!;
-    this.nextPieces.push(this.factory.randomPiece());
-    this.addTetromino();
-    this.setNewPositionDown();
-    return;
+    this.spawnTetromino(piece);
   }
 
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
     if (!this.ctrl.moveDown(this.actPiece, this.board)) {
-      this.haveCollision();
+      this.collisions();
       return false;
     }
     this.actPiece.setCurrentRow = 1;
-    this.addTetromino();
+    this.putPiece();
     return true;
   }
 
@@ -158,7 +156,7 @@ export default class Tetris {
     if (!right && !this.ctrl.moveLeft(this.actPiece, this.board)) return false;
     this.removeCurrentPiece();
     this.actPiece.setCurrentColumn = right ? 1 : -1;
-    this.addTetromino();
+    this.putPiece();
     this.setNewPositionDown();
     return true;
   }
@@ -171,14 +169,13 @@ export default class Tetris {
     return this.moveHorizontal(true);
   }
 
-  private addTetromino() {
+  private putPiece() {
     let rowIndex = this.actPiece.getCurrentRow;
     let colIndex = this.actPiece.getCurrentColumn;
-    const shape = this.actPiece.getShape;
     this.actPiece.removeCells();
-    this.actPiece.getShape.shape.forEach((row, ri) => {
-      row.forEach((_col, ci) => {
-        if (shape.shape[ri][ci] && !this.board[rowIndex][colIndex]) {
+    this.actPiece.getShape.shape.forEach((row) => {
+      row.forEach((col) => {
+        if (col && !this.board[rowIndex][colIndex]) {
           this.board[rowIndex][colIndex] = this.actPiece.getColor;
           this.actPiece.addCell(rowIndex, colIndex);
         }
@@ -189,9 +186,12 @@ export default class Tetris {
     });
   }
 
-  private spawnTetromino() {
-    this.actPiece = this.factory.randomPiece();
-    this.addTetromino();
+  private spawnTetromino(piece?: Piece) {
+    this.actPiece = !piece ? this.factory.randomPiece() : piece;
+    this.nextPiece = this.nextPieces.shift()!;
+    this.nextPieces.push(this.factory.randomPiece());
+    this.putPiece();
+    this.setNewPositionDown();
   }
 
   get getInformation() {
