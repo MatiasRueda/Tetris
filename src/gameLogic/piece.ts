@@ -48,27 +48,34 @@ export default class Piece {
     const currentShape = this.shapes[this.rotateIndex];
     const newRotateIndex = this.nextIndex(this.rotateIndex, 4);
     const newShape = this.shapes[newRotateIndex];
-    if (this.collision(board, newShape)) {
-      return undefined;
-    } else if (
-      this.COLUMNS + this.currentColumn > maxCol &&
-      currentShape.columnLastIndex < newShape.columnLastIndex
-    ) {
-      return undefined;
-    } else if (
-      this.currentColumn < 0 &&
-      this.currentColumn + this.COLUMNS >= 0 &&
-      currentShape.columnFirstIndex > newShape.columnFirstIndex
-    ) {
-      return undefined;
-    } else if (
-      this.ROWS + this.currentRow > maxRow &&
-      currentShape.rowLastIndex < newShape.rowLastIndex
+
+    if (
+      this.collision(board, newShape) ||
+      this.colCollision(currentShape, newShape, maxCol) ||
+      this.rowCollision(currentShape, newShape, maxRow)
     ) {
       return undefined;
     }
+
     this.rotateIndex = newRotateIndex;
     return newShape;
+  }
+
+  private colCollision(currentShape: Shape, newShape: Shape, maxCol: number) {
+    return (
+      (this.COLUMNS + this.currentColumn > maxCol &&
+        currentShape.columnLastIndex < newShape.columnLastIndex) ||
+      (this.currentColumn < 0 &&
+        this.currentColumn + this.COLUMNS >= 0 &&
+        currentShape.columnFirstIndex > newShape.columnFirstIndex)
+    );
+  }
+
+  private rowCollision(currentShape: Shape, newShape: Shape, maxRow: number) {
+    return (
+      this.ROWS + this.currentRow > maxRow &&
+      currentShape.rowLastIndex < newShape.rowLastIndex
+    );
   }
 
   public addCell(row: number, column: number) {
