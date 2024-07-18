@@ -124,4 +124,11 @@ export default class Piece {
   get getCurrentColumn() {
     return this.currentColumn;
   }
+
+  get getInformation() {
+    return {
+      rowIndex: this.currentRow,
+      colIndex: this.currentColumn,
+    };
+  }
 }

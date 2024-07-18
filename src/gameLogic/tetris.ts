@@ -170,8 +170,7 @@ export default class Tetris {
   }
 
   private putPiece() {
-    let rowIndex = this.actPiece.getCurrentRow;
-    let colIndex = this.actPiece.getCurrentColumn;
+    let { rowIndex, colIndex } = this.actPiece.getInformation;
     this.actPiece.removeCells();
     this.actPiece.getShape.shape.forEach((row) => {
       row.forEach((col) => {
