@@ -6,7 +6,7 @@ export default class Tetris {
   private static readonly HEIGHT = 22;
   private static readonly WIDTH = 10;
   private static readonly SCORE_INCREMENT = 10;
-  private ctroller = new BoardController(Tetris.HEIGHT, Tetris.WIDTH);
+  private ctrl = new BoardController(Tetris.HEIGHT, Tetris.WIDTH);
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
   private actPiece = this.factory.randomPiece();
@@ -171,24 +171,23 @@ export default class Tetris {
     while (this.moveDown()) {}
   }
 
-  public moveLeft(): boolean {
+  private moveHorizontal(right: boolean) {
     if (!this.start || this.lose) return false;
-    if (!this.ctroller.canMoveLeft(this.actPiece, this.board)) return false;
+    if (right && !this.ctrl.moveRight(this.actPiece, this.board)) return false;
+    if (!right && !this.ctrl.moveLeft(this.actPiece, this.board)) return false;
     this.removeCurrentPiece();
-    this.actPiece.setCurrentColumn = -1;
+    this.actPiece.setCurrentColumn = right ? 1 : -1;
     this.addTetromino();
     this.setNewPositionDown();
     return true;
   }
 
+  public moveLeft(): boolean {
+    return this.moveHorizontal(false);
+  }
+
   public moveRight() {
-    if (!this.start || this.lose) return false;
-    if (!this.ctroller.canMoveRight(this.actPiece, this.board)) return false;
-    this.removeCurrentPiece();
-    this.actPiece.setCurrentColumn = 1;
-    this.addTetromino();
-    this.setNewPositionDown();
-    return true;
+    return this.moveHorizontal(true);
   }
 
   private addTetromino() {

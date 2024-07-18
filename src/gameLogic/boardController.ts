@@ -33,7 +33,7 @@ export default class BoardController {
     return true;
   }
 
-  private canMove(piece: Piece, board: Cell[][], right: boolean) {
+  private move(piece: Piece, board: Cell[][], right: boolean) {
     const pieceInfo = this.getPieceInfo(piece, right);
     if (right && pieceInfo.index >= this.width) return false;
     if (!right && pieceInfo.index < 0) return false;
@@ -41,11 +41,11 @@ export default class BoardController {
     return this.iterRow(pieceInfo, board, column);
   }
 
-  public canMoveRight(piece: Piece, board: Cell[][]) {
-    return this.canMove(piece, board, true);
+  public moveRight(piece: Piece, board: Cell[][]) {
+    return this.move(piece, board, true);
   }
 
-  public canMoveLeft(piece: Piece, board: Cell[][]) {
-    return this.canMove(piece, board, false);
+  public moveLeft(piece: Piece, board: Cell[][]) {
+    return this.move(piece, board, false);
   }
 }
