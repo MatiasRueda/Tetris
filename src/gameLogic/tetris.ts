@@ -176,18 +176,18 @@ export default class Tetris {
     const firstRow = this.currentPiece.getCurrentRow + rowFirstIndex;
     const lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
     const prevIndex = this.currentPiece.getCurrentColumn + colFirstIndex - 1;
-    if (prevIndex < 0) return 1;
+    if (prevIndex < 0) return false;
     for (let row = firstRow; row <= lastRow; row++) {
-      if (row >= Tetris.HEIGHT) return 0;
+      if (row >= Tetris.HEIGHT) return true;
       const currentCol = this.currentPiece.getCurrentColumn + colFirstIndex;
       if (this.board[row][currentCol] && this.board[row][prevIndex]) return 1;
     }
-    return 0;
+    return true;
   }
 
   public moveLeft(): boolean {
     if (!this.start || this.lose) return false;
-    if (this.canMoveLeft() === 1) return false;
+    if (!this.canMoveLeft()) return false;
     const fistColumnIndex = this.currentPiece.getShape.columnFirstIndex;
     if (this.currentPiece.getCurrentColumn - 1 + fistColumnIndex < 0)
       return false;
@@ -205,18 +205,18 @@ export default class Tetris {
     const firstRow = this.currentPiece.getCurrentRow + rowFirstIndex;
     const lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
     const nextIndex = this.currentPiece.getCurrentColumn + colLastIndex + 1;
-    if (nextIndex >= Tetris.WIDTH) return 1;
+    if (nextIndex >= Tetris.WIDTH) return false;
     for (let row = firstRow; row <= lastRow; row++) {
-      if (row >= Tetris.HEIGHT) return 0;
+      if (row >= Tetris.HEIGHT) return true;
       const currentCol = this.currentPiece.getCurrentColumn + colLastIndex;
       if (this.board[row][currentCol] && this.board[row][nextIndex]) return 1;
     }
-    return 0;
+    return true;
   }
 
   public moveRight() {
     if (!this.start || this.lose) return false;
-    if (this.canMoveRight() === 1) return false;
+    if (!this.canMoveRight()) return false;
     this.removeCurrentPiece();
     this.currentPiece.setCurrentColumn = 1;
     this.addTetromino();
