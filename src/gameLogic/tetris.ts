@@ -1,3 +1,4 @@
+import BoardController from "./boardController";
 import Piece from "./piece";
 import PieceFactory from "./pieceFactory";
 
@@ -5,9 +6,10 @@ export default class Tetris {
   private static readonly HEIGHT = 22;
   private static readonly WIDTH = 10;
   private static readonly SCORE_INCREMENT = 10;
+  private ctroller = new BoardController(Tetris.HEIGHT, Tetris.WIDTH);
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
-  private currentPiece = this.factory.randomPiece();
+  private actPiece = this.factory.randomPiece();
   private nextPiece = this.factory.randomPiece();
   private positionDown: [number, number][] = [];
   private nextPieces: Piece[] = [];
@@ -52,23 +54,23 @@ export default class Tetris {
   }
 
   private removeCurrentPiece() {
-    this.currentPiece.getPosition.forEach(([row, column]) => {
+    this.actPiece.getPosition.forEach(([row, column]) => {
       this.board[row][column] = undefined;
     });
   }
 
   private canMoveDown() {
-    const rowLastIndex = this.currentPiece.getShape.rowLastIndex;
-    const lastRow = this.currentPiece.getCurrentRow + rowLastIndex + 1;
+    const rowLastIndex = this.actPiece.getShape.rowLastIndex;
+    const lastRow = this.actPiece.getCurrentRow + rowLastIndex + 1;
     if (lastRow >= Tetris.HEIGHT) return 1;
     let pieceTetromino = 0;
     let pieceNotCollision = 0;
-    this.currentPiece.getShape.shape.forEach((row, rowIndex) => {
-      const lastRow = this.currentPiece.getCurrentRow + rowIndex + 1;
+    this.actPiece.getShape.shape.forEach((row, rowIndex) => {
+      const lastRow = this.actPiece.getCurrentRow + rowIndex + 1;
       row.forEach((col, colIndex) => {
         if (!col) return;
         pieceTetromino += 1;
-        const currentCol = this.currentPiece.getCurrentColumn + colIndex;
+        const currentCol = this.actPiece.getCurrentColumn + colIndex;
         if (this.board[lastRow][currentCol]) return;
         pieceNotCollision += 1;
       });
@@ -77,9 +79,9 @@ export default class Tetris {
   }
 
   private setNewPositionDown() {
-    const shape = this.currentPiece.getShape.shape;
-    const rowLastIndex = this.currentPiece.getShape.rowLastIndex;
-    let lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
+    const shape = this.actPiece.getShape.shape;
+    const rowLastIndex = this.actPiece.getShape.rowLastIndex;
+    let lastRow = this.actPiece.getCurrentRow + rowLastIndex;
     if (lastRow >= Tetris.HEIGHT) return;
     for (const [rowIndex, rowBoard] of this.board.entries()) {
       if (lastRow >= rowIndex) continue;
@@ -90,7 +92,7 @@ export default class Tetris {
         if (newRow >= Tetris.HEIGHT) return;
         for (const [colIndexShape, colShape] of rowShape.entries()) {
           if (!colShape) continue;
-          const newCol = colIndexShape + this.currentPiece.getCurrentColumn;
+          const newCol = colIndexShape + this.actPiece.getCurrentColumn;
           if (this.board[newRow][newCol]) return;
           positions.push([newRow, newCol]);
         }
@@ -102,7 +104,7 @@ export default class Tetris {
 
   public rotate() {
     this.removeCurrentPiece();
-    this.currentPiece.spin(this.board);
+    this.actPiece.spin(this.board);
     this.addTetromino();
     this.setNewPositionDown();
   }
@@ -113,8 +115,8 @@ export default class Tetris {
   }
 
   private checksRows() {
-    this.currentPiece.getShape.shape.forEach((row, rowIndex) => {
-      const currentRow = this.currentPiece.getCurrentRow + rowIndex;
+    this.actPiece.getShape.shape.forEach((row, rowIndex) => {
+      const currentRow = this.actPiece.getCurrentRow + rowIndex;
       for (const col of row) {
         if (!col) continue;
         const rowComplete = this.board[currentRow].every((e) => e);
@@ -145,7 +147,7 @@ export default class Tetris {
       this.start = false;
       return;
     }
-    this.currentPiece = piece;
+    this.actPiece = piece;
     this.nextPiece = this.nextPieces.shift()!;
     this.nextPieces.push(this.factory.randomPiece());
     this.addTetromino();
@@ -160,7 +162,7 @@ export default class Tetris {
       this.haveCollision();
       return false;
     }
-    this.currentPiece.setCurrentRow = 1;
+    this.actPiece.setCurrentRow = 1;
     this.addTetromino();
     return true;
   }
@@ -169,81 +171,46 @@ export default class Tetris {
     while (this.moveDown()) {}
   }
 
-  private canMoveLeft() {
-    const rowFirstIndex = this.currentPiece.getShape.rowFirstIndex;
-    const rowLastIndex = this.currentPiece.getShape.rowLastIndex;
-    const colFirstIndex = this.currentPiece.getShape.columnFirstIndex;
-    const firstRow = this.currentPiece.getCurrentRow + rowFirstIndex;
-    const lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
-    const prevIndex = this.currentPiece.getCurrentColumn + colFirstIndex - 1;
-    if (prevIndex < 0) return false;
-    for (let row = firstRow; row <= lastRow; row++) {
-      if (row >= Tetris.HEIGHT) return true;
-      const currentCol = this.currentPiece.getCurrentColumn + colFirstIndex;
-      if (this.board[row][currentCol] && this.board[row][prevIndex]) return 1;
-    }
-    return true;
-  }
-
   public moveLeft(): boolean {
     if (!this.start || this.lose) return false;
-    if (!this.canMoveLeft()) return false;
-    const fistColumnIndex = this.currentPiece.getShape.columnFirstIndex;
-    if (this.currentPiece.getCurrentColumn - 1 + fistColumnIndex < 0)
-      return false;
+    if (!this.ctroller.canMoveLeft(this.actPiece, this.board)) return false;
     this.removeCurrentPiece();
-    this.currentPiece.setCurrentColumn = -1;
+    this.actPiece.setCurrentColumn = -1;
     this.addTetromino();
     this.setNewPositionDown();
     return true;
   }
 
-  private canMoveRight() {
-    const rowFirstIndex = this.currentPiece.getShape.rowFirstIndex;
-    const rowLastIndex = this.currentPiece.getShape.rowLastIndex;
-    const colLastIndex = this.currentPiece.getShape.columnLastIndex;
-    const firstRow = this.currentPiece.getCurrentRow + rowFirstIndex;
-    const lastRow = this.currentPiece.getCurrentRow + rowLastIndex;
-    const nextIndex = this.currentPiece.getCurrentColumn + colLastIndex + 1;
-    if (nextIndex >= Tetris.WIDTH) return false;
-    for (let row = firstRow; row <= lastRow; row++) {
-      if (row >= Tetris.HEIGHT) return true;
-      const currentCol = this.currentPiece.getCurrentColumn + colLastIndex;
-      if (this.board[row][currentCol] && this.board[row][nextIndex]) return 1;
-    }
-    return true;
-  }
-
   public moveRight() {
     if (!this.start || this.lose) return false;
-    if (!this.canMoveRight()) return false;
+    if (!this.ctroller.canMoveRight(this.actPiece, this.board)) return false;
     this.removeCurrentPiece();
-    this.currentPiece.setCurrentColumn = 1;
+    this.actPiece.setCurrentColumn = 1;
     this.addTetromino();
     this.setNewPositionDown();
     return true;
   }
 
   private addTetromino() {
-    let rowIndex = this.currentPiece.getCurrentRow;
-    let colIndex = this.currentPiece.getCurrentColumn;
-    const shape = this.currentPiece.getShape;
-    this.currentPiece.removeCells();
-    this.currentPiece.getShape.shape.forEach((row, ri) => {
+    let rowIndex = this.actPiece.getCurrentRow;
+    let colIndex = this.actPiece.getCurrentColumn;
+    const shape = this.actPiece.getShape;
+    this.actPiece.removeCells();
+    this.actPiece.getShape.shape.forEach((row, ri) => {
       row.forEach((_col, ci) => {
         if (shape.shape[ri][ci] && !this.board[rowIndex][colIndex]) {
-          this.board[rowIndex][colIndex] = this.currentPiece.getColor;
-          this.currentPiece.addCell(rowIndex, colIndex);
+          this.board[rowIndex][colIndex] = this.actPiece.getColor;
+          this.actPiece.addCell(rowIndex, colIndex);
         }
         colIndex += 1;
       });
       rowIndex += 1;
-      colIndex = this.currentPiece.getCurrentColumn;
+      colIndex = this.actPiece.getCurrentColumn;
     });
   }
 
   private spawnTetromino() {
-    this.currentPiece = this.factory.randomPiece();
+    this.actPiece = this.factory.randomPiece();
     this.addTetromino();
   }
 
