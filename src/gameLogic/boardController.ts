@@ -53,31 +53,22 @@ export default class BoardController {
     return row < this.height;
   }
 
-  private countPieceCollisions(piece: Piece, board: Cell[][]) {
-    let tetrominoCount = 0;
-    let collisionCount = 0;
-
-    piece.getShape.shape.forEach((row, rowIndex) => {
+  private noCollisions(piece: Piece, board: Cell[][]) {
+    for (const [rowIndex, row] of piece.getShape.shape.entries()) {
       const currentRow = piece.getCurrentRow + rowIndex + 1;
-      row.forEach((col, colIndex) => {
-        if (!col) return;
-        tetrominoCount += 1;
+      for (const [colIndex, col] of row.entries()) {
+        if (!col) continue;
         const currentCol = piece.getCurrentColumn + colIndex;
-        if (!board[currentRow][currentCol]) collisionCount += 1;
-      });
-    });
-
-    return { tetrominoCount, collisionCount };
+        if (board[currentRow][currentCol]) return false;
+      }
+    }
+    return true;
   }
 
   public moveDown(piece: Piece, board: Cell[][]): boolean {
     const rowLastIndex = piece.getShape.rowLastIndex;
     const lastRow = piece.getCurrentRow + rowLastIndex + 1;
     if (!this.isWithinBounds(lastRow)) return false;
-    const { tetrominoCount, collisionCount } = this.countPieceCollisions(
-      piece,
-      board
-    );
-    return tetrominoCount === collisionCount;
+    return this.noCollisions(piece, board);
   }
 }
