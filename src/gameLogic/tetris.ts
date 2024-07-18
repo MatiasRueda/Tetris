@@ -58,8 +58,24 @@ export default class Tetris {
     });
   }
 
+  private checksSpecificRows(rows: number[]) {
+    for (const row of rows) {
+      if (!this.board[row].every((cell) => cell)) continue;
+      this.clearRow(row);
+      this.updateInformation();
+    }
+  }
+
   public movePieceToFloor() {
-    while (this.moveDown()) {}
+    if (!this.positionDown.length) return;
+    const rows = new Set<number>();
+    this.removeCurrentPiece();
+    this.positionDown.forEach(([row, col]) => {
+      this.board[row][col] = this.actPiece.getColor;
+      rows.add(row);
+    });
+    this.checksSpecificRows(Array.from(rows));
+    this.spawnNextPieceIfPossible();
   }
 
   private setNewPositionDown() {
@@ -134,9 +150,7 @@ export default class Tetris {
     this.start = false;
   }
 
-  private collisions() {
-    this.putPiece();
-    this.checksRows();
+  private spawnNextPieceIfPossible() {
     const piece = this.nextPiece;
     if (!this.canAddPiece(piece)) {
       this.endGame();
@@ -145,11 +159,17 @@ export default class Tetris {
     this.spawnTetromino(piece);
   }
 
+  private handlePiecePlacement() {
+    this.putPiece();
+    this.checksRows();
+    this.spawnNextPieceIfPossible();
+  }
+
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
     if (!this.ctrl.moveDown(this.actPiece, this.board)) {
-      this.collisions();
+      this.handlePiecePlacement();
       return false;
     }
     this.actPiece.setCurrentRow = 1;
