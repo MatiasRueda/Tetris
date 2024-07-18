@@ -58,14 +58,16 @@ export default class Tetris {
     });
   }
 
+  public movePieceToFloor() {
+    while (this.moveDown()) {}
+  }
+
   private setNewPositionDown() {
-    const shape = this.actPiece.getShape.shape;
-    const rowLastIndex = this.actPiece.getShape.rowLastIndex;
-    let lastRow = this.actPiece.getCurrentRow + rowLastIndex;
-    if (lastRow >= Tetris.HEIGHT) return;
+    const { shape, rowLast, rowLastShape } = this.actPiece.getInformation;
+    if (rowLast >= Tetris.HEIGHT) return;
     for (const [rowIndex, _rowBoard] of this.board.entries()) {
-      if (lastRow >= rowIndex) continue;
-      const positions = this.getPositions(shape, rowIndex, rowLastIndex);
+      if (rowLast >= rowIndex) continue;
+      const positions = this.getPositions(shape, rowIndex, rowLastShape);
       if (positions === null) return;
       this.positionDown = positions;
     }
@@ -102,7 +104,7 @@ export default class Tetris {
 
   private checksRows() {
     let { shape, rowIndex } = this.actPiece.getInformation;
-    shape.shape.forEach((row, shapeRowIndex) => {
+    shape.forEach((row, shapeRowIndex) => {
       const actualRow = rowIndex + shapeRowIndex;
       if (this.isRowComplete(actualRow, row)) {
         this.clearRow(actualRow);
@@ -153,10 +155,6 @@ export default class Tetris {
     this.actPiece.setCurrentRow = 1;
     this.putPiece();
     return true;
-  }
-
-  public movePieceToFloor() {
-    while (this.moveDown()) {}
   }
 
   private moveHorizontal(right: boolean) {

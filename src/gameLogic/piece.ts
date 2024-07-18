@@ -129,7 +129,9 @@ export default class Piece {
     return {
       rowIndex: this.currentRow,
       colIndex: this.currentColumn,
-      shape: this.shape,
+      rowLast: this.currentRow + this.shape.rowLastIndex,
+      rowLastShape: this.shape.rowLastIndex,
+      shape: this.shape.shape,
     };
   }
 }
