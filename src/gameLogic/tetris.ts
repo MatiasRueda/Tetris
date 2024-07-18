@@ -78,6 +78,16 @@ export default class Tetris {
     this.spawnNextPieceIfPossible();
   }
 
+  private checkMoveDown() {
+    if (!this.positionDown.length) return;
+    const [row, _col] = this.positionDown[0];
+    const lenPosition = this.actPiece.getPosition.length;
+    const [rowPiece, _colPiece] = this.actPiece.getPosition[lenPosition - 1];
+    const diference = 2;
+    console.log(Math.abs(row - rowPiece));
+    if (Math.abs(row - rowPiece) <= diference) this.positionDown = [];
+  }
+
   private setNewPositionDown() {
     const { shape, rowLast, rowLastShape } = this.actPiece.getInformation;
     if (rowLast >= Tetris.HEIGHT) return;
@@ -111,6 +121,7 @@ export default class Tetris {
     this.actPiece.spin(this.board);
     this.putPiece();
     this.setNewPositionDown();
+    this.checkMoveDown();
   }
 
   public end() {
@@ -174,6 +185,7 @@ export default class Tetris {
     }
     this.actPiece.setCurrentRow = 1;
     this.putPiece();
+    this.checkMoveDown();
     return true;
   }
 
@@ -185,6 +197,7 @@ export default class Tetris {
     this.actPiece.setCurrentColumn = right ? 1 : -1;
     this.putPiece();
     this.setNewPositionDown();
+    this.checkMoveDown();
     return true;
   }
 
@@ -218,6 +231,7 @@ export default class Tetris {
     this.nextPieces.push(this.factory.randomPiece());
     this.putPiece();
     this.setNewPositionDown();
+    this.checkMoveDown();
   }
 
   get getInformation() {

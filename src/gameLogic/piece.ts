@@ -4,7 +4,7 @@ export default class Piece {
   private readonly ROWS: number;
   private readonly COLUMNS: number;
   private rotateIndex: number = 0;
-  private positionCells: number[][] = [];
+  private positionCells: [number, number][] = [];
   private color: string;
   protected shape: Shape;
   protected shapes: Shape[] = [];
