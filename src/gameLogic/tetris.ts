@@ -95,16 +95,19 @@ export default class Tetris {
   }
 
   private checksRows() {
-    this.actPiece.getShape.shape.forEach((row, rowIndex) => {
-      const currentRow = this.actPiece.getCurrentRow + rowIndex;
-      for (const col of row) {
-        if (!col) continue;
-        const rowComplete = this.board[currentRow].every((e) => e);
-        if (!rowComplete) break;
-        this.clearRow(currentRow);
+    let { shape, rowIndex } = this.actPiece.getInformation;
+    shape.shape.forEach((row, shapeRowIndex) => {
+      const actualRow = rowIndex + shapeRowIndex;
+      if (this.isRowComplete(actualRow, row)) {
+        this.clearRow(actualRow);
         this.updateInformation();
       }
     });
+  }
+
+  private isRowComplete(rowIndex: number, row: number[]): boolean {
+    if (row.every((col) => !col)) return false;
+    return this.board[rowIndex].every((cell) => cell);
   }
 
   private canAddPiece(piece: Piece): boolean {
