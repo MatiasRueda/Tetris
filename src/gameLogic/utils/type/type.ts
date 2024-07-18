@@ -19,3 +19,10 @@ export type TetrisInfo = {
   lose: boolean;
   positionDown: [number, number][];
 };
+
+export type PieceInfo = {
+  firstRow: number;
+  lastRow: number;
+  column: number;
+  index: number;
+};

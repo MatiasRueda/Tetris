@@ -62,7 +62,7 @@ export default class Tetris {
   private canMoveDown() {
     const rowLastIndex = this.actPiece.getShape.rowLastIndex;
     const lastRow = this.actPiece.getCurrentRow + rowLastIndex + 1;
-    if (lastRow >= Tetris.HEIGHT) return 1;
+    if (lastRow >= Tetris.HEIGHT) return false;
     let pieceTetromino = 0;
     let pieceNotCollision = 0;
     this.actPiece.getShape.shape.forEach((row, rowIndex) => {
@@ -75,7 +75,7 @@ export default class Tetris {
         pieceNotCollision += 1;
       });
     });
-    return pieceTetromino !== pieceNotCollision ? 1 : 0;
+    return pieceTetromino !== pieceNotCollision ? false : true;
   }
 
   private setNewPositionDown() {
@@ -83,7 +83,7 @@ export default class Tetris {
     const rowLastIndex = this.actPiece.getShape.rowLastIndex;
     let lastRow = this.actPiece.getCurrentRow + rowLastIndex;
     if (lastRow >= Tetris.HEIGHT) return;
-    for (const [rowIndex, rowBoard] of this.board.entries()) {
+    for (const [rowIndex, _rowBoard] of this.board.entries()) {
       if (lastRow >= rowIndex) continue;
       const positions: [number, number][] = [];
       let newRow = rowIndex;
@@ -158,7 +158,7 @@ export default class Tetris {
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
-    if (this.canMoveDown() === 1) {
+    if (!this.canMoveDown()) {
       this.haveCollision();
       return false;
     }
