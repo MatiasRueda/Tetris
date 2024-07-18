@@ -21,7 +21,7 @@ function useTetris(difficulty: Difficulty) {
     if (!keys.some((k) => k === e.key)) {
       return;
     } else if (e.key === "s") {
-      tetris.put();
+      tetris.movePieceToFloor();
     } else if (e.key === "w") {
       tetris.rotate();
     } else if (e.key === "a") {

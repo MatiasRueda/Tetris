@@ -65,21 +65,27 @@ export default class Tetris {
     if (lastRow >= Tetris.HEIGHT) return;
     for (const [rowIndex, _rowBoard] of this.board.entries()) {
       if (lastRow >= rowIndex) continue;
-      const positions: [number, number][] = [];
-      let newRow = rowIndex;
-      for (const [rowIndexShape, rowShape] of shape.entries()) {
-        if (rowIndexShape > rowLastIndex) continue;
-        if (newRow >= Tetris.HEIGHT) return;
-        for (const [colIndexShape, colShape] of rowShape.entries()) {
-          if (!colShape) continue;
-          const newCol = colIndexShape + this.actPiece.getCurrentColumn;
-          if (this.board[newRow][newCol]) return;
-          positions.push([newRow, newCol]);
-        }
-        newRow += 1;
-      }
+      const positions = this.getPositions(shape, rowIndex, rowLastIndex);
+      if (positions === null) return;
       this.positionDown = positions;
     }
+  }
+
+  private getPositions(shape: number[][], rowIndex: number, rowLast: number) {
+    const positions: [number, number][] = [];
+    let newRow = rowIndex;
+    for (const [rowIndexShape, rowShape] of shape.entries()) {
+      if (rowIndexShape > rowLast) continue;
+      if (newRow >= Tetris.HEIGHT) return null;
+      for (const [colIndexShape, colShape] of rowShape.entries()) {
+        if (!colShape) continue;
+        const newCol = colIndexShape + this.actPiece.getCurrentColumn;
+        if (this.board[newRow][newCol]) return null;
+        positions.push([newRow, newCol]);
+      }
+      newRow += 1;
+    }
+    return positions;
   }
 
   public rotate() {
@@ -149,7 +155,7 @@ export default class Tetris {
     return true;
   }
 
-  public put() {
+  public movePieceToFloor() {
     while (this.moveDown()) {}
   }
 
