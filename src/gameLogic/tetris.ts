@@ -59,25 +59,6 @@ export default class Tetris {
     });
   }
 
-  private canMoveDown() {
-    const rowLastIndex = this.actPiece.getShape.rowLastIndex;
-    const lastRow = this.actPiece.getCurrentRow + rowLastIndex + 1;
-    if (lastRow >= Tetris.HEIGHT) return false;
-    let pieceTetromino = 0;
-    let pieceNotCollision = 0;
-    this.actPiece.getShape.shape.forEach((row, rowIndex) => {
-      const lastRow = this.actPiece.getCurrentRow + rowIndex + 1;
-      row.forEach((col, colIndex) => {
-        if (!col) return;
-        pieceTetromino += 1;
-        const currentCol = this.actPiece.getCurrentColumn + colIndex;
-        if (this.board[lastRow][currentCol]) return;
-        pieceNotCollision += 1;
-      });
-    });
-    return pieceTetromino !== pieceNotCollision ? false : true;
-  }
-
   private setNewPositionDown() {
     const shape = this.actPiece.getShape.shape;
     const rowLastIndex = this.actPiece.getShape.rowLastIndex;
@@ -158,7 +139,7 @@ export default class Tetris {
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
     this.removeCurrentPiece();
-    if (!this.canMoveDown()) {
+    if (!this.ctrl.moveDown(this.actPiece, this.board)) {
       this.haveCollision();
       return false;
     }

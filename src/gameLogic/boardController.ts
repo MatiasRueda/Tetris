@@ -48,4 +48,36 @@ export default class BoardController {
   public moveLeft(piece: Piece, board: Cell[][]) {
     return this.move(piece, board, false);
   }
+
+  private isWithinBounds(row: number) {
+    return row < this.height;
+  }
+
+  private countPieceCollisions(piece: Piece, board: Cell[][]) {
+    let tetrominoCount = 0;
+    let collisionCount = 0;
+
+    piece.getShape.shape.forEach((row, rowIndex) => {
+      const currentRow = piece.getCurrentRow + rowIndex + 1;
+      row.forEach((col, colIndex) => {
+        if (!col) return;
+        tetrominoCount += 1;
+        const currentCol = piece.getCurrentColumn + colIndex;
+        if (!board[currentRow][currentCol]) collisionCount += 1;
+      });
+    });
+
+    return { tetrominoCount, collisionCount };
+  }
+
+  public moveDown(piece: Piece, board: Cell[][]): boolean {
+    const rowLastIndex = piece.getShape.rowLastIndex;
+    const lastRow = piece.getCurrentRow + rowLastIndex + 1;
+    if (!this.isWithinBounds(lastRow)) return false;
+    const { tetrominoCount, collisionCount } = this.countPieceCollisions(
+      piece,
+      board
+    );
+    return tetrominoCount === collisionCount;
+  }
 }
