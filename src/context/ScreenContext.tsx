@@ -46,9 +46,11 @@ export default function ScreenContext(props: { children: ReactNode }) {
   const changeToHome = async () => {
     waitTransition(Screen.Home);
   };
+
   const changeToCredits = async () => {
     waitTransition(Screen.Credits);
   };
+
   const changeToConfig = async () => {
     waitTransition(Screen.Config);
   };

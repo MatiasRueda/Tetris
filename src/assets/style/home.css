@@ -6,24 +6,13 @@
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   z-index: 1;
 }
 
-.home h1 {
-  height: 10rem;
-  display: flex;
-  align-items: center;
-  font-size: 3em;
-  margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 2px 2px #ff0000;
-}
-
 .home-btns {
-  height: 25rem;
   width: 20rem;
+  flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -37,4 +26,39 @@
   width: 20rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.cont-header {
+  height: 15rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cont-header h1 {
+  height: 10rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 3em;
+  color: #fff;
+  text-shadow: 2px 2px #ff0000;
+}
+
+.cont-user-info {
+  height: 5rem;
+  width: 51rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-user-info button {
+  height: 5rem;
+  width: 10rem;
+  margin-left: 1.5rem;
+  cursor: pointer;
+  background-color: #00ced1;
 }
