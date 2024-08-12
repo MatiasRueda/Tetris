@@ -1,0 +1,58 @@
+.login {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.login h1 {
+  margin-bottom: 5rem;
+  color: white;
+}
+
+#login {
+  height: 30rem;
+  width: 25rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.cont-login {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cont-login .cont-label {
+  margin-bottom: 1rem;
+}
+
+.cont-login .cont-error {
+  height: 2rem;
+  padding-top: 1.5rem;
+}
+
+.cont-login .cont-input input {
+  height: 2rem;
+  width: 20rem;
+  padding-left: 0.6rem;
+}
+
+.btn-go-register {
+  margin-top: 3rem;
+  height: 5rem;
+  width: 25rem;
+  color: #ffff;
+  cursor: pointer;
+  background-color: #000000;
+}

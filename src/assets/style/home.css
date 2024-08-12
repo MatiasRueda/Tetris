@@ -16,10 +16,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: space-around;
+  align-content: center;
 }
 
 .home-btn {
+  margin-bottom: 2rem;
   color: #000;
   font-size: 1.5em;
   height: 6rem;
@@ -28,15 +29,7 @@
   cursor: pointer;
 }
 
-.cont-header {
-  height: 15rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.cont-header h1 {
+.home h1 {
   height: 10rem;
   flex-grow: 1;
   display: flex;
@@ -47,18 +40,9 @@
   text-shadow: 2px 2px #ff0000;
 }
 
-.cont-user-info {
-  height: 5rem;
-  width: 51rem;
+.cont-form-btns {
+  height: 8rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.cont-user-info button {
-  height: 5rem;
-  width: 10rem;
-  margin-left: 1.5rem;
-  cursor: pointer;
-  background-color: #00ced1;
+  justify-content: space-around;
 }

@@ -21,3 +21,18 @@ main {
 .common-btn {
   background-color: #ffcc00;
 }
+
+.cont-form-btns button {
+  height: 4rem;
+  width: 8rem;
+  cursor: pointer;
+  color: #ffff;
+}
+
+.btn-submit {
+  background-color: green;
+}
+
+.btn-cancel {
+  background-color: red;
+}

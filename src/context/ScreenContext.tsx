@@ -3,7 +3,10 @@ import { createContext, ReactNode, useContext, useState } from "react";
 enum Screen {
   Home,
   Game,
+  Login,
+  Register,
   Config,
+  Table,
   Credits,
 }
 
@@ -15,6 +18,9 @@ type ScreenCtrl = {
   changeToHome: () => Promise<void>;
   changeToCredits: () => Promise<void>;
   changeToConfig: () => Promise<void>;
+  changeToLogin: () => Promise<void>;
+  changeToRegister: () => Promise<void>;
+  changeToTable: () => Promise<void>;
   screens: typeof Screen;
 };
 
@@ -55,6 +61,17 @@ export default function ScreenContext(props: { children: ReactNode }) {
     waitTransition(Screen.Config);
   };
 
+  const changeToLogin = async () => {
+    waitTransition(Screen.Login);
+  };
+  const changeToRegister = async () => {
+    waitTransition(Screen.Register);
+  };
+
+  const changeToTable = async () => {
+    waitTransition(Screen.Table);
+  };
+
   return (
     <screen.Provider
       value={{
@@ -65,6 +82,9 @@ export default function ScreenContext(props: { children: ReactNode }) {
         changeToHome,
         changeToConfig,
         changeToCredits,
+        changeToLogin,
+        changeToRegister,
+        changeToTable,
         screens: Screen,
       }}
     >
