@@ -10,7 +10,7 @@ function Form(props: {
   id: string;
   send: string;
   children: ReactNode;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any) => Promise<void>;
   cancel?: Cancelar;
 }): JSX.Element {
   const {
@@ -21,8 +21,8 @@ function Form(props: {
     reset,
   } = useForm();
 
-  const informacionEnviada = (data: any): void => {
-    props.onSubmit(data);
+  const informacionEnviada = async (data: any) => {
+    await props.onSubmit(data);
     reset();
   };
   return (

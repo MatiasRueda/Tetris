@@ -8,6 +8,7 @@ enum Screen {
   Config,
   Table,
   Credits,
+  Loading,
 }
 
 type ScreenCtrl = {
@@ -21,6 +22,7 @@ type ScreenCtrl = {
   changeToLogin: () => Promise<void>;
   changeToRegister: () => Promise<void>;
   changeToTable: () => Promise<void>;
+  changeToLoading: () => Promise<void>;
   screens: typeof Screen;
 };
 
@@ -72,6 +74,10 @@ export default function ScreenContext(props: { children: ReactNode }) {
     waitTransition(Screen.Table);
   };
 
+  const changeToLoading = async () => {
+    setCurrent(Screen.Loading);
+  };
+
   return (
     <screen.Provider
       value={{
@@ -85,6 +91,7 @@ export default function ScreenContext(props: { children: ReactNode }) {
         changeToLogin,
         changeToRegister,
         changeToTable,
+        changeToLoading,
         screens: Screen,
       }}
     >

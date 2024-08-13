@@ -1,23 +1,32 @@
 import { useScreenContext } from "../context/ScreenContext";
+import useTetrisFetch from "../hook/useFetch";
+import { Method } from "../utils/method";
 import Form from "./Form";
 import Input from "./Input";
 import Label from "./Label";
 
 function FormRegister(): JSX.Element {
-  const screens = useScreenContext();
-  const submit = (data: any) => {
-    console.log(data);
+  const screen = useScreenContext();
+  const fetch = useTetrisFetch();
+
+  const submit = async (data: any) => {
+    screen.changeToLoading();
+    const response = await fetch.get(Method.Register, data);
+    console.log(response);
+    await new Promise((resolve) => setTimeout(resolve, 1000 * 5));
+    screen.changeToHome();
   };
+
   return (
     <Form
       id="register"
       send="Register"
       onSubmit={submit}
-      cancel={{ text: "Back", accion: screens.changeToHome }}
+      cancel={{ text: "Back", accion: screen.changeToHome }}
     >
-      <Label htmlFor="name" text="Name:" />
+      <Label htmlFor="username" text="Username:" />
       <Input
-        nombre="name"
+        nombre="username"
         type="text"
         reglas={{
           required: "Please write your name",

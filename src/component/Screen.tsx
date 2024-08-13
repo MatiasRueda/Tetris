@@ -7,6 +7,7 @@ import Config from "../screens/Config";
 import Credits from "../screens/Credits";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
+import Loading from "../screens/Loading";
 
 export default function Screen() {
   const screen = useScreenContext();
@@ -15,6 +16,9 @@ export default function Screen() {
     <AnimatePresence>
       {screen.current === screen.screens.Home && <Home key={screen.current} />}
       {screen.current === screen.screens.Game && <Game key={screen.current} />}
+      {screen.current === screen.screens.Loading && (
+        <Loading key={screen.current} />
+      )}
       {screen.current === screen.screens.Login && (
         <Login key={screen.current} />
       )}
