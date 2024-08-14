@@ -37,13 +37,12 @@ main {
   background-color: red;
 }
 
-.cont-error-msg {
-  height: 10rem;
+.cont-msg {
+  height: 15rem;
   width: 40rem;
-  background: linear-gradient(90deg, #ff4d4d, #ff0000);
   color: white;
   padding: 0.8rem;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   text-align: center;
   border: 0.3rem solid black;
   display: flex;
@@ -52,12 +51,22 @@ main {
   justify-content: center;
 }
 
-.cont-error-msg p {
+.cont-error-msg {
+  background: linear-gradient(90deg, #ff4d4d, #ff0000);
+}
+
+.cont-ok-msg {
+  background: linear-gradient(135deg, #00ff00, #008000);
+}
+
+.cont-error-msg p,
+.cont-ok-msg p {
   width: 100%;
 }
 
-.btn-error {
-  height: 3rem;
-  width: 7rem;
+.btn-error,
+.btn-ok {
+  height: 4rem;
+  width: 8rem;
   font-size: 0.9em;
 }

@@ -1,27 +1,18 @@
 import { useScreenContext } from "../context/ScreenContext";
-import useTetrisFetch from "../hook/useFetch";
-import { Method } from "../utils/method";
 import Form from "./Form";
 import Input from "./Input";
 import Label from "./Label";
 
-function FormRegister(): JSX.Element {
+function FormRegister(props: {
+  submit: (data: any) => Promise<void>;
+}): JSX.Element {
   const screen = useScreenContext();
-  const fetch = useTetrisFetch();
-
-  const submit = async (data: any) => {
-    screen.changeToLoading();
-    const response = await fetch.get(Method.Register, data);
-    console.log(response);
-    await new Promise((resolve) => setTimeout(resolve, 1000 * 5));
-    screen.changeToHome();
-  };
 
   return (
     <Form
       id="register"
       send="Register"
-      onSubmit={submit}
+      onSubmit={props.submit}
       cancel={{ text: "Back", accion: screen.changeToHome }}
     >
       <Label htmlFor="username" text="Username:" />

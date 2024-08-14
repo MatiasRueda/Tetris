@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 export default function Button(props: {
   click: () => void;
   class: string;
+  color?: string;
   disabled?: boolean;
   value: string;
 }) {
@@ -16,7 +17,11 @@ export default function Button(props: {
       disabled={props.disabled}
       style={{
         cursor: props.disabled ? "default" : "pointer",
-        backgroundColor: props.disabled ? "grey" : "#ffcc00",
+        backgroundColor: props.disabled
+          ? "grey"
+          : props.color
+          ? props.color
+          : "#ffcc00",
       }}
     >
       {props.value}
