@@ -55,6 +55,12 @@ main {
   background: linear-gradient(90deg, #ff4d4d, #ff0000);
 }
 
+.cont-error-btns {
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+}
+
 .cont-ok-msg {
   background: linear-gradient(135deg, #00ff00, #008000);
 }

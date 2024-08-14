@@ -33,7 +33,9 @@ export default function Login() {
       <AnimatePresence mode="wait">
         <Fade key={fetch.keyState}>
           {fetch.loading && <Loading />}
-          {fetch.error && <ErrorMsg message={fetch.error} />}
+          {fetch.error && (
+            <ErrorMsg message={fetch.error} clickBack={fetch.reset} />
+          )}
           {!fetch.loading &&
             !fetch.error &&
             (message ? (
