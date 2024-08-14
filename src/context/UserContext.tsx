@@ -15,18 +15,18 @@ export function useUserContext() {
 }
 
 export default function UserContext(props: { children: ReactNode }) {
-  const [info, setInfo] = useState<User>();
+  const [info, setInfo] = useState<User | undefined>(undefined);
 
   const login = (user: User) => {
-    setInfo(user);
+    setInfo({ ...(info || {}), ...user });
   };
 
   const updateScore = (newScore: number) => {
-    setInfo({ ...info!, score: newScore });
+    setInfo({ ...info!, score: newScore.toString() });
   };
 
   const isMaxScore = (score: number) => {
-    return info?.score && score > info?.score;
+    return info?.score && score > Number(info?.score);
   };
 
   const unlogin = () => {

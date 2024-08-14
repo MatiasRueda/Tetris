@@ -6,5 +6,5 @@ export type Params = {
 
 export type User = {
   username: string;
-  score: number;
+  score: string;
 };
