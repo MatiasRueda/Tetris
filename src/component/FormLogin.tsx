@@ -1,28 +1,19 @@
 import { useScreenContext } from "../context/ScreenContext";
-import useTetrisFetch from "../hook/useFetch";
-import { Method } from "../utils/method";
 import Form from "./Form";
 import Input from "./Input";
 import Label from "./Label";
 
-export default function FormLogin() {
+export default function FormLogin(props: {
+  submit: (data: any) => Promise<void>;
+}) {
   const screen = useScreenContext();
-  const fetch = useTetrisFetch();
-
-  const submit = async (data: any) => {
-    screen.changeToLoading();
-    const response = await fetch.get(Method.Login, data);
-    console.log(response);
-    await new Promise((resolve) => setTimeout(resolve, 1000 * 5));
-    screen.changeToHome();
-  };
 
   return (
     <Form
       cancel={{ text: "Back", accion: screen.changeToHome }}
       id="login"
       send="Login"
-      onSubmit={submit}
+      onSubmit={props.submit}
     >
       <Label text="Username:" htmlFor="username" />
       <Input

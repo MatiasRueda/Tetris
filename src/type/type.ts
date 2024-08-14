@@ -3,3 +3,8 @@ export type Params = {
   password?: string;
   maxScore?: number;
 };
+
+export type User = {
+  username: string;
+  score: number;
+};

@@ -36,3 +36,28 @@ main {
 .btn-cancel {
   background-color: red;
 }
+
+.cont-error-msg {
+  height: 10rem;
+  width: 40rem;
+  background: linear-gradient(90deg, #ff4d4d, #ff0000);
+  color: white;
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 0.3rem solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont-error-msg p {
+  width: 100%;
+}
+
+.btn-error {
+  height: 3rem;
+  width: 7rem;
+  font-size: 0.9em;
+}
