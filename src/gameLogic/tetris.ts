@@ -84,7 +84,6 @@ export default class Tetris {
     const lenPosition = this.actPiece.getPosition.length;
     const [rowPiece, _colPiece] = this.actPiece.getPosition[lenPosition - 1];
     const diference = 2;
-    console.log(Math.abs(row - rowPiece));
     if (Math.abs(row - rowPiece) <= diference) this.positionDown = [];
   }
 
