@@ -14,18 +14,24 @@ import { useScreenContext } from "../context/ScreenContext";
 import OkMsg from "../component/OkMsg";
 
 export default function Login() {
-  const msgOk = "Login successfully";
   const msgError = "An error occurred during the login process.";
   const fetch = useTetrisFetch<User>(msgError);
   const user = useUserContext();
   const screen = useScreenContext();
   const [message, setMessage] = useState<string>();
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const submit = async (data: any) => {
-    const response = await fetch.get(Method.Login, data);
+    if (recaptchaToken === null) return;
+    const response = await fetch.get(Method.Login, data, recaptchaToken);
     if (!response.success) return;
     user.login(response.data);
-    setMessage(msgOk);
+    setMessage(response.message);
+    setRecaptchaToken(null);
+  };
+
+  const handleCaptcha = (token: string | null) => {
+    setRecaptchaToken(token);
   };
 
   return (
@@ -39,11 +45,15 @@ export default function Login() {
           {!fetch.loading &&
             !fetch.error &&
             (message ? (
-              <OkMsg message={msgOk} click={screen.changeToHome} />
+              <OkMsg message={message} click={screen.changeToHome} />
             ) : (
               <Fragment>
                 <h1>Login</h1>
-                <FormLogin submit={submit} />
+                <FormLogin
+                  submit={submit}
+                  handleCaptcha={handleCaptcha}
+                  submitDisabled={!recaptchaToken}
+                />
                 <GoRegister />
               </Fragment>
             ))}

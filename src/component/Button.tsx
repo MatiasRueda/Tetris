@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 
 export default function Button(props: {
-  click: () => void;
+  click?: () => void;
   class: string;
   color?: string;
   disabled?: boolean;
   value: string;
+  type?: string;
 }) {
   return (
     <motion.button

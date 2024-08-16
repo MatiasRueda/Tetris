@@ -1,5 +1,6 @@
 import { Children, isValidElement, createElement, ReactNode } from "react";
 import { get, useForm } from "react-hook-form";
+import Button from "./Button";
 
 type Cancelar = {
   text: string;
@@ -12,6 +13,7 @@ function Form(props: {
   children: ReactNode;
   onSubmit: (data: any) => Promise<void>;
   cancel?: Cancelar;
+  submitDisabled?: boolean;
 }): JSX.Element {
   const {
     handleSubmit,
@@ -57,17 +59,21 @@ function Form(props: {
         })}
       </div>
       <div className="cont-form-btns">
-        <button className="btn-submit" type="submit">
-          {props.send}
-        </button>
+        <Button
+          class="btn-submit"
+          color="green"
+          value={props.send}
+          disabled={props.submitDisabled}
+          type="submit"
+        />
         {props.cancel && (
-          <button
-            className="btn-cancel"
+          <Button
+            color="red"
+            class="btn-cancel"
+            value={props.cancel.text}
             type="button"
-            onClick={props.cancel.accion}
-          >
-            {props.cancel.text}
-          </button>
+            click={props.cancel.accion}
+          />
         )}
       </div>
     </form>

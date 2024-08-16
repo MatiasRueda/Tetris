@@ -17,13 +17,12 @@
 }
 
 #login {
-  height: 30rem;
+  height: 35rem;
   width: 25rem;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-content: space-between;
+  justify-content: center;
 }
 
 .cont-login {

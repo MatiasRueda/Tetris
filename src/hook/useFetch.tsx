@@ -22,10 +22,14 @@ export default function useTetrisFetch<T>(errorMsg?: string) {
   const [error, setError] = useState<string>();
   const msgError = "An unexpected error occurred";
 
-  const get = async (method: Method, params: Params): Promise<Response<T>> => {
+  const get = async (
+    method: Method,
+    params: Params,
+    token?: string
+  ): Promise<Response<T>> => {
     setLoading(true);
     setKeyState(KeyState.Loading);
-    const url = getURL(method, params);
+    const url = getURL(method, params, token);
     try {
       const response = (await axios.get<Response<T>>(url)).data;
       setLoading(false);
