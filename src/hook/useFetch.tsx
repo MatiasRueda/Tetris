@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Method } from "../utils/method";
-import getURL from "../utils/url";
 import axios from "axios";
 import { Params } from "../type/type";
 
@@ -16,22 +14,23 @@ enum KeyState {
   Error = "Error",
 }
 
+const baseURL = import.meta.env.VITE_LAMBDA_URL;
+
 export default function useTetrisFetch<T>(errorMsg?: string) {
   const [keyState, setKeyState] = useState<KeyState>(KeyState.Main);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const msgError = "An unexpected error occurred";
 
-  const get = async (
-    method: Method,
-    token: string,
-    params?: Params
-  ): Promise<Response<T>> => {
+  const get = async (params?: Params): Promise<Response<T>> => {
     setLoading(true);
     setKeyState(KeyState.Loading);
-    const url = getURL(method, token, params);
+    const url = axios.create({
+      baseURL,
+      params,
+    });
     try {
-      const response = (await axios.get<Response<T>>(url)).data;
+      const response = (await url.get<Response<T>>("/")).data;
       setLoading(false);
       if (!response.success) {
         setKeyState(KeyState.Error);

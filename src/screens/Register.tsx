@@ -21,7 +21,8 @@ export default function Register() {
 
   const submit = async (data: any) => {
     if (recaptchaToken === null) return;
-    const response = await fetch.get(Method.Register, recaptchaToken, data);
+    const params = { ...data, method: Method.Register, token: recaptchaToken };
+    const response = await fetch.get(params);
     if (!response.success) return;
     setMessage(response.message);
     setRecaptchaToken(null);

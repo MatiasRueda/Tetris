@@ -18,7 +18,12 @@ export default function Validate(props: { class: string; data?: Params }) {
 
   const submit = async (_data: any) => {
     if (recaptchaToken === null) return;
-    const response = await fetch.get(Method.Score, recaptchaToken, props.data!);
+    const params = {
+      ...props.data,
+      method: Method.Score,
+      token: recaptchaToken,
+    };
+    const response = await fetch.get(params);
     if (!response.success) return;
     setMessage(response.message);
     setRecaptchaToken(null);

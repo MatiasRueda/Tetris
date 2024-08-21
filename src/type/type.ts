@@ -1,5 +1,9 @@
+import { Method } from "../utils/method";
+
 export type Params = {
-  username: string;
+  username?: string;
+  token: string;
+  method: Method;
   password?: string;
   score?: string;
 };
