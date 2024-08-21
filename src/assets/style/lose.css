@@ -48,3 +48,15 @@
   width: 100%;
   display: flex;
 }
+
+.cont-validate-lose {
+  padding-top: 3rem;
+  height: 25rem;
+  width: 55rem;
+  background-color: #ffff;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+}

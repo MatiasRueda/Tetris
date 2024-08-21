@@ -19,7 +19,7 @@ export default function Scores(props: { scores: [string, number][] }) {
 
   const orderNumber = ([title, score]: [string, number], index: number) => {
     return index === props.scores.length - 1 ? (
-      <NumberAnimation duration={5} finalNumber={score} />
+      <NumberAnimation key={index} duration={5} finalNumber={score} />
     ) : (
       <motion.p key={index} variants={scoresVariants}>
         {title}: &nbsp;{score}

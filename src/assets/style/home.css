@@ -64,7 +64,8 @@
 }
 
 .cont-user-info {
-  height: 10rem;
+  padding-top: 1rem;
+  height: 15rem;
   width: 100%;
   color: #ffff;
   display: flex;

@@ -1,10 +1,15 @@
+import ReCAPTCHA from "react-google-recaptcha";
 import { useScreenContext } from "../context/ScreenContext";
 import Form from "./Form";
 import Input from "./Input";
 import Label from "./Label";
 
+const key = import.meta.env.VITE_RECAPTCHA_KEY;
+
 function FormRegister(props: {
   submit: (data: any) => Promise<void>;
+  submitDisabled?: boolean;
+  handleCaptcha: (token: string | null) => void;
 }): JSX.Element {
   const screen = useScreenContext();
 
@@ -13,6 +18,7 @@ function FormRegister(props: {
       id="register"
       send="Register"
       onSubmit={props.submit}
+      submitDisabled={props.submitDisabled}
       cancel={{ text: "Back", accion: screen.changeToHome }}
     >
       <Label htmlFor="username" text="Username:" />
@@ -45,6 +51,11 @@ function FormRegister(props: {
         reglas={{ required: "Rewrite your password please" }}
         inputIgual="password"
         {...{ placeholder: "rewrite your password" }}
+      />
+      <ReCAPTCHA
+        className="captcha"
+        sitekey={key}
+        onChange={props.handleCaptcha}
       />
     </Form>
   );

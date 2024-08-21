@@ -24,18 +24,19 @@ export default function useTetrisFetch<T>(errorMsg?: string) {
 
   const get = async (
     method: Method,
-    params: Params,
-    token?: string
+    token: string,
+    params?: Params
   ): Promise<Response<T>> => {
     setLoading(true);
     setKeyState(KeyState.Loading);
-    const url = getURL(method, params, token);
+    const url = getURL(method, token, params);
     try {
       const response = (await axios.get<Response<T>>(url)).data;
       setLoading(false);
       if (!response.success) {
         setKeyState(KeyState.Error);
-        setError(errorMsg ? errorMsg : response.message);
+        setError(response.message);
+        return response;
       }
       setKeyState(KeyState.Main);
       return response;
