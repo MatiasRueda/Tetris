@@ -64,12 +64,10 @@
 }
 
 .cont-user-info {
-  padding-top: 1rem;
   height: 15rem;
   width: 100%;
   color: #ffff;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 

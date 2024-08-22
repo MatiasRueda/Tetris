@@ -1,3 +1,4 @@
+import "../assets/style/game.css";
 import Board from "../component/Board";
 import useTetris from "../hook/useTetris";
 import Information from "../component/Information";
@@ -6,22 +7,33 @@ import Controllers from "../component/Controllers";
 import Lose from "../component/Lose";
 import { useConfigContext } from "../context/ConfigContext";
 import Pause from "../component/Pause";
-import "../assets/style/game.css";
 import { AnimatePresence } from "framer-motion";
+import { useUserContext } from "../context/UserContext";
 
 export default function Game() {
   const config = useConfigContext();
+  const user = useUserContext();
   const tetris = useTetris(config.difficulty);
 
   return (
     <section className="game">
       <AnimatePresence>
         <Information key={0} {...tetris.info} />
-        <Board
-          key={1}
-          last={tetris.info.positionDown}
-          board={tetris.info.board}
-        />
+        <div className="cont-game-user">
+          {user.info ? (
+            <div className="cont-user-name-score">
+              <p>Username: {user.info.username}</p>
+              <p>Max Score: {user.info.score}</p>
+            </div>
+          ) : (
+            <div className="cont-user-name-score-base"></div>
+          )}
+          <Board
+            key={1}
+            last={tetris.info.positionDown}
+            board={tetris.info.board}
+          />
+        </div>
         <NextPieces
           key={2}
           piece={tetris.info.nextPiece}

@@ -8,3 +8,31 @@
   justify-content: space-around;
   z-index: 1;
 }
+
+.cont-game-user {
+  height: 100%;
+  width: 45rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cont-user-name-score-base {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cont-user-name-score {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.2em;
+  color: #ffff;
+  background: linear-gradient(135deg, #4a235a 0%, #1a237e 100%);
+  border: 0.4rem solid black;
+  background-color: #ff5f6d;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

@@ -1,6 +1,8 @@
 .next-pieces {
   height: 50rem;
-  width: 15rem;
+  width: 20rem;
+  background: linear-gradient(135deg, #7b241c 0%, #5d4037 100%);
+  border: 0.4rem solid black;
   display: flex;
   align-items: center;
   justify-content: center;
