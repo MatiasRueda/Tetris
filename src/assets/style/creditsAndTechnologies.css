@@ -1,0 +1,81 @@
+.credits-technologies {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #002b36, #073642);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.cont-credits-technologies {
+  background: linear-gradient(135deg, #3e4a4f, #2c3e50);
+  padding: 3rem;
+  border-radius: 0.9rem;
+  width: 60rem;
+  margin: 0 auto;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #fff;
+  font-family: "Press Start 2P", sans-serif;
+}
+
+.cont-credits-technologies h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #dbe0e2;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.8);
+}
+
+.cont-credits-technologies-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.credits-technologies-info {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+.credits-technologies-info p {
+  font-size: 0.875rem;
+  color: #ccc;
+  line-height: 2;
+  text-shadow: 0.05rem 0.05rem 0.25rem rgba(0, 0, 0, 0.7);
+}
+
+.credits-technologies-info a {
+  color: #66c0f4;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.credits-technologies-info a:hover {
+  color: #f1c40f;
+  text-shadow: 0 0 0.3rem rgba(241, 196, 15, 0.8),
+    0 0 0.5rem rgba(241, 196, 15, 0.5);
+}
+
+.credits-btn {
+  margin-top: 3rem;
+  height: 6rem;
+  width: 12rem;
+  background: linear-gradient(135deg, #004d40, #00796b);
+  color: #ffffff;
+  border: 0.5rem solid #024238;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}

@@ -7,7 +7,7 @@ enum Screen {
   Register,
   Config,
   Table,
-  Credits,
+  CreditsAndTechnologies,
   Loading,
 }
 
@@ -17,7 +17,7 @@ type ScreenCtrl = {
   current: Screen;
   changeToGame: () => Promise<void>;
   changeToHome: () => Promise<void>;
-  changeToCredits: () => Promise<void>;
+  changeToCreditsAndTechnologies: () => Promise<void>;
   changeToConfig: () => Promise<void>;
   changeToLogin: () => Promise<void>;
   changeToRegister: () => Promise<void>;
@@ -55,8 +55,8 @@ export default function ScreenContext(props: { children: ReactNode }) {
     waitTransition(Screen.Home);
   };
 
-  const changeToCredits = async () => {
-    waitTransition(Screen.Credits);
+  const changeToCreditsAndTechnologies = async () => {
+    waitTransition(Screen.CreditsAndTechnologies);
   };
 
   const changeToConfig = async () => {
@@ -87,7 +87,7 @@ export default function ScreenContext(props: { children: ReactNode }) {
         changeToGame,
         changeToHome,
         changeToConfig,
-        changeToCredits,
+        changeToCreditsAndTechnologies,
         changeToLogin,
         changeToRegister,
         changeToTable,

@@ -4,7 +4,7 @@ import Game from "../screens/Game";
 import { useScreenContext } from "../context/ScreenContext";
 import Transition from "./Transition";
 import Config from "../screens/Config";
-import Credits from "../screens/Credits";
+import CreditsAndTechnologies from "../screens/CreditsAndTechnologies";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Table from "../screens/Table";
@@ -25,8 +25,8 @@ export default function Screen() {
       {screen.current === screen.screens.Config && (
         <Config key={screen.current} />
       )}
-      {screen.current === screen.screens.Credits && (
-        <Credits key={screen.current} />
+      {screen.current === screen.screens.CreditsAndTechnologies && (
+        <CreditsAndTechnologies key={screen.current} />
       )}
       {screen.current === screen.screens.Table && (
         <Table key={screen.current} />
