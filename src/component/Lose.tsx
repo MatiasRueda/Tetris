@@ -7,6 +7,7 @@ import { useState } from "react";
 import Validate from "./Validate";
 import Fade from "./Fade";
 import { useUserContext } from "../context/UserContext";
+import { Method } from "../utils/method";
 
 enum Scene {
   Main,
@@ -64,8 +65,12 @@ export default function Lose(props: {
           )}
           {scene === Scene.Validate && (
             <Validate
-              username={user.info!.username}
-              score={total[1].toString()}
+              data={{
+                username: user.info!.username,
+                score: total[1].toString(),
+                method: Method.Score,
+                token: "",
+              }}
               class="cont-validate-lose"
             />
           )}
