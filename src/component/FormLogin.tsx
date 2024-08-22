@@ -12,7 +12,6 @@ export default function FormLogin(props: {
   handleCaptcha: (token: string | null) => void;
 }) {
   const screen = useScreenContext();
-
   return (
     <Form
       cancel={{ text: "Back", accion: screen.changeToHome }}
