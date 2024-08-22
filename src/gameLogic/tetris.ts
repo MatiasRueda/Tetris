@@ -75,6 +75,7 @@ export default class Tetris {
       rows.add(row);
     });
     this.checksSpecificRows(Array.from(rows));
+    this.removeCurrentPiece();
     this.spawnNextPieceIfPossible();
   }
 

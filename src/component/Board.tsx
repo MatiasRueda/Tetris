@@ -1,5 +1,3 @@
-import { AnimatePresence } from "framer-motion";
-import Cell from "./Cell";
 import "../assets/style/tetromino.css";
 import "../assets/style/board.css";
 
@@ -10,7 +8,7 @@ export default function Board(props: {
   return (
     <section className="board">
       {props.board.map((row, rowIndex) => {
-        if (!rowIndex || rowIndex === 1) return null;
+        if (!rowIndex || rowIndex === 1) return undefined;
         return row.map((column, columnIndex) =>
           props.last.some(
             ([row, col]) => row === rowIndex && col === columnIndex
