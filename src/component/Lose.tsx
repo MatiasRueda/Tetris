@@ -66,8 +66,14 @@ export default function Lose(props: {
                   class="start-btn"
                   click={goValidate}
                   value="Submit"
+                  color="#d9534f"
                 />
-                <Button class="start-btn" click={goHome} value="Go Home" />
+                <Button
+                  class="start-btn"
+                  click={goHome}
+                  value="Go Home"
+                  color="#d9534f"
+                />
               </div>
             </div>
           )}

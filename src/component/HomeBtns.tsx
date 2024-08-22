@@ -14,7 +14,7 @@ export default function HomeBtns() {
 
   return (
     <div className="home-btns">
-      <Button class="home-btn" value="Start game" click={screen.changeToGame} />
+      <Button class="home-btn" value="Start" click={screen.changeToGame} />
       {user.info && (
         <Button class="home-btn" value="Table" click={screen.changeToTable} />
       )}

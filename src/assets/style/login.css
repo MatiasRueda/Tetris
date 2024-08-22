@@ -64,6 +64,7 @@
   background-color: #3498db;
   border: 0.2rem solid #2980b9;
   border-radius: 0.3rem;
+  line-height: 1.5;
 }
 
 .btn-go-register:hover {

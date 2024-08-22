@@ -54,17 +54,19 @@ main {
 }
 
 .cont-error-msg {
-  background: linear-gradient(90deg, #ff4d4d, #ff0000);
+  background: linear-gradient(90deg, #d32f2f, #c62828);
 }
-
 .cont-error-btns {
   width: 60%;
   display: flex;
   justify-content: space-around;
 }
-
 .cont-ok-msg {
-  background: linear-gradient(135deg, #00ff00, #008000);
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
 }
 
 .cont-error-msg p,
@@ -76,7 +78,12 @@ main {
 .btn-ok {
   height: 4rem;
   width: 8rem;
-  font-size: 0.9em;
+  font-size: 1em;
+}
+.btn-ok {
+  border: 0.2rem solid #fbc02d;
+  border-radius: 0.3rem;
+  padding: 0.8rem 1.5rem;
 }
 
 .captcha {

@@ -13,17 +13,19 @@
   height: 40rem;
   width: 60rem;
   border-radius: 0.8rem;
-  background-color: white;
+  background-color: #ff4c4c;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.6);
 }
 
 .cont-lose h2 {
   font-size: 2em;
   width: 100%;
   text-align: center;
+  color: #fff;
 }
 
 .cont-lose-btns {
@@ -43,7 +45,9 @@
 
 .cont-lose-score p {
   width: 100%;
+  color: #ffddc1;
 }
+
 .cont-lose-total {
   width: 100%;
   display: flex;
@@ -53,10 +57,10 @@
   padding-top: 3rem;
   height: 25rem;
   width: 55rem;
-  background-color: #ffff;
   border-radius: 0.8rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: space-around;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.6);
 }

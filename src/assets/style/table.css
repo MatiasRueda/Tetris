@@ -66,8 +66,13 @@
 }
 
 .table-btn {
+  font-size: 1.2em;
   height: 7rem;
   width: 14rem;
   color: #ffff;
-  font-size: 1.1em;
+  border-radius: 0.7rem;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
