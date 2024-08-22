@@ -25,17 +25,20 @@
   display: flex;
   justify-content: space-around;
 }
+
 .cont-text {
   height: 15rem;
   width: 40%;
-
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .cont-text p {
-  margin-top: 2rem;
+  width: 100%;
+  text-align: left;
+  line-height: 2;
 }
 
 .start-btn {
