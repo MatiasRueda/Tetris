@@ -9,7 +9,7 @@ export default class Tetris {
   private ctrl = new BoardController(Tetris.HEIGHT, Tetris.WIDTH);
   private board: (string | undefined)[][];
   private factory = new PieceFactory();
-  private actPiece = this.factory.randomPiece();
+  private actPiece: Piece | undefined = undefined;
   private nextPiece = this.factory.randomPiece();
   private positionDown: [number, number][] = [];
   private nextPieces: Piece[] = [];
@@ -67,6 +67,7 @@ export default class Tetris {
   }
 
   private removeCurrentPiece() {
+    if (!this.actPiece) return;
     this.actPiece.getPosition.forEach(([row, column]) => {
       this.board[row][column] = undefined;
     });
@@ -82,10 +83,11 @@ export default class Tetris {
 
   public movePieceToFloor() {
     if (!this.positionDown.length) return;
+    if (!this.actPiece) return;
     const rows = new Set<number>();
     this.removeCurrentPiece();
     this.positionDown.forEach(([row, col]) => {
-      this.board[row][col] = this.actPiece.getColor;
+      this.board[row][col] = this.actPiece!.getColor;
       rows.add(row);
     });
     this.checksSpecificRows(Array.from(rows));
@@ -94,7 +96,7 @@ export default class Tetris {
   }
 
   private checkMoveDown() {
-    if (!this.positionDown.length) return;
+    if (!this.positionDown.length || !this.actPiece) return;
     const [row, _col] = this.positionDown[0];
     const lenPosition = this.actPiece.getPosition.length;
     const [rowPiece, _colPiece] = this.actPiece.getPosition[lenPosition - 1];
@@ -103,6 +105,7 @@ export default class Tetris {
   }
 
   private setNewPositionDown() {
+    if (!this.actPiece) return;
     const { shape, rowLast, rowLastShape } = this.actPiece.getInformation;
     if (rowLast >= Tetris.HEIGHT) return;
     for (const [rowIndex, _rowBoard] of this.board.entries()) {
@@ -114,6 +117,7 @@ export default class Tetris {
   }
 
   private getPositions(shape: number[][], rowIndex: number, rowLast: number) {
+    if (!this.actPiece) return null;
     const positions: [number, number][] = [];
     let newRow = rowIndex;
     for (const [rowIndexShape, rowShape] of shape.entries()) {
@@ -131,6 +135,7 @@ export default class Tetris {
   }
 
   public rotate() {
+    if (!this.actPiece) return;
     this.removeCurrentPiece();
     this.actPiece.spin(this.board);
     this.putPiece();
@@ -139,6 +144,7 @@ export default class Tetris {
   }
 
   private checksRows() {
+    if (!this.actPiece) return;
     let { shape, rowIndex } = this.actPiece.getInformation;
     shape.forEach((row, shapeRowIndex) => {
       const actualRow = rowIndex + shapeRowIndex;
@@ -187,8 +193,10 @@ export default class Tetris {
 
   public moveDown(): boolean {
     if (!this.start || this.lose) return false;
+    if (!this.actPiece) return false;
     this.removeCurrentPiece();
     if (!this.ctrl.moveDown(this.actPiece, this.board)) {
+      this.removeCurrentPiece();
       this.handlePiecePlacement();
       return false;
     }
@@ -200,6 +208,7 @@ export default class Tetris {
 
   private moveHorizontal(right: boolean) {
     if (!this.start || this.lose) return false;
+    if (!this.actPiece) return false;
     if (right && !this.ctrl.moveRight(this.actPiece, this.board)) return false;
     if (!right && !this.ctrl.moveLeft(this.actPiece, this.board)) return false;
     this.removeCurrentPiece();
@@ -219,23 +228,24 @@ export default class Tetris {
   }
 
   private putPiece() {
+    if (!this.actPiece) return;
     let { rowIndex, colIndex } = this.actPiece.getInformation;
     this.actPiece.removeCells();
     this.actPiece.getShape.shape.forEach((row) => {
       row.forEach((col) => {
         if (col && !this.board[rowIndex][colIndex]) {
-          this.board[rowIndex][colIndex] = this.actPiece.getColor;
-          this.actPiece.addCell(rowIndex, colIndex);
+          this.board[rowIndex][colIndex] = this.actPiece!.getColor;
+          this.actPiece!.addCell(rowIndex, colIndex);
         }
         colIndex += 1;
       });
       rowIndex += 1;
-      colIndex = this.actPiece.getCurrentColumn;
+      colIndex = this.actPiece!.getCurrentColumn;
     });
   }
 
   private spawnTetromino(piece?: Piece) {
-    this.actPiece = !piece ? this.factory.randomPiece() : piece;
+    this.actPiece = !piece ? this.nextPiece : piece;
     this.nextPiece = this.nextPieces.shift()!;
     this.nextPieces.push(this.factory.randomPiece());
     this.putPiece();
