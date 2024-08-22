@@ -19,6 +19,7 @@ export default function Lose(props: {
   lines: number;
   difficulty: number;
   score: number;
+  resetGame: () => void;
 }) {
   const screen = useScreenContext();
   const user = useUserContext();
@@ -38,6 +39,17 @@ export default function Lose(props: {
     setScene(Scene.Validate);
   };
 
+  const updateScore = () => {
+    user.updateScore(total[1]);
+    props.resetGame();
+  };
+
+  const goHome = async () => {
+    screen.changeToHome();
+    await new Promise((resolve) => setTimeout(resolve, 1100));
+    props.resetGame();
+  };
+
   const disableSubmit = !user.info || total[1] <= Number(user.info.score);
 
   return (
@@ -55,11 +67,7 @@ export default function Lose(props: {
                   click={goValidate}
                   value="Submit"
                 />
-                <Button
-                  class="start-btn"
-                  click={screen.changeToHome}
-                  value="Go Home"
-                />
+                <Button class="start-btn" click={goHome} value="Go Home" />
               </div>
             </div>
           )}
@@ -71,6 +79,7 @@ export default function Lose(props: {
                 method: Method.Score,
                 token: "",
               }}
+              applyfunction={updateScore}
               class="cont-validate-lose"
             />
           )}

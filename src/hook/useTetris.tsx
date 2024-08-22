@@ -17,6 +17,11 @@ function useTetris(difficulty: Difficulty) {
     setInfo(tetris.getInformation);
   };
 
+  const resetGame = () => {
+    tetris.resetGame();
+    setInfo(tetris.getInformation);
+  };
+
   const detectKeyDown = (e: KeyboardEvent) => {
     const currentKey = e.key.toLowerCase();
     if (!keys.some((k) => k === currentKey)) {
@@ -49,15 +54,24 @@ function useTetris(difficulty: Difficulty) {
   }, [tetris.getInformation.start, pause.value]);
 
   useEffect(() => {
-    if (!tetris.getInformation.start) return;
+    if (!tetris.getInformation.start || tetris.getInformation.lose) {
+      if (stop) clearInterval(stop);
+      return;
+    }
     if (pause.value && stop) {
       clearInterval(stop);
       return;
     }
     setStop(configInterval());
-  }, [tetris.getInformation.start, pause.value]);
+  }, [tetris.getInformation.start, tetris.getInformation.lose, pause.value]);
 
-  return { info, startGame, pause: pause.value, resume: pause.resume };
+  return {
+    info,
+    startGame,
+    pause: pause.value,
+    resume: pause.resume,
+    resetGame,
+  };
 }
 
 export default useTetris;

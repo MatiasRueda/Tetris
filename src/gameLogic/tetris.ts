@@ -32,6 +32,20 @@ export default class Tetris {
     this.lose = false;
   }
 
+  public resetGame() {
+    this.positionDown = [];
+    this.nextPieces = [];
+    this.level = 1;
+    this.lines = 0;
+    this.score = 0;
+    this.start = false;
+    this.lose = false;
+    this.board = this.createBoard();
+    this.nextPieces.push(this.factory.randomPiece());
+    this.nextPieces.push(this.factory.randomPiece());
+    this.nextPieces.push(this.factory.randomPiece());
+  }
+
   private createBoard(): (string | undefined)[][] {
     const board = new Array(Tetris.HEIGHT);
     for (let i = 0; i < Tetris.HEIGHT; i++) {
@@ -122,11 +136,6 @@ export default class Tetris {
     this.putPiece();
     this.setNewPositionDown();
     this.checkMoveDown();
-  }
-
-  public end() {
-    this.lose = true;
-    this.start = false;
   }
 
   private checksRows() {

@@ -47,7 +47,12 @@ export default function Game() {
           <Controllers key={4} startGame={tetris.startGame} />
         )}
         {tetris.info.lose && (
-          <Lose key={5} difficulty={config.difficulty} {...tetris.info} />
+          <Lose
+            key={5}
+            resetGame={tetris.resetGame}
+            difficulty={config.difficulty}
+            {...tetris.info}
+          />
         )}
       </AnimatePresence>
     </section>

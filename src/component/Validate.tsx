@@ -13,6 +13,7 @@ export default function Validate(props: {
   class: string;
   data: Params;
   clickBack?: () => void;
+  applyfunction?: () => void;
   getData?: (data: any) => void;
 }) {
   const fetch = useTetrisFetch();
@@ -30,6 +31,7 @@ export default function Validate(props: {
     if (!response.success) return;
     setMessage(response.message);
     if (props.getData) props.getData(response.data);
+    if (props.applyfunction) props.applyfunction();
     setRecaptchaToken(null);
   };
 
