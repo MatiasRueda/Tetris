@@ -18,15 +18,16 @@ function useTetris(difficulty: Difficulty) {
   };
 
   const detectKeyDown = (e: KeyboardEvent) => {
-    if (!keys.some((k) => k === e.key)) {
+    const currentKey = e.key.toLowerCase();
+    if (!keys.some((k) => k === currentKey)) {
       return;
-    } else if (e.key === "s") {
+    } else if (currentKey === "s") {
       tetris.movePieceToFloor();
-    } else if (e.key === "w") {
+    } else if (currentKey === "w") {
       tetris.rotate();
-    } else if (e.key === "a") {
+    } else if (currentKey === "a") {
       tetris.moveLeft();
-    } else if (e.key === "d") {
+    } else if (currentKey === "d") {
       tetris.moveRight();
     }
     setInfo(tetris.getInformation);

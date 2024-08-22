@@ -37,6 +37,8 @@ export default function Lose(props: {
     setScene(Scene.Validate);
   };
 
+  const disableSubmit = !user.info || total[1] <= Number(user.info.score);
+
   return (
     <section className="lose">
       <AnimatePresence mode="wait">
@@ -46,7 +48,12 @@ export default function Lose(props: {
               <h2>You Lose!</h2>
               <Scores scores={[...scores, total]} />
               <div className="cont-lose-btns">
-                <Button class="start-btn" click={goValidate} value="Submit" />
+                <Button
+                  disabled={disableSubmit}
+                  class="start-btn"
+                  click={goValidate}
+                  value="Submit"
+                />
                 <Button
                   class="start-btn"
                   click={screen.changeToHome}
@@ -57,10 +64,8 @@ export default function Lose(props: {
           )}
           {scene === Scene.Validate && (
             <Validate
-              data={{
-                username: user.info!.username,
-                score: total[1].toString(),
-              }}
+              username={user.info!.username}
+              score={total[1].toString()}
               class="cont-validate-lose"
             />
           )}

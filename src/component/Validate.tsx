@@ -10,7 +10,11 @@ import Loading from "../screens/Loading";
 import { useScreenContext } from "../context/ScreenContext";
 import { Params } from "../type/type";
 
-export default function Validate(props: { class: string; data?: Params }) {
+export default function Validate(props: {
+  class: string;
+  username: string;
+  score: string;
+}) {
   const fetch = useTetrisFetch();
   const screen = useScreenContext();
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
@@ -18,8 +22,9 @@ export default function Validate(props: { class: string; data?: Params }) {
 
   const submit = async (_data: any) => {
     if (recaptchaToken === null) return;
-    const params = {
-      ...props.data,
+    const params: Params = {
+      username: props.username,
+      score: props.score,
       method: Method.Score,
       token: recaptchaToken,
     };
