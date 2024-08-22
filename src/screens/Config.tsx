@@ -36,14 +36,16 @@ export default function Config() {
         </div>
         <div className="cont-config-btns">
           <Button
-            class="config-btn common-btn"
+            class="config-btn"
             value="Accept"
             click={accept}
+            color="#3498db"
             disabled={config.difficulty === difficulty}
           />
           <Button
-            class="config-btn common-btn"
+            class="config-btn"
             value="Go home"
+            color="#3498db"
             click={screen.changeToHome}
           />
         </div>

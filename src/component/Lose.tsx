@@ -8,6 +8,7 @@ import Validate from "./Validate";
 import Fade from "./Fade";
 import { useUserContext } from "../context/UserContext";
 import { Method } from "../utils/method";
+import { delay } from "../utils/delay";
 
 enum Scene {
   Main,
@@ -46,7 +47,7 @@ export default function Lose(props: {
 
   const goHome = async () => {
     screen.changeToHome();
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    await new Promise((resolve) => setTimeout(resolve, delay));
     props.resetGame();
   };
 

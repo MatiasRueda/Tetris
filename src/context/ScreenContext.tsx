@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { delay } from "../utils/delay";
 
 enum Screen {
   Home,
@@ -40,10 +41,10 @@ export default function ScreenContext(props: { children: ReactNode }) {
   const waitTransition = async (screen: Screen) => {
     setShow(true);
     setTransition(true);
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    await new Promise((resolve) => setTimeout(resolve, delay));
     setCurrent(screen);
     setTransition(false);
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    await new Promise((resolve) => setTimeout(resolve, delay));
     setShow(false);
   };
 

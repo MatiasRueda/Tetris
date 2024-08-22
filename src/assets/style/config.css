@@ -2,8 +2,8 @@
   height: 100%;
   width: 100%;
   text-align: center;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #4b79a1, #3992d0, #a1c4fd);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,36 +12,38 @@
 }
 
 select {
-  background-color: #f2c14e;
-  color: #24292e;
+  background-color: #a2c2e3;
+  color: #2c3e50;
   padding: 1.2rem;
-  font-size: 0.8em;
-  border: 0.1rem solid #24292e;
-  border-radius: 0.1rem;
+  font-size: 0.8rem;
+  border: 0.1rem solid #2c3e50;
+  border-radius: 0.2rem;
   box-shadow: 0 0 0.9rem rgba(0, 0, 0, 0.2);
   appearance: none;
   cursor: pointer;
 }
 
 select:hover {
-  background-color: #f1c232;
+  background-color: #8fb4cd;
 }
 
 option {
-  background-color: #fff3b0;
-  color: #24292e;
-  font-size: 1em;
+  background-color: #e1eff4;
+  color: #2c3e50;
+  font-size: 1rem;
 }
 
 .cont-config {
-  border: 0.2rem solid black;
+  border: 0.2rem solid #3498db;
   height: 35rem;
   width: 50rem;
-  background-color: rgb(226, 233, 161);
+  background-color: #eaf2f8;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 
 .cont-config h2 {
@@ -50,6 +52,8 @@ option {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #3498db;
+  margin-bottom: 1rem;
 }
 
 .cont-dificult {
@@ -62,6 +66,8 @@ option {
 
 .cont-dificult p {
   margin-right: 10rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
 }
 
 .cont-config-btns {
@@ -75,10 +81,10 @@ option {
 .config-btn {
   height: 4rem;
   width: 10rem;
-  font-size: 1em;
-  border: 0.2rem solid black;
+  font-size: 1rem;
   cursor: pointer;
-  color: #000;
+  color: #fff;
+  border-radius: 0.3rem;
   display: flex;
   align-items: center;
   justify-content: center;

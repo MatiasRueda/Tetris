@@ -1,5 +1,6 @@
 import { useScreenContext } from "../context/ScreenContext";
 import { useUserContext } from "../context/UserContext";
+import { delay } from "../utils/delay";
 import Button from "./Button";
 
 export default function HomeBtns() {
@@ -8,7 +9,7 @@ export default function HomeBtns() {
 
   const unlogin = async () => {
     screen.changeToHome();
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    await new Promise((resolve) => setTimeout(resolve, delay));
     user.unlogin();
   };
 

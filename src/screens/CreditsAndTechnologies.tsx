@@ -44,7 +44,8 @@ export default function CreditsAndTechnologies() {
         </div>
         <Button
           class="credits-btn"
-          value={"Go home"}
+          value={"Go Home"}
+          color="#00796b"
           click={screen.changeToHome}
         />
       </div>
