@@ -60,7 +60,7 @@ export default function Table() {
               }}
               clickBack={goTable}
               getData={getResponseData}
-              class="cont-validate-table"
+              className="cont-validate-table"
             />
           )}
         </Fade>

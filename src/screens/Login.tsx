@@ -39,15 +39,13 @@ export default function Login() {
   };
 
   const renderContent = () => {
-    if (fetch.loading) {
-      return <Loading />;
-    }
-    if (fetch.error) {
+    if (fetch.loading) return <Loading />;
+
+    if (fetch.error)
       return <ErrorMsg message={fetch.error} clickBack={fetch.reset} />;
-    }
-    if (message) {
-      return <OkMsg message={message} click={screen.changeToHome} />;
-    }
+
+    if (message) return <OkMsg message={message} click={screen.changeToHome} />;
+
     return (
       <Fragment>
         <h1>Login</h1>

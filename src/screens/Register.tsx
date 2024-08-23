@@ -12,15 +12,19 @@ import { Method } from "../utils/method";
 import { useState } from "react";
 import OkMsg from "../component/OkMsg";
 
+type RegisterData = {
+  username: string;
+  password: string;
+};
+
 export default function Register() {
   const fetch = useTetrisFetch<User>();
   const screen = useScreenContext();
-  const [message, setMessage] = useState<string>();
+  const [message, setMessage] = useState<string | null>();
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
-  const submit = async (data: any) => {
-    if (recaptchaToken === null) return;
-    const params = { ...data, method: Method.Register, token: recaptchaToken };
+  const submit = async (data: RegisterData) => {
+    const params = { ...data, method: Method.Register, token: recaptchaToken! };
     const response = await fetch.get(params);
     if (!response.success) return;
     setMessage(response.message);
@@ -31,29 +35,29 @@ export default function Register() {
     setRecaptchaToken(token);
   };
 
+  const renderContent = () => {
+    if (fetch.loading) return <Loading />;
+    if (fetch.error)
+      return <ErrorMsg message={fetch.error} clickBack={fetch.reset} />;
+
+    if (message) return <OkMsg message={message} click={screen.changeToHome} />;
+
+    return (
+      <Fragment>
+        <h1>Register</h1>
+        <FormRegister
+          submit={submit}
+          handleCaptcha={handleCaptcha}
+          submitDisabled={!recaptchaToken}
+        />
+      </Fragment>
+    );
+  };
+
   return (
     <section className="register">
       <AnimatePresence mode="wait">
-        <Fade key={fetch.keyState}>
-          {fetch.loading && <Loading />}
-          {fetch.error && (
-            <ErrorMsg message={fetch.error} clickBack={fetch.reset} />
-          )}
-          {!fetch.loading &&
-            !fetch.error &&
-            (message ? (
-              <OkMsg message={message} click={screen.changeToHome} />
-            ) : (
-              <Fragment>
-                <h1>Register</h1>
-                <FormRegister
-                  submit={submit}
-                  handleCaptcha={handleCaptcha}
-                  submitDisabled={!recaptchaToken}
-                />
-              </Fragment>
-            ))}
-        </Fade>
+        <Fade key={fetch.keyState}>{renderContent()}</Fade>
       </AnimatePresence>
     </section>
   );

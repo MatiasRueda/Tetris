@@ -87,7 +87,7 @@ export default function Lose(props: {
                 token: "",
               }}
               applyfunction={updateScore}
-              class="cont-validate-lose"
+              className="cont-validate-lose"
             />
           )}
         </Fade>
