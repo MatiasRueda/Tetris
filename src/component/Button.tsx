@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function Button(props: {
   click?: () => void;
-  class: string;
+  className: string;
   color?: string;
   disabled?: boolean;
   value: string;
@@ -10,7 +10,7 @@ export default function Button(props: {
 }) {
   return (
     <motion.button
-      className={props.class}
+      className={props.className}
       onClick={props.click}
       type={props.type ? props.type : "button"}
       transition={{ duration: 0.2 }}

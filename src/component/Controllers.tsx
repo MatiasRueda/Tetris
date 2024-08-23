@@ -12,7 +12,7 @@ export default function Controllers(props: { startGame: () => void }) {
           <TextController />
         </div>
         <Button
-          class="start-btn common-btn"
+          className="start-btn common-btn"
           click={props.startGame}
           value="Start"
           color="#00796b"

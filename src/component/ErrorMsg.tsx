@@ -13,13 +13,13 @@ export default function ErrorMsg(props: {
       <div className="cont-error-btns">
         <Button
           value="Ok"
-          class="btn-error"
+          className="btn-error"
           click={screen.changeToHome}
           color="#ffffff"
         />
         <Button
           value="Back"
-          class="btn-error"
+          className="btn-error"
           click={props.clickBack}
           color="#ffffff"
         />

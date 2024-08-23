@@ -24,7 +24,11 @@ export default function Pause(props: { resume: () => void }) {
         className="cont-pause"
       >
         <h1>Pause</h1>
-        <Button click={props.resume} class={"resume-btn"} value={"Resume"} />
+        <Button
+          click={props.resume}
+          className={"resume-btn"}
+          value={"Resume"}
+        />
       </motion.div>
     </section>
   );

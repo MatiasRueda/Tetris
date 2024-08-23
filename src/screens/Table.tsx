@@ -44,7 +44,7 @@ export default function Table() {
               <div className="cont-table-btn">
                 <Button
                   color="#009879"
-                  class="table-btn"
+                  className="table-btn"
                   click={screen.changeToHome}
                   value="Go Home"
                 />

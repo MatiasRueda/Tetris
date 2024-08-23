@@ -15,20 +15,34 @@ export default function HomeBtns() {
 
   return (
     <div className="home-btns">
-      <Button class="home-btn" value="Start" click={screen.changeToGame} />
+      <Button className="home-btn" value="Start" click={screen.changeToGame} />
       {user.info && (
-        <Button class="home-btn" value="Table" click={screen.changeToTable} />
+        <Button
+          className="home-btn"
+          value="Table"
+          click={screen.changeToTable}
+        />
       )}
       {!user.info && (
-        <Button class="home-btn" value="Login" click={screen.changeToLogin} />
+        <Button
+          className="home-btn"
+          value="Login"
+          click={screen.changeToLogin}
+        />
       )}
-      <Button class="home-btn" value="Config" click={screen.changeToConfig} />
       <Button
-        class="home-btn"
+        className="home-btn"
+        value="Config"
+        click={screen.changeToConfig}
+      />
+      <Button
+        className="home-btn"
         value="Credits and Technologies"
         click={screen.changeToCreditsAndTechnologies}
       />
-      {user.info && <Button class="home-btn" value="Log out" click={unlogin} />}
+      {user.info && (
+        <Button className="home-btn" value="Log out" click={unlogin} />
+      )}
     </div>
   );
 }

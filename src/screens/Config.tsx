@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Dificults from "../component/Dificults";
 import Button from "../component/Button";
 import { Difficulty, useConfigContext } from "../context/ConfigContext";
@@ -15,12 +15,14 @@ export default function Config() {
     screen.changeToHome();
   };
 
-  const changeDifficulty = (e: any) => {
-    let difficulty = Difficulty.Easy;
-    if (e.target.value === "Hard") difficulty = Difficulty.Hard;
-    else if (e.target.value === "Medium") difficulty = Difficulty.Medium;
-    else difficulty = Difficulty.Easy;
-    setDifficulty(difficulty);
+  const changeDifficulty = (e: ChangeEvent<HTMLSelectElement>) => {
+    const difficultyMap: Record<string, Difficulty> = {
+      Easy: Difficulty.Easy,
+      Medium: Difficulty.Medium,
+      Hard: Difficulty.Hard,
+    };
+    const selectedDifficulty = difficultyMap[e.target.value] || Difficulty.Easy;
+    setDifficulty(selectedDifficulty);
   };
 
   return (
@@ -36,14 +38,14 @@ export default function Config() {
         </div>
         <div className="cont-config-btns">
           <Button
-            class="config-btn"
+            className="config-btn"
             value="Accept"
             click={accept}
             color="#3498db"
             disabled={config.difficulty === difficulty}
           />
           <Button
-            class="config-btn"
+            className="config-btn"
             value="Go home"
             color="#3498db"
             click={screen.changeToHome}

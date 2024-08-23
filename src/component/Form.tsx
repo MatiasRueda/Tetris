@@ -60,7 +60,7 @@ function Form(props: {
       </div>
       <div className="cont-form-btns">
         <Button
-          class="btn-submit"
+          className="btn-submit"
           color="green"
           value={props.send}
           disabled={props.submitDisabled}
@@ -69,7 +69,7 @@ function Form(props: {
         {props.cancel && (
           <Button
             color="red"
-            class="btn-cancel"
+            className="btn-cancel"
             value={props.cancel.text}
             type="button"
             click={props.cancel.accion}

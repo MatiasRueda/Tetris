@@ -64,13 +64,13 @@ export default function Lose(props: {
               <div className="cont-lose-btns">
                 <Button
                   disabled={disableSubmit}
-                  class="start-btn"
+                  className="start-btn"
                   click={goValidate}
                   value="Submit"
                   color="#d9534f"
                 />
                 <Button
-                  class="start-btn"
+                  className="start-btn"
                   click={goHome}
                   value="Go Home"
                   color="#d9534f"
