@@ -13,8 +13,7 @@ import { useState } from "react";
 import OkMsg from "../component/OkMsg";
 
 export default function Register() {
-  const msgError = "An error occurred in the registration process.";
-  const fetch = useTetrisFetch<User>(msgError);
+  const fetch = useTetrisFetch<User>();
   const screen = useScreenContext();
   const [message, setMessage] = useState<string>();
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);

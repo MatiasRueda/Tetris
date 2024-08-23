@@ -1,9 +1,12 @@
 import "../assets/style/fade.css";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { useScreenContext } from "../context/ScreenContext";
 
-export default function Fade(props: { children: ReactNode }) {
+export default function Fade(props: {
+  children: ReactNode;
+  style?: CSSProperties;
+}) {
   const screen = useScreenContext();
 
   return (
@@ -18,6 +21,7 @@ export default function Fade(props: { children: ReactNode }) {
           duration: screen.current === screen.screens.Home ? 0 : 0.5,
         },
       }}
+      style={props.style}
       transition={{ duration: 0.5, delay: 0.75 }}
     >
       {props.children}

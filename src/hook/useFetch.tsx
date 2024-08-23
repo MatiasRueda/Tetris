@@ -16,7 +16,7 @@ enum KeyState {
 
 const baseURL = import.meta.env.VITE_LAMBDA_URL;
 
-export default function useTetrisFetch<T>(errorMsg?: string) {
+export default function useTetrisFetch<T>() {
   const [keyState, setKeyState] = useState<KeyState>(KeyState.Main);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
@@ -40,8 +40,9 @@ export default function useTetrisFetch<T>(errorMsg?: string) {
       setKeyState(KeyState.Main);
       return response;
     } catch (err: any) {
+      console.error(err);
       setLoading(false);
-      setError(errorMsg ? errorMsg : msgError);
+      setError(msgError);
       setKeyState(KeyState.Error);
       return {
         data: null as unknown as T,

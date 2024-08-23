@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section className="home">
       <AnimatePresence>
-        <Fade>
+        <Fade style={{ flexDirection: "row" }}>
           <div className="cont-null"></div>
           <div className="cont-main">
             <h1>Tetris</h1>
