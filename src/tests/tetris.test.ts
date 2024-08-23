@@ -3,15 +3,15 @@ import Tetris from "../gameLogic/tetris";
 describe("Tetris Class create correctly", () => {
   test("Board is empty", () => {
     const tetris = new Tetris();
-    const result = tetris.getBoard.every((row) => {
+    const result = tetris.getInformation.board.every((row) => {
       return row.every((element) => !element);
     });
     expect(result).toBeTruthy();
   });
 
-  test("Over is false", () => {
+  test("Lose is false", () => {
     const tetris = new Tetris();
-    expect(tetris.isOver()).toBeFalsy();
+    expect(tetris.getInformation.lose).toBeFalsy();
   });
 });
 
@@ -61,18 +61,18 @@ describe("Move down", () => {
     });
 
     test("The board not same, after move", () => {
-      const boardBeforeMove = tetris.getBoard.toString();
+      const boardBeforeMove = tetris.getInformation.board.toString();
       tetris.moveDown();
-      const boardAfterMove = tetris.getBoard.toString();
+      const boardAfterMove = tetris.getInformation.board.toString();
       expect(boardBeforeMove.toString()).not.toEqual(boardAfterMove.toString());
     });
 
     test("The board not same, after two moves", () => {
-      const board = tetris.getBoard.toString();
+      const board = tetris.getInformation.board.toString();
       tetris.moveDown();
-      const boardDown = tetris.getBoard.toString();
+      const boardDown = tetris.getInformation.board.toString();
       tetris.moveDown();
-      const boardDownTwo = tetris.getBoard.toString();
+      const boardDownTwo = tetris.getInformation.board.toString();
       const result = board !== boardDown && board !== boardDownTwo;
       expect(result).toBeTruthy();
     });
@@ -124,18 +124,18 @@ describe("Move Left", () => {
     });
 
     test("The board not same, after move", () => {
-      const boardBeforeMove = tetris.getBoard.toString();
+      const boardBeforeMove = tetris.getInformation.board.toString();
       tetris.moveLeft();
-      const boardAfterMove = tetris.getBoard.toString();
+      const boardAfterMove = tetris.getInformation.board.toString();
       expect(boardBeforeMove.toString()).not.toEqual(boardAfterMove.toString());
     });
 
     test("The board not same, after two moves", () => {
-      const board = tetris.getBoard.toString();
+      const board = tetris.getInformation.board.toString();
       tetris.moveLeft();
-      const boardLeft = tetris.getBoard.toString();
+      const boardLeft = tetris.getInformation.board.toString();
       tetris.moveLeft();
-      const boardLeftTwo = tetris.getBoard.toString();
+      const boardLeftTwo = tetris.getInformation.board.toString();
       const result = board !== boardLeft && board !== boardLeftTwo;
       expect(result).toBeTruthy();
     });
@@ -188,18 +188,18 @@ describe("Move Right", () => {
     });
 
     test("The board not same, after move", () => {
-      const boardBeforeMove = tetris.getBoard.toString();
+      const boardBeforeMove = tetris.getInformation.board.toString();
       tetris.moveRight();
-      const boardAfterMove = tetris.getBoard.toString();
+      const boardAfterMove = tetris.getInformation.board.toString();
       expect(boardBeforeMove.toString()).not.toEqual(boardAfterMove.toString());
     });
 
     test("The board not same, after two moves", () => {
-      const board = tetris.getBoard.toString();
+      const board = tetris.getInformation.board.toString();
       tetris.moveRight();
-      const boardRight = tetris.getBoard.toString();
+      const boardRight = tetris.getInformation.board.toString();
       tetris.moveRight();
-      const boardRightTwo = tetris.getBoard.toString();
+      const boardRightTwo = tetris.getInformation.board.toString();
       const result = board !== boardRight && board !== boardRightTwo;
       expect(result).toBeTruthy();
     });
@@ -221,11 +221,11 @@ describe("More moves", () => {
   });
 
   test("The board changes after Down and Left moves", () => {
-    const board = tetris.getBoard.toString();
+    const board = tetris.getInformation.board.toString();
     tetris.moveDown();
-    const boardDown = tetris.getBoard.toString();
+    const boardDown = tetris.getInformation.board.toString();
     tetris.moveLeft();
-    const boardLeft = tetris.getBoard.toString();
+    const boardLeft = tetris.getInformation.board.toString();
     const result = board !== boardDown && boardDown !== boardLeft;
     expect(result).toBeTruthy();
   });
@@ -237,11 +237,11 @@ describe("More moves", () => {
   });
 
   test("The board changes after Down and Right moves", () => {
-    const board = tetris.getBoard.toString();
+    const board = tetris.getInformation.board.toString();
     tetris.moveDown();
-    const boardDown = tetris.getBoard.toString();
+    const boardDown = tetris.getInformation.board.toString();
     tetris.moveRight();
-    const boardRight = tetris.getBoard.toString();
+    const boardRight = tetris.getInformation.board.toString();
     const result = board !== boardDown && boardDown !== boardRight;
     expect(result).toBeTruthy();
   });
