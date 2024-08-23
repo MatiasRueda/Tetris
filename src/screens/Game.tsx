@@ -15,45 +15,57 @@ export default function Game() {
   const user = useUserContext();
   const tetris = useTetris(config.difficulty);
 
+  const renderUserInfo = () => {
+    return user.info ? (
+      <div className="cont-user-name-score">
+        <p>Username: {user.info.username}</p>
+        <p>Max Score: {user.info.score}</p>
+      </div>
+    ) : (
+      <div className="cont-user-name-score-base"></div>
+    );
+  };
+
+  const renderGameControls = () => {
+    if (tetris.info.start || tetris.info.lose) {
+      return tetris.pause ? <Pause key="pause" resume={tetris.resume} /> : null;
+    }
+    return <Controllers key="controllers" startGame={tetris.startGame} />;
+  };
+
+  const renderLoseScreen = () => {
+    if (tetris.info.lose) {
+      return (
+        <Lose
+          key="lose"
+          resetGame={tetris.resetGame}
+          difficulty={config.difficulty}
+          {...tetris.info}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <section className="game">
       <AnimatePresence>
-        <Information key={0} {...tetris.info} />
+        <Information key="info" {...tetris.info} />
         <div className="cont-game-user">
-          {user.info ? (
-            <div className="cont-user-name-score">
-              <p>Username: {user.info.username}</p>
-              <p>Max Score: {user.info.score}</p>
-            </div>
-          ) : (
-            <div className="cont-user-name-score-base"></div>
-          )}
+          {renderUserInfo()}
           <Board
-            key={1}
+            key="board"
             last={tetris.info.positionDown}
             board={tetris.info.board}
           />
         </div>
         <NextPieces
-          key={2}
+          key="nextPieces"
           piece={tetris.info.nextPiece}
           pieces={tetris.info.nextPieces}
         />
-
-        {!(!tetris.info.start && !tetris.info.lose) && tetris.pause && (
-          <Pause key={3} resume={tetris.resume} />
-        )}
-        {!tetris.info.start && !tetris.info.lose && (
-          <Controllers key={4} startGame={tetris.startGame} />
-        )}
-        {tetris.info.lose && (
-          <Lose
-            key={5}
-            resetGame={tetris.resetGame}
-            difficulty={config.difficulty}
-            {...tetris.info}
-          />
-        )}
+        {renderGameControls()}
+        {renderLoseScreen()}
       </AnimatePresence>
     </section>
   );

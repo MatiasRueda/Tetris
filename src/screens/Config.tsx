@@ -46,7 +46,7 @@ export default function Config() {
           />
           <Button
             className="config-btn"
-            value="Go home"
+            value="Go Home"
             color="#3498db"
             click={screen.changeToHome}
           />

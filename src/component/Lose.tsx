@@ -1,14 +1,13 @@
-import Button from "./Button";
 import { useScreenContext } from "../context/ScreenContext";
-import Scores from "./Scores";
 import "../assets/style/lose.css";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Validate from "./Validate";
 import Fade from "./Fade";
 import { useUserContext } from "../context/UserContext";
-import { Method } from "../utils/method";
-import { delay } from "../utils/delay";
+import { delayUntilClosing } from "../utils/delay";
+import LoseMainContent from "./LoseMainContent";
+import LoseValidateContent from "./LoseValidateContent";
+import { calculateTotalScore } from "../utils/calculateTotalScore";
 
 enum Scene {
   Main,
@@ -31,24 +30,31 @@ export default function Lose(props: {
     ["Difficulty", props.difficulty],
     ["Score", props.score],
   ];
-  const total: [string, number] = [
-    "Total",
-    scores.reduce((prev, [_, current]) => prev + current, 0),
-  ];
+
+  const totalScore = calculateTotalScore(scores);
+  const total: [string, number] = ["Total", totalScore];
 
   const goValidate = () => {
     setScene(Scene.Validate);
   };
 
-  const updateScore = () => {
+  const updateScore = async () => {
     user.updateScore(total[1]);
+  };
+
+  const goHomeAndResetGame = async () => {
+    screen.changeToHome();
+    await delayUntilClosing();
     props.resetGame();
   };
 
-  const goHome = async () => {
-    screen.changeToHome();
-    await new Promise((resolve) => setTimeout(resolve, delay));
-    props.resetGame();
+  const updateAndGoHome = async () => {
+    updateScore();
+    goHomeAndResetGame();
+  };
+
+  const goLose = () => {
+    setScene(Scene.Main);
   };
 
   const disableSubmit = !user.info || total[1] <= Number(user.info.score);
@@ -58,36 +64,22 @@ export default function Lose(props: {
       <AnimatePresence mode="wait">
         <Fade key={scene}>
           {scene === Scene.Main && (
-            <div className="cont-lose">
-              <h2>You Lose!</h2>
-              <Scores scores={[...scores, total]} />
-              <div className="cont-lose-btns">
-                <Button
-                  disabled={disableSubmit}
-                  className="start-btn"
-                  click={goValidate}
-                  value="Submit"
-                  color="#d9534f"
-                />
-                <Button
-                  className="start-btn"
-                  click={goHome}
-                  value="Go Home"
-                  color="#d9534f"
-                />
-              </div>
-            </div>
+            <LoseMainContent
+              key={Scene.Main}
+              scores={scores}
+              total={total}
+              disableSubmit={disableSubmit}
+              goValidate={goValidate}
+              updateAndGoHome={updateAndGoHome}
+            />
           )}
           {scene === Scene.Validate && (
-            <Validate
-              data={{
-                username: user.info!.username,
-                score: total[1].toString(),
-                method: Method.Score,
-                token: "",
-              }}
-              applyfunction={updateScore}
-              className="cont-validate-lose"
+            <LoseValidateContent
+              key={Scene.Validate}
+              score={total[1].toString()}
+              goHomeAndResetGame={goHomeAndResetGame}
+              updateAndGoHome={updateAndGoHome}
+              goLose={goLose}
             />
           )}
         </Fade>

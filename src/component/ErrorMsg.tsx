@@ -3,9 +3,13 @@ import Button from "./Button";
 
 export default function ErrorMsg(props: {
   message: string;
-  clickBack: () => void;
+  clickOk?: () => void;
+  clickBack?: () => void;
 }) {
   const screen = useScreenContext();
+
+  const clickOkHandler = props.clickOk ?? screen.changeToHome;
+  const clickBackHandler = props.clickBack ?? screen.changeToHome;
 
   return (
     <div className="cont-msg cont-error-msg">
@@ -14,13 +18,13 @@ export default function ErrorMsg(props: {
         <Button
           value="Ok"
           className="btn-error"
-          click={screen.changeToHome}
+          click={clickOkHandler}
           color="#ffffff"
         />
         <Button
           value="Back"
           className="btn-error"
-          click={props.clickBack}
+          click={clickBackHandler}
           color="#ffffff"
         />
       </div>

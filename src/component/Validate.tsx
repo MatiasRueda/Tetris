@@ -13,7 +13,8 @@ export default function Validate(props: {
   className: string;
   data: Params;
   clickBack?: () => void;
-  applyfunction?: () => void;
+  applyFunction?: () => void;
+  errorFunction?: () => void;
   getData?: (data: any) => void;
 }) {
   const fetch = useTetrisFetch();
@@ -30,7 +31,7 @@ export default function Validate(props: {
     if (!response.success) return;
     setMessage(response.message);
     props.getData?.(response.data);
-    props.applyfunction?.();
+    props.applyFunction?.();
     setRecaptchaToken(null);
   };
 
@@ -40,8 +41,15 @@ export default function Validate(props: {
 
   const renderContent = () => {
     if (fetch.loading) return <Loading />;
-    if (fetch.error)
-      return <ErrorMsg message={fetch.error} clickBack={fetch.reset} />;
+    if (fetch.error) {
+      return (
+        <ErrorMsg
+          message={fetch.error}
+          clickOk={props.errorFunction}
+          clickBack={props.clickBack}
+        />
+      );
+    }
     if (message) {
       const clickHandler = props.clickBack ?? screen.changeToHome;
       return <OkMsg message={message} click={clickHandler} />;
