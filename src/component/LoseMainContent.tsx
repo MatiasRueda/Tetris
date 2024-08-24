@@ -6,7 +6,7 @@ export default function LoseMainContent(props: {
   total: [string, number];
   disableSubmit: boolean;
   goValidate: () => void;
-  updateAndGoHome: () => Promise<void>;
+  updateGoHomeAndResetGame: () => Promise<void>;
 }) {
   return (
     <div className="cont-lose">
@@ -22,7 +22,7 @@ export default function LoseMainContent(props: {
         />
         <Button
           className="start-btn"
-          click={props.updateAndGoHome}
+          click={props.updateGoHomeAndResetGame}
           value="Go Home"
           color="#d9534f"
         />

@@ -28,6 +28,7 @@ export default function Login() {
   const submit = async (data: LoginData) => {
     const params = { ...data, method: Method.Login, token: recaptchaToken! };
     const response = await fetch.get(params);
+    console.log(response);
     if (!response.success) return;
     user.login(response.data);
     setMessage(response.message);

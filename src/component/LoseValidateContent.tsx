@@ -4,8 +4,7 @@ import Validate from "./Validate";
 
 export default function LoseValidateContent(props: {
   score: string;
-  updateAndGoHome: () => Promise<void>;
-  goHomeAndResetGame: () => Promise<void>;
+  updateGoHomeAndResetGame: () => Promise<void>;
   goLose: () => void;
 }) {
   const user = useUserContext();
@@ -14,12 +13,12 @@ export default function LoseValidateContent(props: {
     <Validate
       data={{
         username: user.info!.username,
-        score: "",
+        score: props.score,
         method: Method.Score,
         token: "",
       }}
-      applyFunction={props.updateAndGoHome}
-      errorFunction={props.goHomeAndResetGame}
+      applyFunction={props.updateGoHomeAndResetGame}
+      errorFunction={props.updateGoHomeAndResetGame}
       clickBack={props.goLose}
       className="cont-validate-lose"
     />

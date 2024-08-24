@@ -48,7 +48,7 @@ export default function Lose(props: {
     props.resetGame();
   };
 
-  const updateAndGoHome = async () => {
+  const updateGoHomeAndResetGame = async () => {
     updateScore();
     goHomeAndResetGame();
   };
@@ -70,15 +70,14 @@ export default function Lose(props: {
               total={total}
               disableSubmit={disableSubmit}
               goValidate={goValidate}
-              updateAndGoHome={updateAndGoHome}
+              updateGoHomeAndResetGame={updateGoHomeAndResetGame}
             />
           )}
           {scene === Scene.Validate && (
             <LoseValidateContent
               key={Scene.Validate}
               score={total[1].toString()}
-              goHomeAndResetGame={goHomeAndResetGame}
-              updateAndGoHome={updateAndGoHome}
+              updateGoHomeAndResetGame={updateGoHomeAndResetGame}
               goLose={goLose}
             />
           )}
