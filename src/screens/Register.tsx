@@ -20,7 +20,7 @@ type RegisterData = {
 export default function Register() {
   const fetch = useTetrisFetch<User>();
   const screen = useScreenContext();
-  const [message, setMessage] = useState<string | null>();
+  const [message, setMessage] = useState<string | null>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const submit = async (data: RegisterData) => {

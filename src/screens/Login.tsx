@@ -22,7 +22,7 @@ export default function Login() {
   const fetch = useTetrisFetch<User>();
   const user = useUserContext();
   const screen = useScreenContext();
-  const [message, setMessage] = useState<string | null>();
+  const [message, setMessage] = useState<string | null>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const submit = async (data: LoginData) => {
