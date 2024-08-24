@@ -17,17 +17,30 @@ type RegisterData = {
   password: string;
 };
 
+enum Scene {
+  Main,
+  Msg,
+  Error,
+  Loading,
+}
+
 export default function Register() {
   const fetch = useTetrisFetch<User>();
   const screen = useScreenContext();
   const [message, setMessage] = useState<string | null>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [scene, setScene] = useState<Scene>(Scene.Main);
 
   const submit = async (data: RegisterData) => {
+    setScene(Scene.Loading);
     const params = { ...data, method: Method.Register, token: recaptchaToken! };
     const response = await fetch.get(params);
-    if (!response.success) return;
+    if (!response.success) {
+      setScene(Scene.Error);
+      return;
+    }
     setMessage(response.message);
+    setScene(Scene.Msg);
     setRecaptchaToken(null);
   };
 
@@ -36,11 +49,12 @@ export default function Register() {
   };
 
   const renderContent = () => {
-    if (fetch.loading) return <Loading />;
-    if (fetch.error)
+    if (scene === Scene.Loading) return <Loading />;
+    if (scene === Scene.Error && fetch.error)
       return <ErrorMsg message={fetch.error} clickBack={fetch.reset} />;
 
-    if (message) return <OkMsg message={message} click={screen.changeToHome} />;
+    if (scene === Scene.Msg && message)
+      return <OkMsg message={message} click={screen.changeToHome} />;
 
     return (
       <Fragment>
@@ -57,7 +71,7 @@ export default function Register() {
   return (
     <section className="register">
       <AnimatePresence mode="wait">
-        <Fade key={fetch.keyState}>{renderContent()}</Fade>
+        <Fade key={scene}>{renderContent()}</Fade>
       </AnimatePresence>
     </section>
   );

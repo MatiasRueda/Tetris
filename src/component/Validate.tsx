@@ -9,6 +9,13 @@ import Loading from "../screens/Loading";
 import { useScreenContext } from "../context/ScreenContext";
 import { Params } from "../type/type";
 
+enum Scene {
+  Main,
+  Msg,
+  Error,
+  Loading,
+}
+
 export default function Validate(props: {
   className: string;
   data: Params;
@@ -21,18 +28,24 @@ export default function Validate(props: {
   const screen = useScreenContext();
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [message, setMessage] = useState<string>();
+  const [scene, setScene] = useState<Scene>(Scene.Main);
 
   const submit = async (_data: Params) => {
+    setScene(Scene.Loading);
     const params: Params = {
       ...props.data,
       token: recaptchaToken!,
     };
     const response = await fetch.get(params);
-    if (!response.success) return;
+    if (!response.success) {
+      setScene(Scene.Error);
+      return;
+    }
     setMessage(response.message);
     props.getData?.(response.data);
     props.applyFunction?.();
     setRecaptchaToken(null);
+    setScene(Scene.Msg);
   };
 
   const handleCaptcha = (token: string | null) => {
@@ -40,8 +53,8 @@ export default function Validate(props: {
   };
 
   const renderContent = () => {
-    if (fetch.loading) return <Loading />;
-    if (fetch.error) {
+    if (scene === Scene.Loading) return <Loading />;
+    if (scene === Scene.Error && fetch.error) {
       return (
         <ErrorMsg
           message={fetch.error}
@@ -50,7 +63,7 @@ export default function Validate(props: {
         />
       );
     }
-    if (message) {
+    if (scene === Scene.Msg && message) {
       const clickHandler = props.clickBack ?? screen.changeToHome;
       return <OkMsg message={message} click={clickHandler} />;
     }
@@ -68,7 +81,7 @@ export default function Validate(props: {
 
   return (
     <AnimatePresence mode="wait">
-      <Fade key={fetch.keyState}>{renderContent()}</Fade>
+      <Fade key={scene}>{renderContent()}</Fade>
     </AnimatePresence>
   );
 }

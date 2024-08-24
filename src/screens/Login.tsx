@@ -18,20 +18,32 @@ type LoginData = {
   password: string;
 };
 
+enum Scene {
+  Main,
+  Msg,
+  Error,
+  Loading,
+}
+
 export default function Login() {
   const fetch = useTetrisFetch<User>();
   const user = useUserContext();
   const screen = useScreenContext();
   const [message, setMessage] = useState<string | null>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [scene, setScene] = useState<Scene>(Scene.Main);
 
   const submit = async (data: LoginData) => {
+    setScene(Scene.Loading);
     const params = { ...data, method: Method.Login, token: recaptchaToken! };
     const response = await fetch.get(params);
-    console.log(response);
-    if (!response.success) return;
+    if (!response.success) {
+      setScene(Scene.Error);
+      return;
+    }
     user.login(response.data);
     setMessage(response.message);
+    setScene(Scene.Msg);
     setRecaptchaToken(null);
   };
 
@@ -40,12 +52,13 @@ export default function Login() {
   };
 
   const renderContent = () => {
-    if (fetch.loading) return <Loading />;
+    if (scene === Scene.Loading) return <Loading />;
 
-    if (fetch.error)
+    if (scene === Scene.Error && fetch.error)
       return <ErrorMsg message={fetch.error} clickBack={fetch.reset} />;
 
-    if (message) return <OkMsg message={message} click={screen.changeToHome} />;
+    if (scene === Scene.Msg && message)
+      return <OkMsg message={message} click={screen.changeToHome} />;
 
     return (
       <Fragment>
@@ -63,7 +76,7 @@ export default function Login() {
   return (
     <section className="login">
       <AnimatePresence mode="wait">
-        <Fade key={fetch.keyState}>{renderContent()}</Fade>
+        <Fade key={scene}>{renderContent()}</Fade>
       </AnimatePresence>
     </section>
   );
