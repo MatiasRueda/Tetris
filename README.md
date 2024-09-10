@@ -25,9 +25,9 @@ Proyecto individual.
 
 ## Capturas de pantalla
 
-<img src="https://i.ibb.co/LJVnDKT/tetris-game.png"/>
-<img src="https://i.ibb.co/pWMSX5b/tetris-menu.png"/>
-<img src="https://i.ibb.co/jyQSHH9/tetris-lose.png"/>
+[![tetris-game.png](https://i.postimg.cc/rmtcJgnw/tetris-game.png)](https://postimg.cc/MMxhZ0JC)
+[![tetris-menu.png](https://i.postimg.cc/ZYdKFY2x/tetris-menu.png)](https://postimg.cc/QVj3jDXF)
+[![tetris-lose.png](https://i.postimg.cc/B6D9Dbb8/tetris-lose.png)](https://postimg.cc/MMWFJWyx)
 
 ## Estrategias
 
@@ -47,8 +47,14 @@ Para ejecutar las pruebas, utilice el siguiente comando:
 
 ```
 npm run test
-
 ```
+
+### Server
+
+Para configurar el servidor, utilicé AWS, aprovechando los servicios de Lambda y DynamoDB. Lambda gestiona la lógica del servidor sin necesidad de mantener infraestructura, mientras que DynamoDB se encarga de almacenar los datos de los usuarios registrados para jugar.
+
+### ReCaptcha
+Utilicé esta tecnología para prevenir el registro de usuarios no deseados y proteger el sistema contra bots y spam. Esta medida se aplica en todos los momentos en los que se requiere solicitar información al servidor.
 
 ## Tecnologías utilizadas
 
