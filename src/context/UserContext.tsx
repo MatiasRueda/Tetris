@@ -22,6 +22,7 @@ export default function UserContext(props: { children: ReactNode }) {
   };
 
   const updateScore = (newScore: number) => {
+    if (newScore <= Number(info!.score)) return;
     setInfo({ ...info!, score: newScore.toString() });
   };
 
